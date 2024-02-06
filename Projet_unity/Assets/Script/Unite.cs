@@ -27,15 +27,13 @@ public enum Type_unitee
 
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
-public class Unite 
+public class Unite
 {
     private float positionX = 0;
     private float positionY = 0;
     private float pv;
     public Unite_alliee_ennemie alliee_ou_ennemie;
     public Type_unitee type_unitee;
-
-
 
     // Propriétés pour accéder aux données
     public float PositionX
@@ -80,7 +78,7 @@ public class Unite
 
 
 
-public void DeplacerVersUniteDifferente(Unite autreUnite)
+public void DeplacerVersUniteDifferente(Unite autreUnite,out bool EstEnMouvement)
 {
     // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
     if (autreUnite.alliee_ou_ennemie != this.alliee_ou_ennemie)
@@ -99,8 +97,11 @@ public void DeplacerVersUniteDifferente(Unite autreUnite)
 
             positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
             positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
+            EstEnMouvement = true;
         }
+        else EstEnMouvement = false;
     }
+    else EstEnMouvement = false;
 }
 
 
