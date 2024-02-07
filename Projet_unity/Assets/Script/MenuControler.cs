@@ -33,7 +33,13 @@ public class Drag : MonoBehaviour
         textDisplay.GetComponent<Text>().text = "Vous avez entré : " + entree; //Permet d'afficher ce que le joueur a entré directement sur le jeu
     }
 
-    
+    /*
+    public void AfficherVie(Unite unite)
+    {
+        textDisplay.GetComponent<Text>().text = "Nombre de pv" + unite + unite.Pv ;
+    }
+
+    */
 
 }
  

@@ -10,6 +10,7 @@ public class Jeu : MonoBehaviour
     private List<GameObject> unites = new List<GameObject>();
     private Unite unite1;
     private Unite unite2;
+    //private MenuControler Vie;
     public GameObject prefabToInstantiate;
     private Animator animator;
 
@@ -43,7 +44,8 @@ public class Jeu : MonoBehaviour
 
                 if(unite2.Pv <= 0)
                 {
-                    Debug.Log("L'unite est morte");
+                    Debug.Log("L'unite 2 est morte");
+
                     Destroy(unites[1]);
                     unites.RemoveAt(1);
 
@@ -51,6 +53,7 @@ public class Jeu : MonoBehaviour
                 else
                 {
                     unite1.Attaquer(unite2);
+                    //Vie.AfficherVie(unite2);
                     Debug.Log(unite2.Pv);
                 }
             }
