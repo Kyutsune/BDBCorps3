@@ -15,10 +15,10 @@ public class Jeu : MonoBehaviour
 
     void Start()
     {
-        unite1 = new Unite(0, 0, 100, Unite_alliee_ennemie.Allie, Type_unitee.Melee);
-        unite2 = new Unite(10, 0, 100, Unite_alliee_ennemie.Ennemie, Type_unitee.Melee);
+        unite1 = new Unite(0, 0, 1000, 1, 1,Unite_alliee_ennemie.Allie, Type_unitee.Melee);
+        unite2 = new Unite(10, 0, 1000, 1, 2,Unite_alliee_ennemie.Ennemie, Type_unitee.Melee);
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
 
         // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
@@ -31,13 +31,29 @@ public class Jeu : MonoBehaviour
         {
             bool EstEnMouvement = false;
             unite1.DeplacerVersUniteDifferente(unite2,out EstEnMouvement);
-            animator.SetBool("EstEnMouvement", EstEnMouvement);
+            //animator.SetBool("EstEnMouvement", EstEnMouvement);
             unite2.DeplacerVersUniteDifferente(unite1,out EstEnMouvement);
-            animator.SetBool("EstEnMouvement", EstEnMouvement);
+            //animator.SetBool("EstEnMouvement", EstEnMouvement);
 
             // Mettre à jour la position des cubes
-            unites[0].transform.position = new Vector3(unite1.PositionX, unite1.PositionY, 0);
-            unites[1].transform.position = new Vector3(unite2.PositionX, unite2.PositionY, 0);
+            if(unites[0] != null && unites[1] != null)
+            {
+                unites[0].transform.position = new Vector3(unite1.PositionX, unite1.PositionY, 0);
+                unites[1].transform.position = new Vector3(unite2.PositionX, unite2.PositionY, 0);
+
+                if(unite2.Pv <= 0)
+                {
+                    Debug.Log("L'unite est morte");
+                    Destroy(unites[1]);
+                    unites.RemoveAt(1);
+
+                }
+                else
+                {
+                    unite1.Attaquer(unite2);
+                    Debug.Log(unite2.Pv);
+                }
+            }
         }
 
     }
