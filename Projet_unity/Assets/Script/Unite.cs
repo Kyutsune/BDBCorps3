@@ -30,12 +30,19 @@ public enum Type_unitee
 //Classe unité qui va définir les personnages bougeant sur le terrain
 public class Unite
 {
+    //Position
     private float positionX = 0;
     private float positionY = 0;
+
+
     private double pv;
+
+    //Composantes nécessaire à l'attaque
     private float portee;
     private double vitesseAttaque;
     private float momentDerniereAttaque;
+
+    //Type des unités
     public Unite_alliee_ennemie alliee_ou_ennemie;
     public Type_unitee type_unitee;
 
@@ -99,7 +106,7 @@ public class Unite
             }
         }
     }
-
+    
 
     public void DeplacerVersUniteDifferente(Unite autreUnite,out bool EstEnMouvement)
     {
