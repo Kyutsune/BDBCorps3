@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - prefabToInstantiate: {fileID: 2686890238580948232, guid: 7856c197eb4c77840878eba92e1c48b7, type: 3}
+  - Paladin: {fileID: 919132149155446097, guid: f041071e2bb06994bb354178e3115149, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

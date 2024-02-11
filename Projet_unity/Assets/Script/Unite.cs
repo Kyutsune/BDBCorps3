@@ -10,22 +10,17 @@ le type d'unité qu'ils sont via alliee_ou_ennemie
 le type de l'untité via type_unitee
 */
 
-
-
-
-
-//Enum qui va nous servir à savoir si l'unité est alliée ou Ennemie
-public enum Unite_alliee_ennemie
+//Enum qui va nous servir à savoir dans quelle équipe est l'unité
+public enum Team
 {
-    Allie,
-    Ennemie
+    Equipe1,
+    Equipe2
 }
 
 public enum Type_unitee
 {
     Melee
 }
-
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
 public class Unite
@@ -43,7 +38,7 @@ public class Unite
     private float momentDerniereAttaque;
 
     //Type des unités
-    public Unite_alliee_ennemie alliee_ou_ennemie;
+    public Team team;
     public Type_unitee type_unitee;
 
     // Propriétés pour accéder aux données
@@ -66,8 +61,6 @@ public class Unite
     }
 
 
-
-
     //Constructeur par défaut,à utiliser pour les tests de début 
     public Unite()
     {
@@ -77,18 +70,18 @@ public class Unite
         portee = 100;
         vitesseAttaque = 1;
         momentDerniereAttaque = 0;
-        alliee_ou_ennemie = Unite_alliee_ennemie.Allie;
+        team = 0;
         type_unitee = Type_unitee.Melee;
     }
 
-    public Unite(float newX, float newY, double newPv, float newPortee, double newVitesseAttaque,Unite_alliee_ennemie newAllieeOuEnnemie, Type_unitee newTypeUnitee)
+    public Unite(float newX, float newY, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee)
     {
         positionX = newX;
         positionY = newY;
         pv = newPv;
         portee = newPortee;
         vitesseAttaque=newVitesseAttaque;
-        alliee_ou_ennemie = newAllieeOuEnnemie;
+        team = newteam;
         type_unitee = newTypeUnitee;
     }
 
@@ -106,15 +99,14 @@ public class Unite
             }
         }
     }
-    
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite,out bool EstEnMouvement)
+    public void DeplacerVersUniteDifferente(Unite autreUnite)
     {
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
-        if (autreUnite.alliee_ou_ennemie != this.alliee_ou_ennemie)
+        if (autreUnite.team != this.team)
         {
             // Définir une distance minimale pour éviter les collisions
-            float distanceMinimale = 1.0f;  // Ajustez cette valeur selon votre préférence
+            float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
 
             // Calculer la distance entre les deux unités
             float distance = Vector2.Distance(new Vector2(positionX, positionY), new Vector2(autreUnite.PositionX, autreUnite.PositionY));
@@ -123,15 +115,12 @@ public class Unite
             if (distance > distanceMinimale)
             {
                 // Déplacer vers l'autre unité en utilisant une approche de lissage linéaire
-                float lissage = 0.001f;  // Ajustez la valeur de lissage selon la vitesse de déplacement souhaitée
+                float lissage = 0.0007f;  // Ajustez la valeur de lissage selon la vitesse de déplacement souhaitée
 
                 positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
                 positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
-                EstEnMouvement = true;
             }
-            else EstEnMouvement = false;
         }
-        else EstEnMouvement = false;
     }
 
 

@@ -10,16 +10,13 @@ public class Jeu : MonoBehaviour
     private List<GameObject> unites = new List<GameObject>();
     private Unite unite1;
     private Unite unite2;
-    public GameObject prefabToInstantiate;
-    private Animator animator;
+    public GameObject prefab;
     private Affichagedespvs pvs_perso;
 
     void Start()
     {
-        unite1 = new Unite(0, 0, 1000, 1, 1,Unite_alliee_ennemie.Allie, Type_unitee.Melee);
-        unite2 = new Unite(10, 0, 1000, 1, 2,Unite_alliee_ennemie.Ennemie, Type_unitee.Melee);
-
-        //animator = GetComponent<Animator>();
+        unite1 = new Unite(0, 0, 1000, 1, 1,Team.Equipe1, Type_unitee.Melee);
+        unite2 = new Unite(10, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee);
 
         // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
@@ -30,13 +27,10 @@ public class Jeu : MonoBehaviour
     {
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
-            bool EstEnMouvement = false;
-            unite1.DeplacerVersUniteDifferente(unite2,out EstEnMouvement);
-            //animator.SetBool("EstEnMouvement", EstEnMouvement);
-            unite2.DeplacerVersUniteDifferente(unite1,out EstEnMouvement);
-            //animator.SetBool("EstEnMouvement", EstEnMouvement);
-
-            // Mettre à jour la position des cubes
+            unite1.DeplacerVersUniteDifferente(unite2);
+            unite2.DeplacerVersUniteDifferente(unite1);
+            
+            // Mettre à jour la position des unités
             if(unites[0] != null && unites[1] != null)
             {
                 unites[0].transform.position = new Vector3(unite1.PositionX, unite1.PositionY, 0);
@@ -62,7 +56,7 @@ public class Jeu : MonoBehaviour
 
     void CreerUnite(float positionX, float positionY)
     {
-        GameObject newUnite = GameObject.Instantiate(prefabToInstantiate);
+        GameObject newUnite = Instantiate(prefab);
         newUnite.name = "Unite" + unites.Count.ToString();
 
         // Placer le cube à la position spécifiée
