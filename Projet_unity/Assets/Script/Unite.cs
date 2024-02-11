@@ -92,10 +92,15 @@ public class Unite
         if(tempsDepuisDerniereAttaque >= vitesseAttaque)
         {
             double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2));
-            if(distance <= portee)
+            Debug.Log("distance" + distance);
+            Debug.Log("portee" + this.portee);
+            if(distance <= this.portee)
             {
+                Debug.Log("La");
                 autreUnite.Pv=autreUnite.Pv - 1;
                 tempsDepuisDerniereAttaque = tempsActuel;
+                momentDerniereAttaque = tempsActuel;
+
             }
         }
     }
@@ -119,6 +124,30 @@ public class Unite
 
                 positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
                 positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
+            }
+        }
+    }
+
+    public void DeplacerVersUniteDifferente2(Unite autreUnite)
+    {
+        // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
+        if (autreUnite.team != this.team)
+        {
+           // Calculer la direction vers l'autre unité
+            Vector2 direction = new Vector2(autreUnite.PositionX - positionX, autreUnite.PositionY - positionY).normalized;
+
+            // Définir une vitesse de déplacement
+            float vitesseDeplacement = 0.005f;  // Ajustez cette valeur selon la vitesse de déplacement souhaitée
+
+            float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
+            positionX += direction.x * vitesseDeplacement;
+            positionY += direction.y * vitesseDeplacement;
+
+            // Déplacer l'unité vers l'autre unité
+            if(distanceMinimale <= positionX && distanceMinimale <= positionY)
+            {
+                positionX += direction.x * vitesseDeplacement;
+                positionY += direction.y * vitesseDeplacement;
             }
         }
     }
