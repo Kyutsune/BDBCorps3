@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /*
 Classe jeu qui va être celle qui va contenir notre boucle de jeu,essayons de conserver un maximum un systeme de MVC s'il vous plait
 
@@ -17,6 +18,8 @@ public class Jeu : MonoBehaviour
     {
         unite1 = new Unite(0, 0, 1000, 1, 1,Team.Equipe1, Type_unitee.Melee);
         unite2 = new Unite(10, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee);
+        nouveauTextePV = GetComponent<Affichagedespvs>();
+        nouveauTextePV.creerTextePv(transform,10,10);
 
         // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
@@ -25,6 +28,7 @@ public class Jeu : MonoBehaviour
 
     void Update()
     {
+        nouveauTextePV.MettreAJourTextePV(80);
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
             unite1.DeplacerVersUniteDifferente(unite2);
