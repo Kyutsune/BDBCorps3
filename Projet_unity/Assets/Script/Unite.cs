@@ -23,7 +23,7 @@ public enum Type_unitee
 }
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
-public class Unite
+public class Unite 
 {
     //Position
     private float positionX = 0;
@@ -41,8 +41,8 @@ public class Unite
     public Team team;
     public Type_unitee type_unitee;
 
-
-
+    //Création pvs
+    Canvas canva;
 
 
     AffichageDesPVs pvs_graphiques;
@@ -80,7 +80,7 @@ public class Unite
         type_unitee = Type_unitee.Melee;
     }
 
-    public Unite(float newX, float newY, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee)
+    public Unite(float newX, float newY, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva)
     {
         positionX = newX;
         positionY = newY;
@@ -89,6 +89,9 @@ public class Unite
         vitesseAttaque=newVitesseAttaque;
         team = newteam;
         type_unitee = newTypeUnitee;
+        
+        pvs_graphiques = new AffichageDesPVs();
+        pvs_graphiques.CreerTextePV(NewCanva,positionX , positionY, 0);
     }
 
     public void Attaquer(Unite autreUnite)
@@ -101,6 +104,7 @@ public class Unite
             if(distance <= this.portee)
             {
                 autreUnite.Pv=autreUnite.Pv - 1;
+                pvs_graphiques.MettreAJourTextePV(autreUnite.Pv);
                 tempsDepuisDerniereAttaque = tempsActuel;
 
             }
