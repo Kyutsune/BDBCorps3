@@ -35,7 +35,6 @@ public class animatorController : MonoBehaviour
             animator.SetBool("IsRunning",true);
         }
         else if(vitesse == 0.0f && !isFighting){
-            Debug.Log("ici");
             animator.SetBool("IsFighting",true);
             animator.SetBool("IsWalking",false);
             animator.SetBool("IsRunning",false);
