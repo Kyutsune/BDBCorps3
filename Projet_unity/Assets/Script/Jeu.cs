@@ -16,11 +16,17 @@ public class Jeu : MonoBehaviour
 
     void Start()
     {
+        GameObject canvasObj = new GameObject("Canvas");
+        Canvas canvas = canvasObj.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        
+
         unite1 = new Unite(0, 0, 10, 1, 1,Team.Equipe1, Type_unitee.Melee);
         unite2 = new Unite(10, 0, 10, 1, 2,Team.Equipe2, Type_unitee.Melee);
-        nouveauTextePV = GetComponent<AffichageDesPVs>();
 
-        nouveauTextePV.CreerTextePV(transform,0,0,17);
+
+        nouveauTextePV = GetComponent<AffichageDesPVs>();
+        nouveauTextePV.CreerTextePV(canvas,0,10,24);
 
         // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
@@ -52,7 +58,7 @@ public class Jeu : MonoBehaviour
                 else
                 {
                     unite1.Attaquer(unite2);
-                    Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
+                    //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
                     nouveauTextePV.MettreAJourTextePV(unite2.Pv);
                 }
             }

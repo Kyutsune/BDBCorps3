@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class AffichageDesPVs : MonoBehaviour
 {
     public GameObject nouveauTextePV;
-    public Font maPolice;
-
-    void Start()
-    {
-        // Vous pouvez charger la police de caractères ici si vous le souhaitez
-        // maPolice = Resources.Load<Font>("NomDeVotrePolice");
-    }
+    public TMP_FontAsset maPolice;
 
     public void MettreAJourTextePV(double pv)
     {
@@ -21,39 +16,35 @@ public class AffichageDesPVs : MonoBehaviour
             return;
 
         // Mettre à jour le texte avec les PVs fournis
-        nouveauTextePV.GetComponent<Text>().text = "pv du héros : " + pv;
+        nouveauTextePV.GetComponent<TextMeshProUGUI>().text = "pv du héros : " + pv.ToString();
     }
 
-    public void CreerTextePV(Transform parent, float positionX, float positionY, float positionZ)
+
+    public void CreerTextePV(Canvas canvas, float positionX, float positionY, float positionZ)
     {
-        // Détruire l'ancien texte s'il existe
-        if (nouveauTextePV != null)
-            Destroy(nouveauTextePV);
-
-        // Créer un nouveau GameObject vide
+        // Créer un GameObject de type TextMeshPro
         nouveauTextePV = new GameObject("Nouveau_Texte_pv");
+        TextMeshProUGUI texteComponent = nouveauTextePV.AddComponent<TextMeshProUGUI>();
 
-        // Ajouter le composant Text au GameObject
-        Text texteComponent = nouveauTextePV.AddComponent<Text>();
+        // Charger la police TextMeshPro
+        TMP_FontAsset maPolice = Resources.Load<TMP_FontAsset>("Fonts & Materials/Arial SDF");
 
-        // Définir le texte initial
+
+
+        // Ajouter le composant TextMeshPro au GameObject
         texteComponent.text = "Nouveau texte";
-
         texteComponent.name = "test_texte";
 
         // Définir la police et la taille du texte si nécessaire
         if (maPolice != null)
-        {
-            // Appliquer la police de caractères au composant texte
             texteComponent.font = maPolice;
-        }
 
         // Positionner le GameObject à la position spécifiée
         nouveauTextePV.transform.position = new Vector3(positionX, positionY, positionZ);
 
-        // Assurez-vous que le texte créé est enfant du GameObject portant ce script
-        nouveauTextePV.transform.SetParent(parent, false);
-
-        MettreAJourTextePV(0); 
+        // Assurez-vous que le texte créé est enfant du Canvas spécifié
+        nouveauTextePV.transform.SetParent(canvas.transform, false);
     }
+
+
 }

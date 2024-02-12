@@ -41,6 +41,12 @@ public class Unite
     public Team team;
     public Type_unitee type_unitee;
 
+
+
+
+
+    AffichageDesPVs pvs_graphiques;
+
     // Propriétés pour accéder aux données
     public float PositionX
     {
@@ -92,8 +98,8 @@ public class Unite
         if(tempsDepuisDerniereAttaque >= vitesseAttaque)
         {
             double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2));
-            Debug.Log("distance" + distance);
-            Debug.Log("portee" + this.portee);
+            // Debug.Log("distance" + distance);
+            // Debug.Log("portee" + this.portee);
             if(distance <= this.portee)
             {
                 Debug.Log("La");
