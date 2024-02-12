@@ -13,6 +13,8 @@ public class Jeu : MonoBehaviour
     private Unite unite2;
     public GameObject prefab;
     private AffichageDesPVs nouveauTextePV;
+    Animator animator;
+
 
     void Start()
     {
@@ -21,13 +23,10 @@ public class Jeu : MonoBehaviour
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         
 
-        unite1 = new Unite(0, 0, 10, 1, 1,Team.Equipe1, Type_unitee.Melee);
+        unite1 = new Unite(0, 0, 10, 2, 1,Team.Equipe1, Type_unitee.Melee);
         unite2 = new Unite(10, 0, 10, 1, 2,Team.Equipe2, Type_unitee.Melee);
 
         
-        private Affichagedespvs pvs_perso;
-        private Affichagedespvs nouveauTextePV;
-        Animator animator;
 
         animator = GetComponent<Animator>();
 
@@ -42,7 +41,6 @@ public class Jeu : MonoBehaviour
 
     void Update()
     {
-        nouveauTextePV.MettreAJourTextePV(80);
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
             unite1.DeplacerVersUniteDifferente(unite2);
