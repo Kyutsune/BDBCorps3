@@ -12,16 +12,15 @@ public class Jeu : MonoBehaviour
     private Unite unite1;
     private Unite unite2;
     public GameObject prefab;
-    private Affichagedespvs pvs_perso;
-    private Affichagedespvs nouveauTextePV;
+    private AffichageDesPVs nouveauTextePV;
 
     void Start()
     {
         unite1 = new Unite(0, 0, 10, 1, 1,Team.Equipe1, Type_unitee.Melee);
         unite2 = new Unite(10, 0, 10, 1, 2,Team.Equipe2, Type_unitee.Melee);
-        nouveauTextePV = GetComponent<Affichagedespvs>();
+        nouveauTextePV = GetComponent<AffichageDesPVs>();
 
-        nouveauTextePV.creerTextePv(transform,10,10);
+        nouveauTextePV.CreerTextePV(transform,0,0,17);
 
         // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
