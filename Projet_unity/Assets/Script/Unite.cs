@@ -41,6 +41,12 @@ public class Unite
     public Team team;
     public Type_unitee type_unitee;
 
+
+
+
+
+    AffichageDesPVs pvs_graphiques;
+
     // Propriétés pour accéder aux données
     public float PositionX
     {

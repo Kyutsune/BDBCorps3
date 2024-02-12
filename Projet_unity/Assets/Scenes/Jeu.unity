@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nouveauTextePV: {fileID: 0}
+  maPolice: {fileID: 0}
 --- !u!1 &1730443832
 GameObject:
   m_ObjectHideFlags: 0
