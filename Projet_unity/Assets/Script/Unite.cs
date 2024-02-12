@@ -92,14 +92,10 @@ public class Unite
         if(tempsDepuisDerniereAttaque >= vitesseAttaque)
         {
             double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2));
-            Debug.Log("distance" + distance);
-            Debug.Log("portee" + this.portee);
             if(distance <= this.portee)
             {
-                Debug.Log("La");
                 autreUnite.Pv=autreUnite.Pv - 1;
                 tempsDepuisDerniereAttaque = tempsActuel;
-                momentDerniereAttaque = tempsActuel;
 
             }
         }

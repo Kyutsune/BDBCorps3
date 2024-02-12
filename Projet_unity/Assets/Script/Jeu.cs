@@ -12,13 +12,16 @@ public class Jeu : MonoBehaviour
     private Unite unite1;
     private Unite unite2;
     public GameObject prefab;
-    private AffichageDesPVs nouveauTextePV;
+    private Affichagedespvs pvs_perso;
+    private Affichagedespvs nouveauTextePV;
+    Animator animator;
 
     void Start()
     {
-        unite1 = new Unite(0, 0, 10, 1, 1,Team.Equipe1, Type_unitee.Melee);
+        unite1 = new Unite(0, 0, 10, 2, 1,Team.Equipe1, Type_unitee.Melee);
         unite2 = new Unite(10, 0, 10, 1, 2,Team.Equipe2, Type_unitee.Melee);
-        nouveauTextePV = GetComponent<AffichageDesPVs>();
+        nouveauTextePV = GetComponent<Affichagedespvs>();
+        animator = GetComponent<Animator>();
 
         nouveauTextePV.CreerTextePV(transform,0,0,17);
 
@@ -32,8 +35,8 @@ public class Jeu : MonoBehaviour
         nouveauTextePV.MettreAJourTextePV(80);
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
-            unite1.DeplacerVersUniteDifferente2(unite2);
-            unite2.DeplacerVersUniteDifferente2(unite1);
+            unite1.DeplacerVersUniteDifferente(unite2);
+            unite2.DeplacerVersUniteDifferente(unite1);
             
             // Mettre à jour la position des unités
             if(unites[0] != null && unites[1] != null)
@@ -47,7 +50,7 @@ public class Jeu : MonoBehaviour
 
                     Destroy(unites[1]);
                     unites.RemoveAt(1);
-
+                    animator.SetBool("Won",true);
                 }
                 else
                 {
