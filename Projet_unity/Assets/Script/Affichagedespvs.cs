@@ -20,7 +20,7 @@ public class AffichageDesPVs : MonoBehaviour
     }
 
 
-    public void CreerTextePV(Canvas canvas, float positionX, float positionY, float positionZ)
+    public GameObject  CreerTextePV(Canvas canvas, float positionX, float positionY, float positionZ)
     {
         // Créer un GameObject de type TextMeshPro
         nouveauTextePV = new GameObject("Nouveau_Texte_pv");
@@ -44,6 +44,26 @@ public class AffichageDesPVs : MonoBehaviour
 
         // Assurez-vous que le texte créé est enfant du Canvas spécifié
         nouveauTextePV.transform.SetParent(canvas.transform, false);
+
+        return nouveauTextePV;
+    }
+
+// Fonction pour supprimer les canavs et les textes affichés
+// Destruction dans un premier temps du texte puis du canva
+    public void DetruireTexteEtCanvas(GameObject texteEtCanvas)
+    {
+        if (texteEtCanvas != null)
+        {
+            // Supprimer le composant TextMeshProUGUI du GameObject texte
+            TextMeshProUGUI texteComponent = texteEtCanvas.GetComponent<TextMeshProUGUI>();
+            if (texteComponent != null)
+            {
+                Destroy(texteComponent);
+            }
+
+            // Supprimer le GameObject (qui contient le texte et le Canvas)
+            Destroy(texteEtCanvas);
+        }
     }
 
 

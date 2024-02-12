@@ -111,8 +111,11 @@ public class Unite
         }
     }
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite)
+    public void DeplacerVersUniteDifferente(Unite autreUnite, Canvas canva)
     {
+        GameObject affichagePv = null;
+        GameObject affichagePvAncien = null;
+
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)
         {
@@ -125,11 +128,26 @@ public class Unite
             // Vérifier si la distance est supérieure à la distance minimale
             if (distance > distanceMinimale)
             {
+                
                 // Déplacer vers l'autre unité en utilisant une approche de lissage linéaire
                 float lissage = 0.0007f;  // Ajustez la valeur de lissage selon la vitesse de déplacement souhaitée
 
                 positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
                 positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
+
+                affichagePv = pvs_graphiques.CreerTextePV(canva, positionX, positionY, 0);  //On crée le texte et on l'affiche
+                /*
+                affichagePvAncien=affichagePv;
+                if (affichagePv != null)
+                {
+                    affichagePv.transform.position = new Vector3(positionX, positionY, 0);
+                }
+                */
+                pvs_graphiques.DetruireTexteEtCanvas(affichagePv);
+                
+              // l'objet Canva et le texte est supprimé afin de ne pas afficher pleins de textes pvs.
+
+               
             }
         }
     }

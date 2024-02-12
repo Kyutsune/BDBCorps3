@@ -15,14 +15,14 @@ public class Jeu : MonoBehaviour
     private AffichageDesPVs nouveauTextePV;
     private AffichageDesPVs nouveauTextePV2;
     Animator animator;
-    
+    private Canvas canvas;
     
 
 
     void Start()
     {
         GameObject canvasObj = new GameObject("Canvas");
-        Canvas canvas = canvasObj.AddComponent<Canvas>();
+        canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         
 
@@ -43,8 +43,8 @@ public class Jeu : MonoBehaviour
     {
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
-            unite1.DeplacerVersUniteDifferente(unite2);
-            unite2.DeplacerVersUniteDifferente(unite1);
+            unite1.DeplacerVersUniteDifferente(unite2, canvas);
+            unite2.DeplacerVersUniteDifferente(unite1, canvas);
             
             // Mettre à jour la position des unités
             if(unites[0] != null && unites[1] != null)
