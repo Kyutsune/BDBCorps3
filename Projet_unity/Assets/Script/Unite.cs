@@ -41,11 +41,6 @@ public class Unite
     public Team team;
     public Type_unitee type_unitee;
 
-    //Création pvs
-    Canvas canva;
-
-
-    AffichageDesPVs pvs_graphiques;
 
     // Propriétés pour accéder aux données
     public float PositionX
@@ -89,10 +84,11 @@ public class Unite
         vitesseAttaque=newVitesseAttaque;
         team = newteam;
         type_unitee = newTypeUnitee;
-        
-        pvs_graphiques = new AffichageDesPVs();
-        pvs_graphiques.CreerTextePV(NewCanva,positionX , positionY, 0);
+
     }
+
+
+
 
     public void Attaquer(Unite autreUnite)
     {
@@ -104,7 +100,6 @@ public class Unite
             if(distance <= this.portee)
             {
                 autreUnite.Pv=autreUnite.Pv - 1;
-                pvs_graphiques.MettreAJourTextePV(autreUnite.Pv);
                 tempsDepuisDerniereAttaque = tempsActuel;
 
             }
@@ -113,9 +108,6 @@ public class Unite
 
     public void DeplacerVersUniteDifferente(Unite autreUnite, Canvas canva)
     {
-        GameObject affichagePv = null;
-        GameObject affichagePvAncien = null;
-
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)
         {
@@ -134,25 +126,19 @@ public class Unite
 
                 positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
                 positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
-
-                affichagePv = pvs_graphiques.CreerTextePV(canva, positionX, positionY, 0);  //On crée le texte et on l'affiche
-                /*
-                affichagePvAncien=affichagePv;
-                if (affichagePv != null)
-                {
-                    affichagePv.transform.position = new Vector3(positionX, positionY, 0);
-                }
-                */
-                pvs_graphiques.DetruireTexteEtCanvas(affichagePv);
-                
-              // l'objet Canva et le texte est supprimé afin de ne pas afficher pleins de textes pvs.
-
-               
             }
         }
     }
 
-    public void DeplacerVersUniteDifferente2(Unite autreUnite)
+
+
+
+
+
+
+
+///Fonction de déplacement d'angel qu'on garde au cas ou,à supprimer à la fin du projet 
+    public void DeplacerUnitePerimee(Unite autreUnite)
     {
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)

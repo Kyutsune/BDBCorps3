@@ -11,30 +11,46 @@ public class Jeu : MonoBehaviour
     private List<GameObject> unites = new List<GameObject>();
     private Unite unite1;
     private Unite unite2;
+    private int nb_unite;
     public GameObject prefab;
-    private AffichageDesPVs nouveauTextePV;
-    private AffichageDesPVs nouveauTextePV2;
     Animator animator;
-    private Canvas canvas;
+
+
+    private Canvas canva_pour_texte_pv;
+    private List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
     
 
 
     void Start()
     {
         GameObject canvasObj = new GameObject("Canvas");
-        canvas = canvasObj.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canva_pour_texte_pv = canvasObj.AddComponent<Canvas>();
+        canva_pour_texte_pv.renderMode = RenderMode.ScreenSpaceOverlay;
         
 
-        unite1 = new Unite(0, 0, 1000, 2, 1,Team.Equipe1, Type_unitee.Melee, canvas);
-        unite2 = new Unite(10, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canvas);
+        unite1 = new Unite(0, 0, 1000, 2, 1,Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv);
+        unite2 = new Unite(10, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv);
+        nb_unite=2;
 
         
 
         animator = GetComponent<Animator>();
+
+
+        //Ici on va créer le texte des pvs pour chaque unité
+        for(int i=1;i<nb_unite+1;i++)
+        {
+
+            float positionX = i * 10; // Exemple de position X (vous pouvez ajuster selon vos besoins)
+            float positionY = 0; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
+        
+            // Créer le texte PV et l'ajouter à la liste
+            AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
+            textePVUnite.CreerTextePV(canva_pour_texte_pv, positionX, positionY, 0);
+            liste_texte_pv.Add(textePVUnite);
+        }
         
 
-        // Appeler la fonction CreerCube en passant les positions des unités
         CreerUnite(unite1.PositionX, unite1.PositionY);
         CreerUnite(unite2.PositionX, unite2.PositionY);
     }
@@ -43,8 +59,8 @@ public class Jeu : MonoBehaviour
     {
         if (unite1 != null && unite2 != null && unites != null && unites.Count >= 2)
         {
-            unite1.DeplacerVersUniteDifferente(unite2, canvas);
-            unite2.DeplacerVersUniteDifferente(unite1, canvas);
+            unite1.DeplacerVersUniteDifferente(unite2, canva_pour_texte_pv);
+            unite2.DeplacerVersUniteDifferente(unite1, canva_pour_texte_pv);
             
             // Mettre à jour la position des unités
             if(unites[0] != null && unites[1] != null)

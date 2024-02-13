@@ -48,23 +48,4 @@ public class AffichageDesPVs : MonoBehaviour
         return nouveauTextePV;
     }
 
-// Fonction pour supprimer les canavs et les textes affichés
-// Destruction dans un premier temps du texte puis du canva
-    public void DetruireTexteEtCanvas(GameObject texteEtCanvas)
-    {
-        if (texteEtCanvas != null)
-        {
-            // Supprimer le composant TextMeshProUGUI du GameObject texte
-            TextMeshProUGUI texteComponent = texteEtCanvas.GetComponent<TextMeshProUGUI>();
-            if (texteComponent != null)
-            {
-                Destroy(texteComponent);
-            }
-
-            // Supprimer le GameObject (qui contient le texte et le Canvas)
-            Destroy(texteEtCanvas);
-        }
-    }
-
-
 }
