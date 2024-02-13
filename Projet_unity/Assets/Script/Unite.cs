@@ -28,6 +28,7 @@ public class Unite
     //Position
     private float positionX = 0;
     private float positionY = 0;
+    private float positionZ = 0;
 
 
     private double pv;
@@ -55,6 +56,12 @@ public class Unite
         set { positionY = value; }
     }
 
+     public float PositionZ
+    {
+        get { return positionZ; }
+        set { positionZ = value; }
+    }
+
     public double Pv
     {
         get { return pv; }
@@ -67,6 +74,7 @@ public class Unite
     {
         positionX = 0;
         positionY = 0;
+        positionZ = 0;
         pv = 100;
         portee = 100;
         vitesseAttaque = 1;
@@ -75,10 +83,11 @@ public class Unite
         type_unitee = Type_unitee.Melee;
     }
 
-    public Unite(float newX, float newY, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva)
+    public Unite(float newX, float newY, float newZ, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva)
     {
         positionX = newX;
         positionY = newY;
+        positionZ = newZ;
         pv = newPv;
         portee = newPortee;
         vitesseAttaque=newVitesseAttaque;
@@ -96,7 +105,7 @@ public class Unite
         double tempsDepuisDerniereAttaque = (tempsActuel - momentDerniereAttaque);
         if(tempsDepuisDerniereAttaque >= vitesseAttaque)
         {
-            double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2));
+            double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2) + Math.Pow(autreUnite.PositionZ-positionZ, 2));
             if(distance <= this.portee)
             {
                 autreUnite.Pv=autreUnite.Pv - 1;
@@ -115,7 +124,7 @@ public class Unite
             float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
 
             // Calculer la distance entre les deux unités
-            float distance = Vector2.Distance(new Vector2(positionX, positionY), new Vector2(autreUnite.PositionX, autreUnite.PositionY));
+            float distance = Vector3.Distance(new Vector3(positionX, positionY, positionZ), new Vector3(autreUnite.PositionX, autreUnite.PositionY, autreUnite.PositionZ));
 
             // Vérifier si la distance est supérieure à la distance minimale
             if (distance > distanceMinimale)
@@ -126,6 +135,7 @@ public class Unite
 
                 positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
                 positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
+                positionZ = Mathf.Lerp(positionZ, autreUnite.PositionY, lissage);
             }
         }
     }
