@@ -38,15 +38,16 @@ public class Jeu : MonoBehaviour
 
 
         //Ici on va créer le texte des pvs pour chaque unité
-        for(int i=1;i<nb_unite+1;i++)
+        for(int i=0;i<nb_unite;i++)
         {
-
-            float positionX = i * 10; // Exemple de position X (vous pouvez ajuster selon vos besoins)
-            float positionY = 0; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
+            
+            float positionX_texte = unite1.PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
+            float positionY_texte = unite1.PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
         
             // Créer le texte PV et l'ajouter à la liste
             AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
-            textePVUnite.CreerTextePV(canva_pour_texte_pv, positionX, positionY, 0);
+            textePVUnite.CreerTextePV(canva_pour_texte_pv, positionX_texte, positionY_texte, 0);
+            if(textePVUnite==null) Debug.Log("ici erreur");
             liste_texte_pv.Add(textePVUnite);
         }
         
@@ -61,6 +62,15 @@ public class Jeu : MonoBehaviour
         {
             unite1.DeplacerVersUniteDifferente(unite2, canva_pour_texte_pv);
             unite2.DeplacerVersUniteDifferente(unite1, canva_pour_texte_pv);
+           for(int i=0;i<nb_unite;i++)
+            {
+                
+                float positionX_texte = unite1.PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
+                float positionY_texte = unite1.PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
+                // Debug.Log(positionX_texte);
+
+                liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
+            }
             
             // Mettre à jour la position des unités
             if(unites[0] != null && unites[1] != null)
