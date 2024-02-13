@@ -9,11 +9,12 @@ Classe jeu qui va être celle qui va contenir notre boucle de jeu,essayons de co
 public class Jeu : MonoBehaviour
 {
     private List<GameObject> unites = new List<GameObject>();
+    private List<Unite> alliee = new List<Unite>();
+    private List<Unite> ennemis = new List<Unite>();
     private Unite unite1;
     private Unite unite2;
-    private int nb_unite;
-
-
+    private int nb_alliee;
+    private int nb_ennemis;
     public GameObject prefab;
     Animator animator;
 
@@ -30,46 +31,96 @@ public class Jeu : MonoBehaviour
         canva_pour_texte_pv.renderMode = RenderMode.ScreenSpaceOverlay;
         
 
-        unite1 = new Unite(0, 0, 0, 1000, 2, 1,Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv);
-        unite2 = new Unite(10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv);
-        nb_unite=2;
+        //alliee[0] = new Unite(0, 0, 0, 1000, 2, 1,Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv);
+        nb_alliee=1;
+        nb_ennemis=1;
 
     
         animator = GetComponent<Animator>();
 
 
-        //Ici on va créer le texte des pvs pour chaque unité
-        for (int i = 0; i < nb_unite; i++)
+        for(int i=0;i<nb_alliee+nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
         {
-            // Créer un nouveau textePVUnite à chaque itération
-            AffichageDesPVs textePVUnite = GetComponent<AffichageDesPVs>();
+            for(int j=0;j<nb_alliee;j++) //Parcours du nombre d'alliées
+            {
+                alliee.Add(new Unite(0, 0, 0, 1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv));
+            
+                // Créer le texte PV et l'ajouter à la liste
+                AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
+                textePVUnite.CreerTextePV(canva_pour_texte_pv, alliee[j].PositionX, alliee[j].PositionY+40, alliee[j].PositionZ);
+                liste_texte_pv.Add(textePVUnite);
 
-            // Créer le texte PV et l'ajouter à la liste
-            textePVUnite.CreerTextePV(canva_pour_texte_pv, unite1.PositionX, unite1.PositionY + 40, unite1.PositionZ);
-            liste_texte_pv.Add(textePVUnite);
+                CreerUnite(alliee[j].PositionX, alliee[j].PositionY, alliee[j].PositionZ);
+                
+            } 
+            for(int t=0;t<nb_ennemis;t++) //parcours du nombre d'ennemiss
+            {
+                ennemis.Add(new Unite(10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv));
+                CreerUnite(ennemis[t].PositionX, ennemis[t].PositionY, ennemis[t].PositionZ);
+            }     
+            
         }
-    
-        CreerUnite(unite1.PositionX, unite1.PositionY, unite1.PositionZ);
-        CreerUnite(unite2.PositionX, unite2.PositionY, unite2.PositionZ);
+        
+
+        
     }
 
     void Update()
     {
-        unite1.DeplacerVersUniteDifferente(unite2);
-        unite2.DeplacerVersUniteDifferente(unite1);
-        for(int i=0;i<nb_unite;i++)
+        
+        for(int i=0;i<nb_alliee+nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
         {
-            liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,unite1.PositionX,unite1.PositionY+40,unite1.PositionZ);
+            for(int j=0;j<nb_alliee;j++)
+            {
+                liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
+            }
+            for(int j=0;j<nb_alliee;j++) //Parcours du nombre d'alliées
+            {
+                alliee[j].DeplacerVersUniteDifferente(ennemis[0]);
+                float positionX_texte = alliee[j].PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
+                float positionY_texte = alliee[j].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
+                // Debug.Log(positionX_texte);
+
+                //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
+
+                // Mettre à jour la position des unités
+                if(unites[0] != null && unites[1] != null)
+                {
+                    unites[0].transform.position = new Vector3(alliee[0].PositionX, alliee[0].PositionY, alliee[0].PositionZ);
+                    unites[1].transform.position = new Vector3(ennemis[0].PositionX, ennemis[0].PositionY, ennemis[0].PositionZ);
+
+                    if(ennemis[0].Pv <= 0)
+                    {
+                        Debug.Log("L'unite 2 est morte");
+
+                        Destroy(unites[1]);
+                        unites.RemoveAt(1);
+                        animator.SetBool("Won",true);
+                    }
+                    else
+                    {
+                        alliee[j].Attaquer(ennemis[0]);
+                        //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
+                    }
+                }
+            }               
+            for(int t=0;t<nb_ennemis;t++)
+            {
+                ennemis[t].DeplacerVersUniteDifferente(alliee[0]);
+            
+            }               
+            
         }
+            
 
         
         // Mettre à jour la position des unités
         if(unites[0] != null && unites[1] != null)
         {
-            unites[0].transform.position = new Vector3(unite1.PositionX, unite1.PositionY, unite1.PositionZ);
-            unites[1].transform.position = new Vector3(unite2.PositionX, unite2.PositionY, unite1.PositionZ);
+            unites[0].transform.position = new Vector3(alliee[0].PositionX, alliee[0].PositionY, alliee[0].PositionZ);
+            unites[1].transform.position = new Vector3(ennemis[0].PositionX, ennemis[0].PositionY, ennemis[0].PositionZ);
 
-            if(unite2.Pv <= 0)
+            if(ennemis[0].Pv <= 0)
             {
                 Debug.Log("L'unite 2 est morte");
 
@@ -79,7 +130,7 @@ public class Jeu : MonoBehaviour
             }
             else
             {
-                unite1.Attaquer(unite2);
+                alliee[0].Attaquer(ennemis[0]);
                 //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
             }
         }
