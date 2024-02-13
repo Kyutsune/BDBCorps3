@@ -8,17 +8,13 @@ public class AffichageDesPVs : MonoBehaviour
 {
     public GameObject nouveauTextePV;
     public TMP_FontAsset maPolice;
+    int nombre_affichage_actuel=0;
 
     public void MettreAJourTextePV(double pv,float positionX, float positionY, float positionZ)
-    {
-        // Si aucun texte n'a été créé, sortir
-        if (nouveauTextePV == null)
-            return;
-
+    {   
         // Mettre à jour le texte avec les PVs fournis
         nouveauTextePV.GetComponent<TextMeshProUGUI>().text = "pv du héros : " + pv.ToString();
-        nouveauTextePV.transform.position = new Vector3(positionX, positionY, positionZ);
-        nouveauTextePV.transform.SetParent(transform, false);
+        nouveauTextePV.transform.position = new Vector3(positionX, positionY, positionZ);      
     }
 
 
@@ -35,7 +31,7 @@ public class AffichageDesPVs : MonoBehaviour
 
         // Ajouter le composant TextMeshPro au GameObject
         texteComponent.text = "Vie de l'unité:";
-        texteComponent.name = "test_texte";
+        texteComponent.name = "affichage_vie unite "+nombre_affichage_actuel;
         texteComponent.fontSize=12;
 
         // Définir la police et la taille du texte si nécessaire
@@ -47,6 +43,7 @@ public class AffichageDesPVs : MonoBehaviour
 
         // Assurez-vous que le texte créé est enfant du Canvas spécifié
         nouveauTextePV.transform.SetParent(canvas.transform, false);
+        nombre_affichage_actuel++;
 
         return nouveauTextePV;
     }

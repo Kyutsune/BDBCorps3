@@ -115,7 +115,7 @@ public class Unite
         }
     }
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite, Canvas canva)
+    public void DeplacerVersUniteDifferente(Unite autreUnite)
     {
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)
