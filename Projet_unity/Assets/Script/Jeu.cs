@@ -20,7 +20,7 @@ public class Jeu : MonoBehaviour
 
 
     private Canvas canva_pour_texte_pv;
-    public List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
+    private List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
     
 
 
@@ -70,13 +70,13 @@ public class Jeu : MonoBehaviour
         
         for(int i=0;i<nb_alliee+nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
         {
-            for(int j=0;j<nb_alliee;j++)
-            {
-                liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
-            }
+            // for(int j=0;j<nb_alliee;j++)
+            // {
+            //     liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
+            // }
             for(int j=0;j<nb_alliee;j++) //Parcours du nombre d'alliées
             {
-                alliee[j].DeplacerVersUniteDifferente(ennemis[0]);
+                alliee[j].DeplacerVersUniteDifferente(ennemis[0],liste_texte_pv[0]);
                 float positionX_texte = alliee[j].PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
                 float positionY_texte = alliee[j].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
                 // Debug.Log(positionX_texte);
@@ -106,8 +106,7 @@ public class Jeu : MonoBehaviour
             }               
             for(int t=0;t<nb_ennemis;t++)
             {
-                ennemis[t].DeplacerVersUniteDifferente(alliee[0]);
-            
+                ennemis[t].DeplacerVersUniteDifferente(alliee[0],liste_texte_pv[1]);
             }               
             
         }
