@@ -42,7 +42,7 @@ public class Jeu : MonoBehaviour
         for(int i=0;i<nb_alliee;i++) // Parcours du nombre d'ennemis + alliées
         {
             
-            alliee.Add(new Unite(0, 0, 0, 1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv));
+            alliee.Add(new Unite(0, 0, 0, 1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true));
         
             // Créer le texte PV et l'ajouter à la liste
             // AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
@@ -53,7 +53,7 @@ public class Jeu : MonoBehaviour
         }
         for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
         {
-            ennemis.Add(new Unite(10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv));
+            ennemis.Add(new Unite(10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
             CreerUnite(ennemis[i].PositionX, ennemis[i].PositionY, ennemis[i].PositionZ);
         }
     }
@@ -76,23 +76,26 @@ public class Jeu : MonoBehaviour
             //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
             // Mettre à jour la position des unités
-            if(unites[i] != null)
+            if(unites[1] != null && ennemis[0].ParmiNous)
             {
                 unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
 
-                // if(ennemis[0].Pv <= 0)
-                // {
-                //     Debug.Log("L'unite 2 est morte");
+                    if(ennemis[0].Pv <= 0)
+                    {
+                        Debug.Log("L'unite 2 est morte");
 
-                //     Destroy(unites[1]);
-                //     unites.RemoveAt(1);
-                //     animator.SetBool("Won",true);
-                // }
-                
-                    alliee[i].Attaquer(ennemis[0]);
-                    //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
-                
-            }          
+                        Destroy(unites[1]);
+                        unites.RemoveAt(1);
+                        animator.SetBool("Won",true);
+                        ennemis[0].ParmiNous=false;
+                        nb_ennemis--;
+                    }
+                    else
+                    {
+                        alliee[i].Attaquer(ennemis[0]);
+                        //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);   
+                    } 
+            }         
             
         }
 
