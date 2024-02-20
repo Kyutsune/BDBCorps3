@@ -115,7 +115,7 @@ public class Unite
         }
     }
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite,AffichageDesPVs affichagepv)
+    public void DeplacerVersUniteDifferente(Unite autreUnite)
     {
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)
@@ -138,7 +138,6 @@ public class Unite
                 positionZ = Mathf.Lerp(positionZ, autreUnite.PositionY, lissage);
             }
         }
-        affichagepv.MettreAJourTextePV(this.pv,this.positionX,this.positionY,this.positionZ);
     }
 
 
