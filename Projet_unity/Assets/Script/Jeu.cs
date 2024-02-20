@@ -76,8 +76,9 @@ public class Jeu : MonoBehaviour
             //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
             // Mettre à jour la position des unités
-            if(unites[1] != null && ennemis[0].ParmiNous)
+            if(unites[i+nb_ennemis] != null && ennemis[0].ParmiNous)
             {
+                Debug.Log("on ");
                 unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
 
                     if(ennemis[0].Pv <= 0)
