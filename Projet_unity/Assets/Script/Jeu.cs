@@ -43,7 +43,6 @@ public class Jeu : MonoBehaviour
         {
             
             alliee.Add(new Unite(0, 0, 0, 1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true));
-        
             // Créer le texte PV et l'ajouter à la liste
             // AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
             // textePVUnite.CreerTextePV(canva_pour_texte_pv, alliee[i].PositionX, alliee[i].PositionY+40, alliee[i].PositionZ);
@@ -53,93 +52,49 @@ public class Jeu : MonoBehaviour
         }
         for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
         {
-            ennemis.Add(new Unite(10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
+            ennemis.Add(new Unite(-10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
             CreerUnite(ennemis[i].PositionX, ennemis[i].PositionY, ennemis[i].PositionZ);
         }
     }
 
     void Update()
-    {
-
-        
-        for(int i=0;i<nb_alliee;i++) // Parcours du nombre d'ennemis + alliées
-        {
-
+    { 
+            GestionJeu();
             // for(int j=0;j<nb_alliee;j++)
             // {
             //     liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
             // }
-
-            alliee[i].DeplacerVersUniteDifferente(ennemis[0]);
             // float positionX_texte = alliee[i].PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
             // float positionY_texte = alliee[i].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
             // Debug.Log(positionX_texte);
 
             //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
-            // Mettre à jour la position des unités
-            if(unites[i+nb_ennemis] != null && ennemis[0].ParmiNous)
-            {
-                unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
-
-                    if(ennemis[0].Pv <= 0)
-                    {
-                        Debug.Log("L'unite 2 est morte");
-
-                        Destroy(unites[i+nb_ennemis]);
-                        unites.RemoveAt(i+nb_ennemis);
-                        //animator.SetBool("IsFighting",false);
-                        animator.SetBool("Won",true);
-                        ennemis[0].ParmiNous=false;
-                        nb_ennemis--;
-                    }
-                    else
-                    {
-                        
-                        alliee[i].Attaquer(ennemis[0]);
-                        //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
-                        
-                    } 
-            }     
-            unites[0].isfighting(false);
-        }
-
-        for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
-        {
-            ennemis[i].DeplacerVersUniteDifferente(alliee[0]);
-            // for(int j=0;j<nb_alliee;j++)
+            // if(unites[i+nb_ennemis] != null && ennemis[0].ParmiNous)
             // {
-            //     liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
-            // }
-            if(unites[i+nb_alliee] != null)
-            {   
-                unites[i+nb_alliee].transform.position = new Vector3(ennemis[i].PositionX, ennemis[i].PositionY, ennemis[i].PositionZ);
-            }   
-            
-        }
-            
+
+            //         if(ennemis[0].Pv <= 0)
+            //         {
+            //             Debug.Log("L'unite 2 est morte");
+
+            //             Destroy(unites[i+nb_ennemis]);
+            //             unites.RemoveAt(i+nb_ennemis);
+            //             //animator.SetBool("IsFighting",false);
+            //             animator.SetBool("Won",true);
+            //             ennemis[0].ParmiNous=false;
+            //             nb_ennemis--;
+            //         }
+            //         else
+            //         {
+                        
+            //             alliee[i].Attaquer(ennemis[0]);
+            //             //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
+                        
+            //         } 
+            // }     
+        
 
         
-        // Mettre à jour la position des unités
-        // if(unites[0] != null && unites[1] != null)
-        // {
-        //     unites[0].transform.position = new Vector3(alliee[0].PositionX, alliee[0].PositionY, alliee[0].PositionZ);
-        //     unites[1].transform.position = new Vector3(ennemis[0].PositionX, ennemis[0].PositionY, ennemis[0].PositionZ);
-
-        //     if(ennemis[0].Pv <= 0)
-        //     {
-        //         Debug.Log("L'unite 2 est morte");
-
-        //         Destroy(unites[1]);
-        //         unites.RemoveAt(1);
-        //         animator.SetBool("Won",true);
-        //     }
-        //     else
-        //     {
-        //         alliee[0].Attaquer(ennemis[0]);
-        //         //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
-        //     }
-        // }
     }
 
     void CreerUnite(float positionX, float positionY, float positionZ)
@@ -153,4 +108,21 @@ public class Jeu : MonoBehaviour
         unites.Add(newUnite);
     }
 
+    void GestionJeu(){
+        for(int i=0;i<nb_alliee;i++) 
+        {
+            alliee[i].GestionEvenement(ennemis,nb_ennemis);
+            if(unites[i] != null)
+            {
+                unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
+            }
+        }
+        for(int i=0;i<nb_ennemis;i++){
+            ennemis[i].GestionEvenement(alliee,nb_alliee);
+            if(unites[i+nb_alliee] != null)
+            {
+                unites[i+nb_alliee].transform.position = new Vector3(ennemis[i].PositionX, ennemis[i].PositionY, ennemis[i].PositionZ);
+            }
+        }
+    }
 }

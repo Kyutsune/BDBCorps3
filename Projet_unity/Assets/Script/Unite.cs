@@ -105,8 +105,22 @@ public class Unite
 
     }
 
+    public float distanceUnite(Unite autreUnite){
+        return Vector3.Distance(new Vector3(this.positionX, this.positionY, this.positionZ), new Vector3(autreUnite.PositionX, autreUnite.PositionY, autreUnite.PositionZ));
+    }
 
-
+    public Unite DetectionUnite (List<Unite> tab_uni,int nb_unite) {
+        int indice_min = 0;
+		float distance_min = 0;
+		for(int j = 0; j < nb_unite; j++){
+			float distance = this.distanceUnite(tab_uni[j]);
+			if(distance_min > distance || j == 0){
+                indice_min = j;
+                distance_min = distance;
+            }
+		}
+		return tab_uni[indice_min];
+	}
 
     public void Attaquer(Unite autreUnite)
     {
@@ -114,13 +128,8 @@ public class Unite
         double tempsDepuisDerniereAttaque = (tempsActuel - momentDerniereAttaque);
         if(tempsDepuisDerniereAttaque >= vitesseAttaque)
         {
-            double distance = Math.Sqrt(Math.Pow(autreUnite.PositionX-positionX, 2) + Math.Pow(autreUnite.PositionY-positionY, 2) + Math.Pow(autreUnite.PositionZ-positionZ, 2));
-            if(distance <= this.portee)
-            {
-                autreUnite.Pv=autreUnite.Pv - 1;
-                tempsDepuisDerniereAttaque = tempsActuel;
-
-            }
+            autreUnite.Pv=autreUnite.Pv - 1;
+            tempsDepuisDerniereAttaque = tempsActuel;
         }
     }
 
@@ -133,7 +142,7 @@ public class Unite
             float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
 
             // Calculer la distance entre les deux unités
-            float distance = Vector3.Distance(new Vector3(positionX, positionY, positionZ), new Vector3(autreUnite.PositionX, autreUnite.PositionY, autreUnite.PositionZ));
+            float distance = this.distanceUnite(autreUnite);
 
             // Vérifier si la distance est supérieure à la distance minimale
             if (distance > distanceMinimale)
@@ -149,37 +158,14 @@ public class Unite
         }
     }
 
+    public void GestionEvenement(List<Unite> tab,int nb_unite){
+        Unite plus_proche = this.DetectionUnite(tab,nb_unite);
+        this.DeplacerVersUniteDifferente(plus_proche);
 
-
-
-
-
-
-
-///Fonction de déplacement d'angel qu'on garde au cas ou,à supprimer à la fin du projet 
-    public void DeplacerUnitePerimee(Unite autreUnite)
-    {
-        // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
-        if (autreUnite.team != this.team)
-        {
-           // Calculer la direction vers l'autre unité
-            Vector2 direction = new Vector2(autreUnite.PositionX - positionX, autreUnite.PositionY - positionY).normalized;
-
-            // Définir une vitesse de déplacement
-            float vitesseDeplacement = 0.005f;  // Ajustez cette valeur selon la vitesse de déplacement souhaitée
-
-            float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
-            positionX += direction.x * vitesseDeplacement;
-            positionY += direction.y * vitesseDeplacement;
-
-            // Déplacer l'unité vers l'autre unité
-            if(distanceMinimale <= positionX && distanceMinimale <= positionY)
+        double distance = Math.Sqrt(Math.Pow(plus_proche.PositionX-this.positionX, 2) + Math.Pow(plus_proche.PositionY-this.positionY, 2) + Math.Pow(plus_proche.PositionZ-this.positionZ, 2));
+            if(distance <= this.portee)
             {
-                positionX += direction.x * vitesseDeplacement;
-                positionY += direction.y * vitesseDeplacement;
+                this.Attaquer(plus_proche);
             }
-        }
     }
-
-
 }
