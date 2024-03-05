@@ -78,7 +78,7 @@ public class Jeu : MonoBehaviour
             //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
             // Mettre à jour la position des unités
-            if(unites[1] != null && ennemis[0].ParmiNous)
+            if(unites[i+nb_ennemis] != null && ennemis[0].ParmiNous)
             {
                 unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
 
@@ -86,16 +86,19 @@ public class Jeu : MonoBehaviour
                     {
                         Debug.Log("L'unite 2 est morte");
 
-                        Destroy(unites[1]);
-                        unites.RemoveAt(1);
+                        Destroy(unites[i+nb_ennemis]);
+                        unites.RemoveAt(i+nb_ennemis);
+                        //animator.SetBool("IsFighting",false);
                         animator.SetBool("Won",true);
                         ennemis[0].ParmiNous=false;
                         nb_ennemis--;
                     }
                     else
                     {
+                        
                         alliee[i].Attaquer(ennemis[0]);
-                        //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);   
+                        //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
+                        
                     } 
             }     
             unites[0].isfighting(false);
