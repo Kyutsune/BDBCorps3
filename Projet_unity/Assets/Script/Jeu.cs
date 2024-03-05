@@ -9,6 +9,7 @@ Classe jeu qui va être celle qui va contenir notre boucle de jeu,essayons de co
 public class Jeu : MonoBehaviour
 {
     private List<GameObject> unites = new List<GameObject>();
+    private List<Animator> animation = new List<Animator>();
     private List<Unite> alliee = new List<Unite>();
     private List<Unite> ennemis = new List<Unite>();
     private Unite unite1;
@@ -17,6 +18,7 @@ public class Jeu : MonoBehaviour
     private int nb_ennemis;
     public GameObject prefab;
     Animator animator;
+
 
 
     private Canvas canva_pour_texte_pv;
@@ -32,7 +34,9 @@ public class Jeu : MonoBehaviour
         
 
         //alliee[0] = new Unite(0, 0, 0, 1000, 2, 1,Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv);
-        nb_alliee=1;
+        entreeJoueur.nbAlliés(param);
+        Debug.Log(GlobalVariables.nbEnnemisentree);
+        nb_alliee=param;
         nb_ennemis=1;
 
     
@@ -60,6 +64,10 @@ public class Jeu : MonoBehaviour
     void Update()
     { 
             GestionJeu();
+            // animatorController premierUniteController = unites[i].GetComponent<animatorController>();
+            
+
+
             // for(int j=0;j<nb_alliee;j++)
             // {
             //     liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
@@ -70,36 +78,42 @@ public class Jeu : MonoBehaviour
 
             //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
+            // Mettre à jour la position des unités
             // if(unites[i+nb_ennemis] != null && ennemis[0].ParmiNous)
             // {
+
+            //     unites[i].transform.position = new Vector3(alliee[i].PositionX, alliee[i].PositionY, alliee[i].PositionZ);
 
             //         if(ennemis[0].Pv <= 0)
             //         {
             //             Debug.Log("L'unite 2 est morte");
-
             //             Destroy(unites[i+nb_ennemis]);
             //             unites.RemoveAt(i+nb_ennemis);
-            //             //animator.SetBool("IsFighting",false);
-            //             animator.SetBool("Won",true);
             //             ennemis[0].ParmiNous=false;
             //             nb_ennemis--;
+
+            //             premierUniteController.change_is_fighting(false);
+            //             Debug.Log(premierUniteController.affiche_isfighting());
+                        
+                    
             //         }
             //         else
             //         {
+
                         
             //             alliee[i].Attaquer(ennemis[0]);
             //             //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);
                         
             //         } 
-            // }     
-        
-
+            // }         
+            
         
     }
 
     void CreerUnite(float positionX, float positionY, float positionZ)
     {
         GameObject newUnite = Instantiate(prefab);
+
         newUnite.name = "Unite" + unites.Count.ToString();
 
         // Placer le cube à la position spécifiée

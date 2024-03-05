@@ -7,6 +7,19 @@ public class animatorController : MonoBehaviour
     Animator animator;
     Vector3 savedPosition;
     float vitesse;
+    bool attaque = false;
+
+
+    public void change_is_fighting(bool cquetuchange)
+    {
+        animator.SetBool("IsFighting",cquetuchange);
+        attaque = true;
+    }
+
+    public bool affiche_isfighting()
+    {
+        return(animator.GetBool("IsFighting"));
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -34,11 +47,12 @@ public class animatorController : MonoBehaviour
             animator.SetBool("IsWalking",false);
             animator.SetBool("IsRunning",true);
         }
-        else if(vitesse == 0.0f && !isFighting){
+        else if(vitesse == 0.0f  && !isRunning && attaque == false){
             animator.SetBool("IsFighting",true);
             animator.SetBool("IsWalking",false);
             animator.SetBool("IsRunning",false);
         }
+        
         
         savedPosition = transform.position;
     }

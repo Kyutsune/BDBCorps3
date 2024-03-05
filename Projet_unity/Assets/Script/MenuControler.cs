@@ -8,8 +8,11 @@ Classe MenuControler qui va permettre la gestion de tout les changements de scen
 entrées du joueur...
 */
 
-public class Drag : MonoBehaviour
+
+public class MenuControler : MonoBehaviour
 {
+    public static int nbEnnemisentree;
+
     //Permet de changer de scene
     public void changeScene(string sceneName)
     {
@@ -24,13 +27,18 @@ public class Drag : MonoBehaviour
 
     public GameObject inputField;
     public GameObject textDisplay;
-    public int entree;
 
     //Récupérer l'entrée du joueur
     public void GetInputText()
     {
-        entree = int.Parse(inputField.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
-        textDisplay.GetComponent<Text>().text = "Vous avez entré : " + entree; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+        nbEnnemisentree = int.Parse(inputField.GetComponent<Text>().text);
+        textDisplay.GetComponent<Text>().text = "Vous avez entré : " + nbEnnemisentree; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+    }
+
+    public void nbAlliés(int param)
+    {
+        param=nbEnnemisentree;
+        
     }
 
     /*
