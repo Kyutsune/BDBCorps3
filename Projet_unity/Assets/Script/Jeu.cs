@@ -81,7 +81,7 @@ public class Jeu : MonoBehaviour
                 float positionY_texte = alliee[j].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
                 // Debug.Log(positionX_texte);
 
-                //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
+                liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
 
                 // Mettre à jour la position des unités
                 if(unites[0] != null && unites[1] != null)
