@@ -37,6 +37,7 @@ public class Unite
     private float portee;
     private double vitesseAttaque;
     private float momentDerniereAttaque;
+    private bool parmiNous;
 
     //Type des unités
     public Team team;
@@ -68,6 +69,12 @@ public class Unite
         set { pv = value; }
     }
 
+    public bool ParmiNous
+    {
+        get { return parmiNous; }
+        set { parmiNous = value; }
+    }
+
 
     //Constructeur par défaut,à utiliser pour les tests de début 
     public Unite()
@@ -81,9 +88,10 @@ public class Unite
         momentDerniereAttaque = 0;
         team = 0;
         type_unitee = Type_unitee.Melee;
+
     }
 
-    public Unite(float newX, float newY, float newZ, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva)
+    public Unite(float newX, float newY, float newZ, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous )
     {
         positionX = newX;
         positionY = newY;
@@ -93,6 +101,7 @@ public class Unite
         vitesseAttaque=newVitesseAttaque;
         team = newteam;
         type_unitee = newTypeUnitee;
+        parmiNous = newparmiNous; 
 
     }
 
@@ -115,7 +124,7 @@ public class Unite
         }
     }
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite,AffichageDesPVs affichagepv)
+    public void DeplacerVersUniteDifferente(Unite autreUnite)
     {
         // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
         if (autreUnite.team != this.team)
@@ -138,7 +147,6 @@ public class Unite
                 positionZ = Mathf.Lerp(positionZ, autreUnite.PositionY, lissage);
             }
         }
-        affichagepv.MettreAJourTextePV(this.pv,this.positionX,this.positionY,this.positionZ);
     }
 
 
