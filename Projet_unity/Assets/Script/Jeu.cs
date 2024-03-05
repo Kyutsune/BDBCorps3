@@ -60,9 +60,11 @@ public class Jeu : MonoBehaviour
 
     void Update()
     {
+
         
         for(int i=0;i<nb_alliee;i++) // Parcours du nombre d'ennemis + alliées
         {
+
             // for(int j=0;j<nb_alliee;j++)
             // {
             //     liste_texte_pv[j].MettreAJourTextePV(ennemis[0].Pv,alliee[0].PositionX,alliee[0].PositionY,alliee[0].PositionZ);
@@ -95,8 +97,8 @@ public class Jeu : MonoBehaviour
                         alliee[i].Attaquer(ennemis[0]);
                         //Debug.Log("PV de unite2 après attaque : " + unite2.Pv);   
                     } 
-            }         
-            
+            }     
+            unites[0].isfighting(false);
         }
 
         for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'ennemis + alliées
@@ -147,4 +149,5 @@ public class Jeu : MonoBehaviour
 
         unites.Add(newUnite);
     }
+
 }
