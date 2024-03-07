@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Classe Timer dans laquelle on met à jour un compteur qui nous permet de traquer le temps passé 
+*/
+
+
 public class Timer 
 {
     public float secondes;

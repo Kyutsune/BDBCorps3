@@ -101,12 +101,11 @@ public class Jeu : MonoBehaviour
 
 
 
-        // Check if the 'T' key is pressed
+        // Ici on implémente le fait 1-de mettre a jour le compteur 2-d'afficher le temps dans la console si on appuie sur t
         if (Input.GetKey(KeyCode.T))
         {
             affichage_temps=true;
         }
-        // Call the method when 'T' is pressed
         timer.Deroulement_timer_console(affichage_temps);
 
         
