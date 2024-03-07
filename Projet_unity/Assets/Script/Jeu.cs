@@ -21,6 +21,11 @@ public class Jeu : MonoBehaviour
 
     private Canvas canva_pour_texte_pv;
     private List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
+
+
+
+    Timer timer=new Timer();
+    bool affichage_temps=false;
     
 
 
@@ -52,6 +57,9 @@ public class Jeu : MonoBehaviour
             unites_ennemies.Add(new Unite(-10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
             CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
         }
+
+
+        timer.Initialisation_Timer();
     }
 
     void Update()
@@ -89,9 +97,21 @@ public class Jeu : MonoBehaviour
                         
             //         } 
             // }     
-        
+
+
+
+
+        // Check if the 'T' key is pressed
+        if (Input.GetKey(KeyCode.T))
+        {
+            affichage_temps=true;
+        }
+        // Call the method when 'T' is pressed
+        timer.Deroulement_timer_console(affichage_temps);
 
         
+
+        affichage_temps=false;
     }
 
     void CreerUnite(float positionX, float positionY, float positionZ)
