@@ -7,10 +7,12 @@ Classe Timer dans laquelle on met à jour un compteur qui nous permet de traquer
 */
 
 
-public class Timer 
+public class Timer
 {
     public float secondes;
     public float minutes;
+    private bool displayTime;
+
 
 
     public float Secondes
@@ -42,11 +44,24 @@ public class Timer
         Debug.Log("minutes = "+minutes+" secondes = "+secondes);
     }
 
+    void OnGUI()
+    {
+        if (displayTime)
+        {
+            GUI.Label(new Rect(10, 10, 100, 20), string.Format("{0:00}:{1:00}", minutes, secondes));
+            displayTime = false; // Reset the flag after rendering
+        }
+    }
+
+
+
+
 
     public void Deroulement_timer_console(bool affichage_temps)
     {
         increments_temps();
         if(affichage_temps)
             Affichage_temps_console();
+        displayTime = true;
     }
 }
