@@ -37,10 +37,13 @@ public class Jeu : MonoBehaviour
         GameObject canvasObj = new GameObject("Canvas");
         canva_pour_texte_pv = canvasObj.AddComponent<Canvas>();
         canva_pour_texte_pv.renderMode = RenderMode.ScreenSpaceOverlay;
+
+        //Partie ici qui montre comment garder entre les scènes des variables globales
+
         
         nb_alliee=1;
         nb_ennemis=1;
-
+        Debug.Log(PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu"));
     
         animator = GetComponent<Animator>();
 
@@ -65,9 +68,6 @@ public class Jeu : MonoBehaviour
         temps_passé_en_jeu.Initialisation_Timer();
 
 
-        //Partie ici qui montre comment garder entre les scènes des variables globales
-        int maValeur = PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu");
-        Debug.Log(maValeur);
     }
 
     void Update()

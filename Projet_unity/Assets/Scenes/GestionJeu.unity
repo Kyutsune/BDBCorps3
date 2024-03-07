@@ -763,7 +763,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 0}
   textDisplay: {fileID: 0}
-  entree: 0
 --- !u!114 &379810848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2062,7 +2061,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1832369941}
   textDisplay: {fileID: 145994134}
-  entree: 0
 --- !u!1 &1609796896
 GameObject:
   m_ObjectHideFlags: 0

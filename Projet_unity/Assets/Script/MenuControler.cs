@@ -30,13 +30,13 @@ public class MenuControler : MonoBehaviour
     public int nombre_unites_globales_ennemies_menu;
 
     //Récupérer l'entrée du joueur
-    public void GetInputText()
-    {
-        nbEnnemisentree = int.Parse(inputField.GetComponent<Text>().text);
-        textDisplay.GetComponent<Text>().text = "Vous avez entré : " + nbEnnemisentree; //Permet d'afficher ce que le joueur a entré directement sur le jeu
-    }
+    // public void GetInputText()
+    // {
+    //     nbEnnemisentree = int.Parse(inputField.GetComponent<Text>().text);
+    //     textDisplay.GetComponent<Text>().text = "Vous avez entré : " + nbEnnemisentree; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+    // }
 
-    public void nbAlliés(int param)
+    public void GetInputText(int param)
     {
         param=nbEnnemisentree;
         
