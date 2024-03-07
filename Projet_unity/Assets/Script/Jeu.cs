@@ -24,7 +24,7 @@ public class Jeu : MonoBehaviour
 
 
 
-    Timer timer=new Timer();
+    Timer temps_passé_en_jeu=new Timer();
     bool affichage_temps=false;
     
 
@@ -59,7 +59,7 @@ public class Jeu : MonoBehaviour
         }
 
 
-        timer.Initialisation_Timer();
+        temps_passé_en_jeu.Initialisation_Timer();
     }
 
     void Update()
@@ -102,11 +102,11 @@ public class Jeu : MonoBehaviour
 
 
         // Ici on implémente le fait 1-de mettre a jour le compteur 2-d'afficher le temps dans la console si on appuie sur t
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             affichage_temps=true;
         }
-        timer.Deroulement_timer_console(affichage_temps);
+        temps_passé_en_jeu.Deroulement_timer_console(affichage_temps);
 
         
 
