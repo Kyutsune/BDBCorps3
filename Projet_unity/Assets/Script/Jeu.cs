@@ -15,6 +15,8 @@ public class Jeu : MonoBehaviour
     private int nb_ennemis;
 
 
+
+
     public GameObject prefab;
     Animator animator;
 
@@ -60,6 +62,11 @@ public class Jeu : MonoBehaviour
 
 
         temps_passé_en_jeu.Initialisation_Timer();
+
+
+        //Partie ici qui montre comment garder entre les scènes des variables globales
+        int maValeur = PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu");
+        Debug.Log(maValeur);
     }
 
     void Update()
