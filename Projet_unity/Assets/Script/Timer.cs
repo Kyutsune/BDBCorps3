@@ -7,6 +7,8 @@ Classe Timer dans laquelle on met à jour un compteur qui nous permet de traquer
 */
 
 
+
+//Ce qu'il reste a faire dans cette classe c'est d'afficher graphiquement le timer
 public class Timer
 {
     public float secondes;
@@ -36,6 +38,9 @@ public class Timer
             secondes=0;
             minutes++;
         }
+        PlayerPrefs.SetFloat("secondes_ecoulees", secondes);
+        PlayerPrefs.SetFloat("minutes_ecoulees", minutes);
+        PlayerPrefs.Save();
     }
 
 
