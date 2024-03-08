@@ -43,7 +43,6 @@ public class Jeu : MonoBehaviour
         
         nb_alliee=1;
         nb_ennemis=1;
-        Debug.Log(PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu"));
     
         animator = GetComponent<Animator>();
 

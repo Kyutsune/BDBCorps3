@@ -32,7 +32,6 @@ public class MenuControler : MonoBehaviour
     public void GetInputText()
     {
         nombre_unites_globales_ennemies_menu = int.Parse(inputField.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
-        Debug.Log("on passe ici");
         textDisplay.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_ennemies_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
         PlayerPrefs.SetInt("nombre_unites_globales_ennemies_menu", nombre_unites_globales_ennemies_menu);
         PlayerPrefs.Save();
