@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 145994136}
   - component: {fileID: 145994135}
   m_Layer: 5
-  m_Name: Text
+  m_Name: textDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Entrer le nombre D''ennemis
+  m_Text: 'Entrer le nombre d''ennemis
 
 '
 --- !u!222 &145994136
@@ -202,7 +202,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 170, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &216490350
 GameObject:
@@ -763,6 +763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 0}
   textDisplay: {fileID: 0}
+  nombre_unites_globales_ennemies_menu: 0
 --- !u!114 &379810848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2061,6 +2062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1832369941}
   textDisplay: {fileID: 145994134}
+  nombre_unites_globales_ennemies_menu: 0
 --- !u!1 &1609796896
 GameObject:
   m_ObjectHideFlags: 0

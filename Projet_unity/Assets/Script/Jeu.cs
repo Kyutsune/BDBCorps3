@@ -64,6 +64,9 @@ public class Jeu : MonoBehaviour
             CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
         }
 
+        // Debug.Log(PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu"));
+
+
 
         temps_passé_en_jeu.Initialisation_Timer();
 
