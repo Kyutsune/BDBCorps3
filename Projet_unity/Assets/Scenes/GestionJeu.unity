@@ -1694,7 +1694,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572634060}
-        m_TargetAssemblyTypeName: Drag, Assembly-CSharp
+        m_TargetAssemblyTypeName: MenuControler, Assembly-CSharp
         m_MethodName: GetInputText
         m_Mode: 1
         m_Arguments:
@@ -2513,7 +2513,7 @@ GameObject:
   - component: {fileID: 1832369943}
   - component: {fileID: 1832369942}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: textDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
