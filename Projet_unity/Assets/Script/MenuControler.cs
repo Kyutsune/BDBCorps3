@@ -25,17 +25,31 @@ public class MenuControler : MonoBehaviour
         Application.Quit();
     }
 
-    public GameObject inputField;
-    public GameObject textDisplay;
-    public int nombre_unites_globales_ennemies_menu;
+    public GameObject inputFieldEnnemis;
+    public GameObject textDisplayEnnemis;
 
-    public void GetInputText()
+    public GameObject inputFieldAlliés;
+    public GameObject textDisplayAlliés;
+
+    public int nombre_unites_globales_ennemies_menu;
+    public int nombre_unites_globales_allies_menu;
+
+    public void GetInputTextEnnemis()
     {
-        nombre_unites_globales_ennemies_menu = int.Parse(inputField.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
-        textDisplay.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_ennemies_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+        nombre_unites_globales_ennemies_menu = int.Parse(inputFieldEnnemis.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
+        textDisplayEnnemis.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_ennemies_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
         PlayerPrefs.SetInt("nombre_unites_globales_ennemies_menu", nombre_unites_globales_ennemies_menu);
         PlayerPrefs.Save();
     }
+
+    public void GetInputTextAllies()
+    {
+        nombre_unites_globales_allies_menu = int.Parse(inputFieldAlliés.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
+        textDisplayAlliés.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_allies_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+        PlayerPrefs.SetInt("nombre_unites_globales_allies_menu", nombre_unites_globales_allies_menu);
+        PlayerPrefs.Save();
+    }
+    
 
 
 }

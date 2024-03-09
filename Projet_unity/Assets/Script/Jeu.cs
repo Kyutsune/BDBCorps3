@@ -41,8 +41,8 @@ public class Jeu : MonoBehaviour
         //Partie ici qui montre comment garder entre les scènes des variables globales
 
         
-        nb_alliee=1;
-        nb_ennemis=1;
+        nb_alliee=PlayerPrefs.GetInt("nombre_unites_globales_allies_menu", 1);
+        nb_ennemis=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
     
         animator = GetComponent<Animator>();
 
@@ -54,12 +54,12 @@ public class Jeu : MonoBehaviour
             // textePVUnite.CreerTextePV(canva_pour_texte_pv, unites_alliees[i].PositionX, unites_alliees[i].PositionY+40, unites_alliees[i].PositionZ);
             // liste_texte_pv.Add(textePVUnite);
 
-            unites_alliees.Add(new Unite(0, 0, 0, 1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true));
+            unites_alliees.Add(new Unite(1000, 2, 1, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true));
             CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ);
         }
         for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'unites_ennemies + alliées
         {
-            unites_ennemies.Add(new Unite(-10, 0, 0, 1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
+            unites_ennemies.Add(new Unite(1000, 1, 2,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true));
             CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
         }
 
@@ -161,4 +161,5 @@ public class Jeu : MonoBehaviour
             }
         }
     }
+
 }

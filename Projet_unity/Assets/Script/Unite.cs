@@ -91,11 +91,11 @@ public class Unite
 
     }
 
-    public Unite(float newX, float newY, float newZ, double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous )
+    public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous )
     {
-        positionX = newX;
-        positionY = newY;
-        positionZ = newZ;
+        positionX = Aleatoire(0,11);
+        positionY = 0;
+        positionZ = Aleatoire(0,11);
         pv = newPv;
         portee = newPortee;
         vitesseAttaque=newVitesseAttaque;
@@ -168,4 +168,13 @@ public class Unite
                 this.Attaquer(plus_proche);
             }
     }
+
+    int Aleatoire(int min, int max)
+    {
+        // Génération d'un nombre aléatoire entre min (inclus) et max (exclus)
+        int variableAleatoire = UnityEngine.Random.Range(min, max);
+
+        return variableAleatoire;
+    }
+
 }
