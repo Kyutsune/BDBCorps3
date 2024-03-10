@@ -18,6 +18,8 @@ public class Jeu : MonoBehaviour
 
 
     public GameObject prefab;
+    public GameObject Catfish_skin;
+
     Animator animator;
 
 
@@ -100,9 +102,20 @@ public class Jeu : MonoBehaviour
         affichage_temps=false;
     }
 
-    void CreerUnite(float positionX, float positionY, float positionZ)
+    void CreerUnite(float positionX, float positionY, float positionZ, /*Team teamUnite*/)
     {
+        /*
+        if(teamUnite == Team.Equipe1)
+        {
+            GameObject newUnite = Instantiate(prefab);
+        }
+        else{
+            GameObject newUnite = Instantiate(Catfish_skin);
+        }
+        */
+
         GameObject newUnite = Instantiate(prefab);
+        
         newUnite.name = "Unite" + tab_gameobject_unite.Count.ToString();
 
         // Placer l'unité à la position spécifiée
