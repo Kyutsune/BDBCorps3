@@ -7,19 +7,6 @@ public class animatorController : MonoBehaviour
     Animator animator;
     Vector3 savedPosition;
     float vitesse;
-    bool attaque = false;
-
-
-    public void change_is_fighting(bool cquetuchange)
-    {
-        animator.SetBool("IsFighting",cquetuchange);
-        attaque = true;
-    }
-
-    public bool affiche_isfighting()
-    {
-        return(animator.GetBool("IsFighting"));
-    }
     
     // Start is called before the first frame update
     void Start()
@@ -30,30 +17,45 @@ public class animatorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position!=savedPosition){
-            transform.forward = transform.position-savedPosition;
-        }
-        vitesse = ((transform.position-savedPosition).magnitude)/Time.deltaTime;
 
-        bool isWalking = animator.GetBool("IsWalking");
-        bool isRunning = animator.GetBool("IsRunning");
-        bool isFighting = animator.GetBool("IsFighting");
+    }
 
-        if(vitesse > 0 && vitesse < 1.0f && !isWalking){
-            animator.SetBool("IsWalking",true);
-            animator.SetBool("IsRunning",false);
+    public void seTourner(Unite Courante, Unite Visee){
+        if(animator.GetBool("IsWalking")==true || animator.GetBool("IsRunning")==true){
+            if(transform.position!=savedPosition){
+                transform.forward = transform.position-savedPosition;
+            }
+            vitesse = ((transform.position-savedPosition).magnitude)/Time.deltaTime;
+            
+            savedPosition = transform.position;
         }
-        else if(vitesse > 1.0f && !isRunning){
-            animator.SetBool("IsWalking",false);
-            animator.SetBool("IsRunning",true);
+        if(animator.GetBool("IsFighting")){
+                // Récupérer la position de la cible
+                Vector3 targetPosition = new Vector3(Visee.PositionX, Visee.PositionY, Visee.PositionZ);
+
+                // Calculer le vecteur direction de la cible
+                Vector3 direction = (targetPosition - new Vector3(Courante.PositionX, Courante.PositionY, Courante.PositionZ)).normalized;
+
+                transform.forward = direction;
         }
-        else if(vitesse == 0.0f  && !isRunning && attaque == false){
-            animator.SetBool("IsFighting",true);
-            animator.SetBool("IsWalking",false);
-            animator.SetBool("IsRunning",false);
-        }
-        
-        
-        savedPosition = transform.position;
+    }
+
+    public void setRunning(bool run){
+        animator.SetBool("IsWalking",false);
+        animator.SetBool("IsRunning",true);
+        animator.SetBool("IsFighting",false);
+    }
+
+    public void setFighting(bool fight)
+    {
+        animator.SetBool("IsFighting",fight);
+        animator.SetBool("IsRunning",false);
+        animator.SetBool("IsWalking",false);
+    }
+
+    public void setWalking(bool walk){
+        animator.SetBool("IsWalking",true);
+        animator.SetBool("IsRunning",false);
+        animator.SetBool("IsFighting",false);
     }
 }

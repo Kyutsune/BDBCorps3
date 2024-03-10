@@ -36,12 +36,17 @@ public class Unite
     //Composantes nécessaire à l'attaque
     private float portee;
     private double vitesseAttaque;
-    private float momentDerniereAttaque;
     private bool parmiNous;
+    private float degat;
+    private float dernierTempsAttaque = 0f;
 
     //Type des unités
     public Team team;
     public Type_unitee type_unitee;
+
+    // vitesse de déplacement de l'unité
+    public float RunSpeed = 5f;
+    public float WalkSpeed = 2f;
 
 
     // Propriétés pour accéder aux données
@@ -85,13 +90,12 @@ public class Unite
         pv = 100;
         portee = 100;
         vitesseAttaque = 1;
-        momentDerniereAttaque = 0;
         team = 0;
         type_unitee = Type_unitee.Melee;
-
+        degat = 1;
     }
 
-    public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous )
+    public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous,float newDegat )
     {
         positionX = Aleatoire(0,11);
         positionY = 0;
@@ -102,7 +106,7 @@ public class Unite
         team = newteam;
         type_unitee = newTypeUnitee;
         parmiNous = newparmiNous; 
-
+        degat = newDegat;
     }
 
     public float distanceUnite(Unite autreUnite){
@@ -110,63 +114,70 @@ public class Unite
     }
 
     public Unite DetectionUnite (List<Unite> tab_uni,int nb_unite) {
-        int indice_min = 0;
-		float distance_min = 0;
-		for(int j = 0; j < nb_unite; j++){
-			float distance = this.distanceUnite(tab_uni[j]);
-			if(distance_min > distance || j == 0){
-                indice_min = j;
-                distance_min = distance;
+        if(nb_unite != 0){
+            int indice_min = 0;
+            float distance_min = 0;
+            for(int j = 0; j < nb_unite; j++){
+                
+                float distance = this.distanceUnite(tab_uni[j]);
+                if(distance_min > distance || j == 0){
+                    indice_min = j;
+                    distance_min = distance;
+                }
             }
-		}
-		return tab_uni[indice_min];
+            return tab_uni[indice_min];
+        }
+        return null;
 	}
 
     public void Attaquer(Unite autreUnite)
     {
-        long tempsActuel = DateTimeOffset.Now.ToUnixTimeSeconds();
-        double tempsDepuisDerniereAttaque = (tempsActuel - momentDerniereAttaque);
-        if(tempsDepuisDerniereAttaque >= vitesseAttaque)
-        {
-            autreUnite.Pv=autreUnite.Pv - 1;
-            tempsDepuisDerniereAttaque = tempsActuel;
+        if(autreUnite != null){
+            autreUnite.pv=autreUnite.pv - this.degat;
+            Debug.Log(autreUnite.pv);
         }
     }
 
-    public void DeplacerVersUniteDifferente(Unite autreUnite)
-    {
-        // Vérifier si l'autre unité a une Unite_alliee_ennemie différente
-        if (autreUnite.team != this.team)
-        {
+    public bool GestionEvenement(List<Unite> tab,int nb_unite,animatorController animEvenement){
+        if(nb_unite != 0) {
+            Unite plus_proche = this.DetectionUnite(tab,nb_unite);
+
             // Définir une distance minimale pour éviter les collisions
-            float distanceMinimale = 1.5f;  // Ajustez cette valeur selon votre préférence
+            float distanceMinimale = 1.5f;
 
             // Calculer la distance entre les deux unités
-            float distance = this.distanceUnite(autreUnite);
+            float distance = this.distanceUnite(plus_proche);
 
             // Vérifier si la distance est supérieure à la distance minimale
             if (distance > distanceMinimale)
             {
-                
-                // Déplacer vers l'autre unité en utilisant une approche de lissage linéaire
-                float lissage = 0.0007f;  // Ajustez la valeur de lissage selon la vitesse de déplacement souhaitée
-
-                positionX = Mathf.Lerp(positionX, autreUnite.PositionX, lissage);
-                positionY = Mathf.Lerp(positionY, autreUnite.PositionY, lissage);
-                positionZ = Mathf.Lerp(positionZ, autreUnite.PositionY, lissage);
+                animEvenement.seTourner(this,plus_proche);
+                int RunOrWalk = this.Deplacement(plus_proche);
+                if(RunOrWalk == 1){
+                    animEvenement.setRunning(true);
+                }
+                if(RunOrWalk == 2) {
+                    animEvenement.setWalking(true);
+                }
             }
-        }
-    }
 
-    public void GestionEvenement(List<Unite> tab,int nb_unite){
-        Unite plus_proche = this.DetectionUnite(tab,nb_unite);
-        this.DeplacerVersUniteDifferente(plus_proche);
-
-        double distance = Math.Sqrt(Math.Pow(plus_proche.PositionX-this.positionX, 2) + Math.Pow(plus_proche.PositionY-this.positionY, 2) + Math.Pow(plus_proche.PositionZ-this.positionZ, 2));
             if(distance <= this.portee)
             {
-                this.Attaquer(plus_proche);
+                if(Time.time - dernierTempsAttaque > this.vitesseAttaque)
+                {
+                    animEvenement.seTourner(this,plus_proche);
+                    this.Attaquer(plus_proche);
+                    animEvenement.setFighting(true);
+                    dernierTempsAttaque = Time.time;
+                }
             }
+
+            if(this.pv <= 0){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     int Aleatoire(int min, int max)
@@ -177,4 +188,41 @@ public class Unite
         return variableAleatoire;
     }
 
+    public int Deplacement(Unite targetUnit){
+        if(targetUnit != null){
+            if (targetUnit.team != this.team)
+            {
+                // Récupérer la position de la cible
+                Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
+
+                // Calculer le vecteur direction de la cible
+                Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
+
+                float distance = this.distanceUnite(targetUnit);
+                // Calculer le déplacement en fonction de la vitesse constante
+                if(distance > 5f){
+                    Vector3 movement = direction * RunSpeed * Time.deltaTime;
+
+                    // Mettre à jour la position de l'unité
+                    this.PositionX += movement.x;
+                    this.PositionY += movement.y;
+                    this.PositionZ += movement.z;
+
+                    return 1;
+                }
+                
+                if(distance <= 5f){
+                    Vector3 movement = direction * WalkSpeed * Time.deltaTime;
+
+                    // Mettre à jour la position de l'unité
+                    this.PositionX += movement.x;
+                    this.PositionY += movement.y;
+                    this.PositionZ += movement.z;
+
+                    return 2;
+                }
+            }
+        }
+        return 0;
+    }
 }
