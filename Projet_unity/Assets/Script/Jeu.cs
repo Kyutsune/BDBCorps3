@@ -102,7 +102,7 @@ public class Jeu : MonoBehaviour
         affichage_temps=false;
     }
 
-    void CreerUnite(float positionX, float positionY, float positionZ, /*Team teamUnite*/)
+    void CreerUnite(float positionX, float positionY, float positionZ /*Team teamUnite*/)
     {
         /*
         if(teamUnite == Team.Equipe1)
