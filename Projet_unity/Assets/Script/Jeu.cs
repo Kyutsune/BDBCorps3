@@ -14,23 +14,15 @@ public class Jeu : MonoBehaviour
     private int nb_alliee;
     private int nb_ennemis;
 
-
-
-
-    public GameObject prefab;
+    public GameObject prefabAllie;
+    public GameObject prefabEnnemi;
     Animator animator;
-
-
 
     private Canvas canva_pour_texte_pv;
     private List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
 
-
-
     Timer temps_passé_en_jeu=new Timer();
     bool affichage_temps=false;
-    
-
 
     void Start()
     {
@@ -42,11 +34,9 @@ public class Jeu : MonoBehaviour
 
         
         nb_alliee=PlayerPrefs.GetInt("nombre_unites_globales_allies_menu", 1);
-        // nb_ennemis=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
-        nb_ennemis = 2;
+        nb_ennemis=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
     
         animator = GetComponent<Animator>();
-
 
         for(int i=0;i<nb_alliee;i++) // Parcours du nombre d'unites_ennemies + alliées
         {
@@ -55,21 +45,18 @@ public class Jeu : MonoBehaviour
             // textePVUnite.CreerTextePV(canva_pour_texte_pv, unites_alliees[i].PositionX, unites_alliees[i].PositionY+40, unites_alliees[i].PositionZ);
             // liste_texte_pv.Add(textePVUnite);
 
-            unites_alliees.Add(new Unite(100, 2, 1.5f, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true,50f));
-            CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ);
+            unites_alliees.Add(new Unite(100, 2, 2f, Team.Equipe1, Type_unitee.Melee, canva_pour_texte_pv, true,50f));
+            CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1);
         }
         for(int i=0;i<nb_ennemis;i++) // Parcours du nombre d'unites_ennemies + alliées
         {
-            unites_ennemies.Add(new Unite(100, 2, 1.5f,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true,2f));
-            CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
+            unites_ennemies.Add(new Unite(100, 2, 2f,Team.Equipe2, Type_unitee.Melee, canva_pour_texte_pv, true,2f));
+            CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2);
         }
 
         // Debug.Log(PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu"));
 
-
-
         temps_passé_en_jeu.Initialisation_Timer();
-
 
     }
 
@@ -100,15 +87,26 @@ public class Jeu : MonoBehaviour
         affichage_temps=false;
     }
 
-    void CreerUnite(float positionX, float positionY, float positionZ)
+    void CreerUnite(float positionX, float positionY, float positionZ,int equipe)
     {
-        GameObject newUnite = Instantiate(prefab);
-        newUnite.name = "Unite" + tab_gameobject_unite.Count.ToString();
+        if(equipe==1){
+            GameObject newUnite = Instantiate(prefabAllie);
+            newUnite.name = "UniteAlliee" + tab_gameobject_unite.Count.ToString();
 
-        // Placer l'unité à la position spécifiée
-        newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
+            // Placer l'unité à la position spécifiée
+            newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
 
-        tab_gameobject_unite.Add(newUnite);
+            tab_gameobject_unite.Add(newUnite);
+        }
+        if(equipe==2){
+            GameObject newUnite = Instantiate(prefabEnnemi);
+            newUnite.name = "UniteEnnemie" + tab_gameobject_unite.Count.ToString();
+
+            // Placer l'unité à la position spécifiée
+            newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
+
+            tab_gameobject_unite.Add(newUnite);
+        }
     }
 
     void GestionJeu(){
@@ -118,7 +116,6 @@ public class Jeu : MonoBehaviour
             bool etat = unites_alliees[i].GestionEvenement(unites_ennemies,nb_ennemis,allieUniteController);
             tab_gameobject_unite[i].transform.position = new Vector3(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ);
             if(etat == true){
-                Destroy(tab_gameobject_unite[i]);
                 tab_gameobject_unite.RemoveAt(i);
                 unites_alliees.RemoveAt(i);
                 nb_alliee--;
@@ -129,7 +126,6 @@ public class Jeu : MonoBehaviour
             bool etat = unites_ennemies[i].GestionEvenement(unites_alliees,nb_alliee,ennemiUniteController);
             tab_gameobject_unite[i+nb_alliee].transform.position = new Vector3(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
             if(etat == true){
-                Destroy(tab_gameobject_unite[i+nb_alliee]);
                 tab_gameobject_unite.RemoveAt(i+nb_alliee);
                 unites_ennemies.RemoveAt(i);
                 nb_ennemis--;

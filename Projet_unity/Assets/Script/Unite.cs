@@ -163,9 +163,9 @@ public class Unite
 
             if(distance <= this.portee)
             {
+                animEvenement.seTourner(this,plus_proche);
                 if(Time.time - dernierTempsAttaque > this.vitesseAttaque)
                 {
-                    animEvenement.seTourner(this,plus_proche);
                     this.Attaquer(plus_proche);
                     animEvenement.setFighting(true);
                     dernierTempsAttaque = Time.time;
@@ -173,8 +173,12 @@ public class Unite
             }
 
             if(this.pv <= 0){
+                animEvenement.Mort();
                 return true;
             }
+        }
+        else {
+            animEvenement.Victoire();
         }
 
         return false;

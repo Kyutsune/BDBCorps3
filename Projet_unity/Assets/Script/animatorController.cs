@@ -58,4 +58,18 @@ public class animatorController : MonoBehaviour
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
     }
+
+    public void Mort(){
+        animator.SetBool("IsRunning",false);
+        animator.SetBool("IsFighting",false);
+        animator.SetBool("IsWalking",false);
+        animator.SetBool("Dead",true);
+    }
+
+    public void Victoire(){
+        animator.SetBool("IsRunning",false);
+        animator.SetBool("IsFighting",false);
+        animator.SetBool("IsWalking",false);
+        animator.SetBool("Won",true);
+    }
 }
