@@ -97,9 +97,9 @@ public class Unite
 
     public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous,float newDegat )
     {
-        positionX = Aleatoire(0,11);
+        positionX = Aleatoire(0,50);
         positionY = 0;
-        positionZ = Aleatoire(0,11);
+        positionZ = Aleatoire(0,50);
         pv = newPv;
         portee = newPortee;
         vitesseAttaque=newVitesseAttaque;
