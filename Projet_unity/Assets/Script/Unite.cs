@@ -19,7 +19,8 @@ public enum Team
 
 public enum Type_unitee
 {
-    Melee
+    Melee,
+    Distance
 }
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
@@ -79,6 +80,7 @@ public class Unite
         get { return parmiNous; }
         set { parmiNous = value; }
     }
+    
 
 
     //Constructeur par défaut,à utiliser pour les tests de début 
@@ -134,7 +136,7 @@ public class Unite
     {
         if(autreUnite != null){
             autreUnite.pv=autreUnite.pv - this.degat;
-            Debug.Log(autreUnite.pv);
+            //Debug.Log(autreUnite.pv);
         }
     }
 
@@ -187,9 +189,7 @@ public class Unite
     int Aleatoire(int min, int max)
     {
         // Génération d'un nombre aléatoire entre min (inclus) et max (exclus)
-        int variableAleatoire = UnityEngine.Random.Range(min, max);
-
-        return variableAleatoire;
+        return UnityEngine.Random.Range(min, max);
     }
 
     public int Deplacement(Unite targetUnit){

@@ -34,6 +34,17 @@ public class MenuControler : MonoBehaviour
     public int nombre_unites_globales_ennemies_menu;
     public int nombre_unites_globales_allies_menu;
 
+    public GameObject inputFieldEnnemisDistant;
+    public GameObject textDisplayEnnemisDistant;
+
+    public GameObject inputFieldAlliésDistant;
+    public GameObject textDisplayAlliésDistant;
+
+    public int nombre_unites_globales_ennemiesDistant_menu;
+    public int nombre_unites_globales_alliesDistant_menu;
+
+
+
     public void GetInputTextEnnemis()
     {
         nombre_unites_globales_ennemies_menu = int.Parse(inputFieldEnnemis.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
@@ -47,6 +58,22 @@ public class MenuControler : MonoBehaviour
         nombre_unites_globales_allies_menu = int.Parse(inputFieldAlliés.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
         textDisplayAlliés.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_allies_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
         PlayerPrefs.SetInt("nombre_unites_globales_allies_menu", nombre_unites_globales_allies_menu);
+        PlayerPrefs.Save();
+    }
+
+    public void GetInputTextEnnemisDistant()
+    {
+        nombre_unites_globales_ennemiesDistant_menu = int.Parse(inputFieldEnnemisDistant.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
+        textDisplayEnnemisDistant.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_ennemiesDistant_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+        PlayerPrefs.SetInt("nombre_unites_globales_ennemiesDistant_menu", nombre_unites_globales_ennemiesDistant_menu);
+        PlayerPrefs.Save();
+    }
+
+    public void GetInputTextAlliesDistant()
+    {
+        nombre_unites_globales_alliesDistant_menu = int.Parse(inputFieldAlliésDistant.GetComponent<Text>().text); //On récupère l'entrée du joueur et on la convertis en un entier
+        textDisplayAlliésDistant.GetComponent<Text>().text = "Vous avez entré : " + nombre_unites_globales_alliesDistant_menu; //Permet d'afficher ce que le joueur a entré directement sur le jeu
+        PlayerPrefs.SetInt("nombre_unites_globales_alliesDistant_menu", nombre_unites_globales_alliesDistant_menu);
         PlayerPrefs.Save();
     }
     
