@@ -21,7 +21,10 @@ public class Jeu : MonoBehaviour
 
     public GameObject prefabAllie;
     public GameObject prefabEnnemi;
-    Animator animator;
+    public GameObject prefabArcherAllie;
+    public GameObject prefabArcherEnnemi;
+    public Animator animatorMelee;
+    public Animator animatorDistant;
 
     private Canvas canva_pour_texte_pv;
     private List<AffichageDesPVs> liste_texte_pv= new List<AffichageDesPVs>();
@@ -41,13 +44,14 @@ public class Jeu : MonoBehaviour
         nb_alliee_melee=PlayerPrefs.GetInt("nombre_unites_globales_allies_menu", 1);
         nb_ennemis_melee=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
 
-        nb_alliee_distant=0;
-        nb_ennemis_distant=0;//PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
+        nb_alliee_distant=1;
+        nb_ennemis_distant=1;//PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
 
         nb_alliee_total=nb_alliee_melee+nb_alliee_distant;
         nb_ennemis_total=nb_ennemis_melee+nb_ennemis_distant;
 
-        animator = GetComponent<Animator>();
+        animatorMelee = GetComponent<Animator>();
+        animatorDistant = GetComponent<Animator>();
 
         
         for(int i=0;i<nb_alliee_total;i++) 
@@ -63,7 +67,7 @@ public class Jeu : MonoBehaviour
             }
             else /////////////////Alliée Distant/////////////////////
             {
-                unites_alliees.Add(new Unite(1000, 100, 2f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_alliees.Add(new Unite(1000, 10, 2f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,2);
             }
 
@@ -79,7 +83,7 @@ public class Jeu : MonoBehaviour
             }
             else /////////////////Ennemis Distant////////////////////
             {
-                unites_ennemies.Add(new Unite(1000, 100, 2f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_ennemies.Add(new Unite(1000, 10, 2f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
 
             }
@@ -124,16 +128,16 @@ public class Jeu : MonoBehaviour
         if(type==1)
         {
             if(equipe==1)
-                CreerPrefab("UniteAlliee",positionX,positionY,positionZ);
+                CreerPrefab("UniteAlliee","Melee",positionX,positionY,positionZ);
             if(equipe==2)
-                CreerPrefab("UniteEnnemis",positionX,positionY,positionZ);
+                CreerPrefab("UniteEnnemis","Melee",positionX,positionY,positionZ);
         }
         if(type==2)
         {
             if(equipe==1)
-                CreerPrefab("UniteAlliee",positionX,positionY,positionZ);
+                CreerPrefab("UniteAlliee","Distant",positionX,positionY,positionZ);
             if(equipe==2)
-                CreerPrefab("UniteEnnemis",positionX,positionY,positionZ);
+                CreerPrefab("UniteEnnemis","Distant",positionX,positionY,positionZ);
         }
     }
 
@@ -164,15 +168,34 @@ public class Jeu : MonoBehaviour
         }
     }
 
-    void CreerPrefab(string ChoixUnite, float positionX, float positionY, float positionZ)
+    void CreerPrefab(string ChoixUnite,string TypeUnite, float positionX, float positionY, float positionZ)
     {
         GameObject newUnite;
         if(ChoixUnite == "UniteAlliee")
-            newUnite = Instantiate(prefabAllie);
-        else
-            newUnite = Instantiate(prefabEnnemi);  
+            if(TypeUnite == "Melee"){
+                newUnite = Instantiate(prefabAllie);
+            }
+            else if(TypeUnite == "Distant"){
+                newUnite = Instantiate(prefabArcherAllie);
+            }
+            else 
+                newUnite = null;
+        else if(ChoixUnite == "UniteEnnemis")
+        {
+            if(TypeUnite == "Melee"){
+                newUnite = Instantiate(prefabEnnemi); 
+            }
+            else if(TypeUnite == "Distant"){
+                newUnite = Instantiate(prefabArcherEnnemi); 
+            }
+            else 
+                newUnite = null;
+        }
+        else 
+            newUnite = null;
+             
             
-        newUnite.name = ChoixUnite + tab_gameobject_unite.Count.ToString();
+        newUnite.name = ChoixUnite + TypeUnite + tab_gameobject_unite.Count.ToString();
 
         // Placer l'unité à la position spécifiée
         newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
