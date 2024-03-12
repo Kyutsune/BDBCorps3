@@ -120,47 +120,20 @@ public class Jeu : MonoBehaviour
 
     void CreerUnite(float positionX, float positionY, float positionZ,int equipe, int type)
     {
+
         if(type==1)
         {
-            if(equipe==1){
-                GameObject newUnite = Instantiate(prefabAllie);
-                newUnite.name = "UniteAlliee" + tab_gameobject_unite.Count.ToString();
-
-                // Placer l'unité à la position spécifiée
-                newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
-
-                tab_gameobject_unite.Add(newUnite);
-            }
-            if(equipe==2){
-                GameObject newUnite = Instantiate(prefabEnnemi);
-                newUnite.name = "UniteEnnemie" + tab_gameobject_unite.Count.ToString();
-
-                // Placer l'unité à la position spécifiée
-                newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
-
-                tab_gameobject_unite.Add(newUnite);
-            }
+            if(equipe==1)
+                CreerPrefab("UniteAlliee",positionX,positionY,positionZ);
+            if(equipe==2)
+                CreerPrefab("UniteEnnemis",positionX,positionY,positionZ);
         }
         if(type==2)
         {
-            if(equipe==1){
-                GameObject newUnite = Instantiate(prefabAllie);
-                newUnite.name = "UniteAlliee" + tab_gameobject_unite.Count.ToString();
-
-                // Placer l'unité à la position spécifiée
-                newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
-
-                tab_gameobject_unite.Add(newUnite);
-            }
-            if(equipe==2){
-                GameObject newUnite = Instantiate(prefabEnnemi);
-                newUnite.name = "UniteEnnemie" + tab_gameobject_unite.Count.ToString();
-
-                // Placer l'unité à la position spécifiée
-                newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
-
-                tab_gameobject_unite.Add(newUnite);
-            }
+            if(equipe==1)
+                CreerPrefab("UniteAlliee",positionX,positionY,positionZ);
+            if(equipe==2)
+                CreerPrefab("UniteEnnemis",positionX,positionY,positionZ);
         }
     }
 
@@ -169,57 +142,70 @@ public class Jeu : MonoBehaviour
         {
             if(i<nb_alliee_melee)
             {
-                animatorController allieUniteController = tab_gameobject_unite[i].GetComponent<animatorController>();
-                bool etat = unites_alliees[i].GestionEvenement(unites_ennemies,nb_ennemis_total,allieUniteController);
-                tab_gameobject_unite[i].transform.position = new Vector3(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ);
-                if(etat == true){
-                    tab_gameobject_unite.RemoveAt(i);
-                    unites_alliees.RemoveAt(i);
-                    nb_alliee_melee--;
-                    nb_alliee_total--;
-                }
+                ParcoursEvenement(i,"alliee");
+                
             }
             else
             {
-                animatorController allieUniteController = tab_gameobject_unite[i].GetComponent<animatorController>();
-                bool etat = unites_alliees[i].GestionEvenement(unites_ennemies,nb_ennemis_total,allieUniteController);
-                tab_gameobject_unite[i].transform.position = new Vector3(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ);
-                if(etat == true){
-                    tab_gameobject_unite.RemoveAt(i);
-                    unites_alliees.RemoveAt(i);
-                    nb_alliee_distant--;
-                    nb_alliee_total--;
-                }
+                ParcoursEvenement(i,"alliee");
             }
             
         }
         for(int i=0;i<nb_ennemis_total;i++){
             if(i<nb_ennemis_melee)
             {
-                animatorController ennemiUniteController = tab_gameobject_unite[i+nb_alliee_total].GetComponent<animatorController>();
-                bool etat = unites_ennemies[i].GestionEvenement(unites_alliees,nb_alliee_total,ennemiUniteController);
-                tab_gameobject_unite[i+nb_alliee_total].transform.position = new Vector3(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
-                if(etat == true){
-                    tab_gameobject_unite.RemoveAt(i+nb_alliee_total);
-                    unites_ennemies.RemoveAt(i);
-                    nb_ennemis_melee--;
-                    nb_ennemis_total--;
-                }
+                ParcoursEvenement(i,"ennemi");
             }
             else
             {
-                animatorController ennemiUniteController = tab_gameobject_unite[i+nb_alliee_total].GetComponent<animatorController>();
-                bool etat = unites_ennemies[i].GestionEvenement(unites_alliees,nb_alliee_total,ennemiUniteController);
-                tab_gameobject_unite[i+nb_alliee_total].transform.position = new Vector3(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ);
-                if(etat == true){
-                    tab_gameobject_unite.RemoveAt(i+nb_alliee_total);
-                    unites_ennemies.RemoveAt(i);
-                    nb_ennemis_distant--;
-                    nb_ennemis_total--;
-                }
+                ParcoursEvenement(i,"ennemi");
             }
             
         }
-    } 
+    }
+
+    void CreerPrefab(string ChoixUnite, float positionX, float positionY, float positionZ)
+    {
+        GameObject newUnite;
+        if(ChoixUnite == "UniteAlliee")
+            newUnite = Instantiate(prefabAllie);
+        else
+            newUnite = Instantiate(prefabEnnemi);  
+            
+        newUnite.name = ChoixUnite + tab_gameobject_unite.Count.ToString();
+
+        // Placer l'unité à la position spécifiée
+        newUnite.transform.position = new Vector3(positionX, positionY, positionZ);
+
+        tab_gameobject_unite.Add(newUnite);
+    }
+
+    void ParcoursEvenement(int posTab,string equipe)
+    {
+        if(equipe == "alliee")
+        {
+            animatorController allieUniteController = tab_gameobject_unite[posTab].GetComponent<animatorController>();
+            bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total,allieUniteController);
+            tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
+            if(etat == true){
+                tab_gameobject_unite.RemoveAt(posTab);
+                unites_alliees.RemoveAt(posTab);
+                nb_alliee_melee--;
+                nb_alliee_total--;
+            }
+        }
+        else
+        {
+            animatorController ennemiUniteController = tab_gameobject_unite[posTab+nb_alliee_total].GetComponent<animatorController>();
+                bool etat = unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total,ennemiUniteController);
+                tab_gameobject_unite[posTab+nb_alliee_total].transform.position = new Vector3(unites_ennemies[posTab].PositionX, unites_ennemies[posTab].PositionY, unites_ennemies[posTab].PositionZ);
+                if(etat == true){
+                    tab_gameobject_unite.RemoveAt(posTab+nb_alliee_total);
+                    unites_ennemies.RemoveAt(posTab);
+                    nb_ennemis_melee--;
+                    nb_ennemis_total--;
+                }
+        }
+    }
 
 }
