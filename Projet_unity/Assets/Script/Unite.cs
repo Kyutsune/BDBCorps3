@@ -166,10 +166,10 @@ public class Unite
             if(distance <= this.portee)
             {
                 animEvenement.seTourner(this,plus_proche);
+                animEvenement.setFighting(true);
                 if(Time.time - dernierTempsAttaque > this.vitesseAttaque)
                 {
                     this.Attaquer(plus_proche);
-                    animEvenement.setFighting(true);
                     dernierTempsAttaque = Time.time;
                 }
             }
