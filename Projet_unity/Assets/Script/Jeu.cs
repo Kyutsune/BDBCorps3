@@ -45,7 +45,7 @@ public class Jeu : MonoBehaviour
         nb_ennemis_melee=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
 
         nb_alliee_distant=1;
-        nb_ennemis_distant=1;//PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
+        nb_ennemis_distant=PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
 
         nb_alliee_total=nb_alliee_melee+nb_alliee_distant;
         nb_ennemis_total=nb_ennemis_melee+nb_ennemis_distant;
@@ -62,12 +62,12 @@ public class Jeu : MonoBehaviour
             // liste_texte_pv.Add(textePVUnite);
             if(i<nb_alliee_melee) ////////////////////Alliee Melee////////////////////
             {
-                unites_alliees.Add(new Unite(1000, 2, 2f, Team.EquipeBleue, Type_unitee.Melee, canva_pour_texte_pv, true,50f));
+                unites_alliees.Add(new Unite(1000, 2, 2f, Team.EquipeBleue, Type_unitee.Melee, canva_pour_texte_pv, true,20f));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,1);
             }
             else /////////////////Alliée Distant/////////////////////
             {
-                unites_alliees.Add(new Unite(1000, 10, 2f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_alliees.Add(new Unite(500, 10, 2f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,2);
             }
 
@@ -78,12 +78,12 @@ public class Jeu : MonoBehaviour
         {
             if(i<nb_ennemis_melee) ////////////////////Ennemis Melee////////////////////
             {
-                unites_ennemies.Add(new Unite(1000, 2, 2f,Team.EquipeRouge, Type_unitee.Melee, canva_pour_texte_pv, true,2f));
+                unites_ennemies.Add(new Unite(1000, 2, 2f,Team.EquipeRouge, Type_unitee.Melee, canva_pour_texte_pv, true,20f));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,1);
             }
             else /////////////////Ennemis Distant////////////////////
             {
-                unites_ennemies.Add(new Unite(1000, 10, 2f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_ennemies.Add(new Unite(500, 10, 2f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
 
             }
