@@ -67,7 +67,7 @@ public class Jeu : MonoBehaviour
             }
             else /////////////////Alliée Distant/////////////////////
             {
-                unites_alliees.Add(new Unite(500, 10, 2f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_alliees.Add(new Unite(500, 10, 5f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,2);
             }
 
@@ -83,7 +83,7 @@ public class Jeu : MonoBehaviour
             }
             else /////////////////Ennemis Distant////////////////////
             {
-                unites_ennemies.Add(new Unite(500, 10, 2f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_ennemies.Add(new Unite(500, 10, 5f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
 
             }
