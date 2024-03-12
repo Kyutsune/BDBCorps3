@@ -158,7 +158,7 @@ public class Unite
             float distance = this.distanceUnite(plus_proche);
 
             // Vérifier si la distance est supérieure à la distance minimale
-            if (distance > distanceMinimale)
+            if (distance > distanceMinimale && distance > this.portee)
             {
                 animEvenement.seTourner(this,plus_proche);
                 int RunOrWalk = this.Deplacement(plus_proche);

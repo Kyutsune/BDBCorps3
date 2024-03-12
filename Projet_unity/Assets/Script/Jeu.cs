@@ -41,8 +41,8 @@ public class Jeu : MonoBehaviour
         nb_alliee_melee=PlayerPrefs.GetInt("nombre_unites_globales_allies_menu", 1);
         nb_ennemis_melee=PlayerPrefs.GetInt("nombre_unites_globales_ennemies_menu", 1);
 
-        nb_alliee_distant=1;
-        nb_ennemis_distant=PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
+        nb_alliee_distant=0;
+        nb_ennemis_distant=0;//PlayerPrefs.GetInt("nombre_unites_globales_ennemiesDistant_menu", 1);
 
         nb_alliee_total=nb_alliee_melee+nb_alliee_distant;
         nb_ennemis_total=nb_ennemis_melee+nb_ennemis_distant;
