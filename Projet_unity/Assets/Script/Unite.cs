@@ -50,6 +50,12 @@ public class Unite
     public float WalkSpeed = 2f;
 
 
+
+    //Ici on va gérer les composantes servant pour les régiments d'untité
+    //booléen qui nous dis si l'unité est en régiment ou non  
+    public bool en_regiment;
+
+
     // Propriétés pour accéder aux données
     public float PositionX
     {
@@ -81,6 +87,12 @@ public class Unite
         set { parmiNous = value; }
     }
     
+    
+    public bool EnRegiment
+    {
+        get { return en_regiment; }
+        set { en_regiment = value; }
+    }
 
 
     //Constructeur par défaut,à utiliser pour les tests de début 
@@ -117,12 +129,16 @@ public class Unite
         type_unitee = newTypeUnitee;
         parmiNous = newparmiNous; 
         degat = newDegat;
+        en_regiment=false;
     }
 
     public float distanceUnite(Unite autreUnite){
         return Vector3.Distance(new Vector3(this.positionX, this.positionY, this.positionZ), new Vector3(autreUnite.PositionX, autreUnite.PositionY, autreUnite.PositionZ));
     }
 
+
+    //Fonction qui va chercher l'unité la plus proche de l'unité courant dans le tableau tab_uni
+    //nb_unite correspond au nombre unite dans le tableau tab_uni
     public Unite DetectionUnite (List<Unite> tab_uni,int nb_unite) {
         if(nb_unite != 0){
             int indice_min = 0;
@@ -139,6 +155,25 @@ public class Unite
         }
         return null;
 	}
+
+    public Unite DetectionUnite_regiment (List<Unite> tab_uni,int nb_unite) {
+        if(nb_unite != 0){
+            int indice_min = 0;
+            float distance_min = 0;
+            for(int j = 0; j < nb_unite; j++){
+                
+                float distance = this.distanceUnite(tab_uni[j]);
+                if(distance_min > distance || j == 0 && (tab_uni[indice_min].EnRegiment==false)){
+                    indice_min = j;
+                    distance_min = distance;
+                }
+            }
+            tab_uni[indice_min].EnRegiment=true;
+            return tab_uni[indice_min];
+        }
+        return null;
+	}
+
 
     public void Attaquer(Unite autreUnite)
     {
