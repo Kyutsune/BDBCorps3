@@ -13,8 +13,8 @@ le type de l'untité via type_unitee
 //Enum qui va nous servir à savoir dans quelle équipe est l'unité
 public enum Team
 {
-    Equipe1,
-    Equipe2
+    EquipeBleue,
+    EquipeRouge
 }
 
 public enum Type_unitee
@@ -24,7 +24,7 @@ public enum Type_unitee
 }
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
-public class Unite 
+public class Unite
 {
     //Position
     private float positionX = 0;
@@ -99,9 +99,17 @@ public class Unite
 
     public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous,float newDegat )
     {
-        positionX = Aleatoire(0,50);
-        positionY = 0;
-        positionZ = Aleatoire(0,50);
+        if(newteam == Team.EquipeBleue){
+            positionX = Aleatoire(20,50);
+            positionY = 0;
+            positionZ = Aleatoire(-10,0);
+        }
+        else{
+            positionX = Aleatoire(20,50);
+            positionY = 0;
+            positionZ = Aleatoire(30,40);
+        }
+        
         pv = newPv;
         portee = newPortee;
         vitesseAttaque=newVitesseAttaque;
@@ -136,7 +144,6 @@ public class Unite
     {
         if(autreUnite != null){
             autreUnite.pv=autreUnite.pv - this.degat;
-            //Debug.Log(autreUnite.pv);
         }
     }
 
