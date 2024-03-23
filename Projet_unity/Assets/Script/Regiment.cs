@@ -29,7 +29,7 @@ public class Regiment
 
     private void Creation_Regiment(Unite unite_capitaine)
     {
-        this.nb_unite_max_dans_regiment=9;
+        this.nb_unite_max_dans_regiment=10;
         this.regiment_en_train_de_se_former=true;
         tab_unite_en_regiment.Add(unite_capitaine);
         this.nb_unite_actuelle_dans_regiment=1;
@@ -51,7 +51,7 @@ public class Regiment
 
 
     //Ici on a la fonction qui va nous servir à initialiser le régiment et le remplir d'unité 
-    private void Formation_regiment(Unite unite_capitaine,List<Unite> tab_uni,int nb_unite)
+    public void Formation_regiment(Unite unite_capitaine,List<Unite> tab_uni,int nb_unite)
     {
         Creation_Regiment(unite_capitaine);
         cherche_unite_dans_regiment(tab_uni,nb_unite);

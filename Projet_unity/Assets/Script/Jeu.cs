@@ -33,6 +33,15 @@ public class Jeu : MonoBehaviour
     Timer temps_passé_en_jeu=new Timer();
     bool affichage_temps=false;
 
+    private Regiment regiment = new Regiment();
+
+    private int nb_regiments_allie;
+    private int nb_allie_sans_regiment;
+
+    private int nb_regiments_ennemis;
+    private int nb_ennemis_sans_regiment;
+    
+
     void Start()
     {
         GameObject canvasObj = new GameObject("Canvas");
@@ -94,6 +103,9 @@ public class Jeu : MonoBehaviour
         
         temps_passé_en_jeu.Initialisation_Timer();
 
+        InitialisationNombreRegiments();
+        GestionRegiments();
+
     }
 
     void Update()
@@ -153,9 +165,9 @@ public class Jeu : MonoBehaviour
             else
             {
                 ParcoursEvenement(i,"alliee");
-            }
-            
+            }           
         }
+        
         for(int i=0;i<nb_ennemis_total;i++){
             if(i<nb_ennemis_melee)
             {
@@ -230,6 +242,46 @@ public class Jeu : MonoBehaviour
                     nb_ennemis_total--;
                 }
         }
+    }
+
+    void InitialisationNombreRegiments()
+    {
+        regiment.Nb_Unite_Max_Dans_Regiment = 10;
+
+        nb_regiments_allie = nb_alliee_total / regiment.Nb_Unite_Max_Dans_Regiment; 
+        
+        //Si le nombre d'alliés n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
+        if(nb_alliee_total != nb_regiments_allie * regiment.Nb_Unite_Max_Dans_Regiment) 
+        {
+            nb_regiments_allie++;
+        } 
+
+        nb_allie_sans_regiment = nb_alliee_total - 1;
+
+        nb_regiments_ennemis = nb_ennemis_total / regiment.Nb_Unite_Max_Dans_Regiment; 
+
+        //Si le nombre d'ennemis n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
+        if(nb_ennemis_total != nb_regiments_ennemis * regiment.Nb_Unite_Max_Dans_Regiment) 
+        {
+            nb_regiments_ennemis++;
+        } 
+
+        nb_ennemis_sans_regiment = nb_ennemis_total - 1;
+    }
+
+    void GestionRegiments()
+    {
+        for(int j = 0; j < nb_regiments_allie; j++)
+        {
+            regiment.Formation_regiment(unites_alliees[nb_allie_sans_regiment], unites_alliees , nb_alliee_total); 
+            nb_allie_sans_regiment = nb_allie_sans_regiment - regiment.Nb_Unite_Max_Dans_Regiment;                   
+        }
+
+        for(int j = 0; j < nb_regiments_ennemis; j++)
+        {
+            regiment.Formation_regiment(unites_ennemies[nb_ennemis_sans_regiment], unites_ennemies , nb_ennemis_total); 
+            nb_ennemis_sans_regiment = nb_ennemis_sans_regiment - regiment.Nb_Unite_Max_Dans_Regiment;                   
+        } 
     }
 
 }
