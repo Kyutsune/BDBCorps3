@@ -34,7 +34,15 @@ public class Jeu : MonoBehaviour
     bool affichage_temps=false;
 
     private List<Regiment> regiments = new List<Regiment>();
-    private Regiment regiment;
+    private Regiment regiment;      
+
+
+    private int nb_regiments_allie;
+    private int nb_allie_sans_regiment;
+
+    private int nb_regiments_ennemis;
+    private int nb_ennemis_sans_regiment;
+    
 
 
    
@@ -101,9 +109,17 @@ public class Jeu : MonoBehaviour
         temps_passé_en_jeu.Initialisation_Timer();
 
         regiment = new Regiment();
-        regiment.InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
-        regiment.GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees, unites_ennemies);
+        regiment.Creation_Regiment(unites_alliees[0]);
+        regiment.AfficheList();
+        regiment.cherche_unite_dans_regiment(unites_alliees,nb_alliee_total);
+        regiment.AfficheList();
 
+
+
+        // InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
+        // GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees, unites_ennemies);
+
+        
     }
 
     void Update()
@@ -113,7 +129,7 @@ public class Jeu : MonoBehaviour
         // for(int j=0;j<nb_alliee_melee;j++)
         // {
         //     liste_texte_pv[j].MettreAJourTextePV(unites_ennemies[0].Pv,unites_alliees[0].PositionX,unites_alliees[0].PositionY,unites_alliees[0].PositionZ);
-        // }
+        // } 
         // float positionX_texte = unites_alliees[i].PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
         // float positionY_texte = unites_alliees[i].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
         // Debug.Log(positionX_texte);
@@ -242,6 +258,56 @@ public class Jeu : MonoBehaviour
         }
     }
 
-    
 
+
+
+/*
+    public void InitialisationNombreRegiments(int nb_alliee_total, int nb_ennemis_total)
+    {
+
+        //Ici on doit récupérer celui du régiment sur lequel on travaille,donc à récupérer avec le getter sur celui qu'on travaille
+        Nb_Unite_Max_Dans_Regiment = 10;
+
+        nb_regiments_allie = nb_alliee_total / Nb_Unite_Max_Dans_Regiment; 
+        
+        //Si le nombre d'alliés n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
+        if(nb_alliee_total != nb_regiments_allie * Nb_Unite_Max_Dans_Regiment) 
+        {
+            nb_regiments_allie++;
+        } 
+
+        nb_allie_sans_regiment = nb_alliee_total - 1;
+
+        nb_regiments_ennemis = nb_ennemis_total / Nb_Unite_Max_Dans_Regiment; 
+
+        //Si le nombre d'ennemis n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
+        if(nb_ennemis_total != nb_regiments_ennemis * Nb_Unite_Max_Dans_Regiment) 
+        {
+            nb_regiments_ennemis++;
+        } 
+
+        nb_ennemis_sans_regiment = nb_ennemis_total - 1;
+    }
+
+    public void GestionRegiments(int nb_alliee_total, int nb_ennemis_total, List<Unite> tab_uni_alliee, List<Unite> tab_uni_ennemis)
+    {
+
+        //le probleme dans cette fonction,c'est que tu n'initialise pas de régiment en particulier
+        for(int j = 0; j < nb_regiments_allie; j++)
+        {
+            //ici on devrait faire quelque chose du type 
+            //regiment_particulier.Formation_regiment(....);
+            
+            Formation_regiment(tab_uni_alliee[nb_allie_sans_regiment], tab_uni_alliee , nb_alliee_total);  
+            //AfficheList(tab_uni_ennemis);  
+            nb_allie_sans_regiment = nb_allie_sans_regiment - Nb_Unite_Max_Dans_Regiment;                
+        }
+
+        for(int j = 0; j < nb_regiments_ennemis; j++)
+        {
+            Formation_regiment(tab_uni_ennemis[nb_ennemis_sans_regiment], tab_uni_ennemis , nb_ennemis_total); 
+            nb_ennemis_sans_regiment = nb_ennemis_sans_regiment - Nb_Unite_Max_Dans_Regiment;                   
+        } 
+    }
+*/
 }
