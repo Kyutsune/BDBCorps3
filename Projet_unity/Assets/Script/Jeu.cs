@@ -260,13 +260,21 @@ public class Jeu : MonoBehaviour
 
 
 
-
 /*
+
+///Dans toute la suite j'ai pas le temps de debug moi meme ces fonction la,je te met donc des conseils précédés par ///
+
+
+
+///Tu as bien créer une list de regiment allié,faut en faire une pour les régiments ennemis
+///Pour vétifier si ils sont bien crées,cf l'exemple que j'ai mis pour init 1 régiment 
+
     public void InitialisationNombreRegiments(int nb_alliee_total, int nb_ennemis_total)
     {
 
-        //Ici on doit récupérer celui du régiment sur lequel on travaille,donc à récupérer avec le getter sur celui qu'on travaille
-        Nb_Unite_Max_Dans_Regiment = 10;
+        ///Ici j'aime pas mais on va garder le fait d'inittialiser un int global qui représente ce nombre la pour le début,faut
+        ///Evidemment le bouger d'ici pour que ce soit en parametre de classe Jeu
+        int Nb_Unite_Max_Dans_Regiment = 10;
 
         nb_regiments_allie = nb_alliee_total / Nb_Unite_Max_Dans_Regiment; 
         
@@ -292,17 +300,18 @@ public class Jeu : MonoBehaviour
     public void GestionRegiments(int nb_alliee_total, int nb_ennemis_total, List<Unite> tab_uni_alliee, List<Unite> tab_uni_ennemis)
     {
 
-        //le probleme dans cette fonction,c'est que tu n'initialise pas de régiment en particulier
+        ///le probleme dans cette fonction,c'est que tu n'initialise pas de régiment en particulier
         for(int j = 0; j < nb_regiments_allie; j++)
         {
-            //ici on devrait faire quelque chose du type 
-            //regiment_particulier.Formation_regiment(....);
-            
+            ///ici on devrait faire quelque chose du type 
+            ///regiment_allie[j].Formation_regiment(....);
             Formation_regiment(tab_uni_alliee[nb_allie_sans_regiment], tab_uni_alliee , nb_alliee_total);  
             //AfficheList(tab_uni_ennemis);  
             nb_allie_sans_regiment = nb_allie_sans_regiment - Nb_Unite_Max_Dans_Regiment;                
         }
 
+
+        ///Meme remarque pour les regiments ennemis
         for(int j = 0; j < nb_regiments_ennemis; j++)
         {
             Formation_regiment(tab_uni_ennemis[nb_ennemis_sans_regiment], tab_uni_ennemis , nb_ennemis_total); 
