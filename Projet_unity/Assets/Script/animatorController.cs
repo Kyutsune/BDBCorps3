@@ -14,12 +14,6 @@ public class animatorController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void seTourner(Unite Courante, Unite Visee){
         if(animator.GetBool("IsWalking")==true || animator.GetBool("IsRunning")==true){
             if(transform.position!=savedPosition){

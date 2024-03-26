@@ -24,7 +24,7 @@ public enum Type_unitee
 }
 
 //Classe unité qui va définir les personnages bougeant sur le terrain
-public class Unite
+public abstract class Unite
 {
     //Position
     private float positionX = 0;
@@ -37,7 +37,6 @@ public class Unite
     //Composantes nécessaire à l'attaque
     private float portee;
     private double vitesseAttaque;
-    private bool parmiNous;
     private float degat;
     private float dernierTempsAttaque = 0f;
 
@@ -70,7 +69,7 @@ public class Unite
     }
 
      public float PositionZ
-    {
+    {   
         get { return positionZ; }
         set { positionZ = value; }
     }
@@ -80,13 +79,6 @@ public class Unite
         get { return pv; }
         set { pv = value; }
     }
-
-    public bool ParmiNous
-    {
-        get { return parmiNous; }
-        set { parmiNous = value; }
-    }
-    
     
     public bool EnRegiment
     {
@@ -94,6 +86,29 @@ public class Unite
         set { en_regiment = value; }
     }
 
+    public float Portee
+    {
+        get { return portee; }
+        set { portee = value; }
+    }
+
+    public double VitesseAttaque
+    {
+        get { return vitesseAttaque; }
+        set { vitesseAttaque = value; }
+    }
+
+    public float DernierTempsAttaque 
+    {
+        get { return dernierTempsAttaque; }
+        set { dernierTempsAttaque = value; }
+    }
+
+    public float Degat
+    {
+        get { return degat; }
+        set { degat = value; }
+    }
 
     //Constructeur par défaut,à utiliser pour les tests de début 
     public Unite()
@@ -109,34 +124,6 @@ public class Unite
         degat = 1;
     }
 
-    public Unite(double newPv, float newPortee, double newVitesseAttaque,Team newteam, Type_unitee newTypeUnitee, Canvas NewCanva,bool newparmiNous,float newDegat )
-    {
-        if(newteam == Team.EquipeBleue){
-            positionX = Aleatoire(20,50);
-            positionY = 0;
-            positionZ = Aleatoire(-10,0);
-        }
-        else{
-            positionX = Aleatoire(20,50);
-            positionY = 0;
-            positionZ = Aleatoire(30,40);
-        }
-        
-        pv = newPv;
-        portee = newPortee;
-        vitesseAttaque=newVitesseAttaque;
-        team = newteam;
-        type_unitee = newTypeUnitee;
-        parmiNous = newparmiNous; 
-        degat = newDegat;
-        en_regiment=false;
-    }
-
-    public float distanceUnite(Unite autreUnite){
-        return Vector3.Distance(new Vector3(this.positionX, this.positionY, this.positionZ), new Vector3(autreUnite.PositionX, autreUnite.PositionY, autreUnite.PositionZ));
-    }
-
-
     //Fonction qui va chercher l'unité la plus proche de l'unité courant dans le tableau tab_uni
     //nb_unite correspond au nombre unite dans le tableau tab_uni
     public Unite DetectionUnite (List<Unite> tab_uni,int nb_unite) {
@@ -145,7 +132,7 @@ public class Unite
             float distance_min = 0;
             for(int j = 0; j < nb_unite; j++){
                 
-                float distance = this.distanceUnite(tab_uni[j]);
+                float distance = Outil.distanceUnite(this,tab_uni[j]);
                 if(distance_min > distance || j == 0){
                     indice_min = j;
                     distance_min = distance;
@@ -162,7 +149,7 @@ public class Unite
             float distance_min = 0;
             for(int j = 0; j < nb_unite; j++){
                 
-                float distance = this.distanceUnite(tab_uni[j]);
+                float distance = Outil.distanceUnite(this,tab_uni[j]);
                 if(distance_min > distance || j == 0 && (tab_uni[indice_min].EnRegiment==false)){
                     indice_min = j;
                     distance_min = distance;
@@ -175,64 +162,9 @@ public class Unite
 	}
 
 
-    public void Attaquer(Unite autreUnite)
-    {
-        if(autreUnite != null){
-            autreUnite.pv=autreUnite.pv - this.degat;
-        }
-    }
+    public abstract void Attaquer(Unite autreUnite);
 
-    public bool GestionEvenement(List<Unite> tab,int nb_unite,animatorController animEvenement){
-        if(nb_unite != 0) {
-            Unite plus_proche = this.DetectionUnite(tab,nb_unite);
-
-            // Définir une distance minimale pour éviter les collisions
-            float distanceMinimale = 1.5f;
-
-            // Calculer la distance entre les deux unités
-            float distance = this.distanceUnite(plus_proche);
-
-            // Vérifier si la distance est supérieure à la distance minimale
-            if (distance > distanceMinimale && distance > this.portee)
-            {
-                animEvenement.seTourner(this,plus_proche);
-                int RunOrWalk = this.Deplacement(plus_proche);
-                if(RunOrWalk == 1){
-                    animEvenement.setRunning(true);
-                }
-                if(RunOrWalk == 2) {
-                    animEvenement.setWalking(true);
-                }
-            }
-
-            if(distance <= this.portee)
-            {
-                animEvenement.seTourner(this,plus_proche);
-                animEvenement.setFighting(true);
-                if(Time.time - dernierTempsAttaque > this.vitesseAttaque)
-                {
-                    this.Attaquer(plus_proche);
-                    dernierTempsAttaque = Time.time;
-                }
-            }
-
-            if(this.pv <= 0){
-                animEvenement.Mort();
-                return true;
-            }
-        }
-        else {
-            animEvenement.Victoire();
-        }
-
-        return false;
-    }
-
-    int Aleatoire(int min, int max)
-    {
-        // Génération d'un nombre aléatoire entre min (inclus) et max (exclus)
-        return UnityEngine.Random.Range(min, max);
-    }
+    public abstract bool GestionEvenement(List<Unite> tab,int nb_unite,animatorController animEvenement);
 
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null){
@@ -244,7 +176,7 @@ public class Unite
                 // Calculer le vecteur direction de la cible
                 Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
 
-                float distance = this.distanceUnite(targetUnit);
+                float distance = Outil.distanceUnite(this,targetUnit);
                 // Calculer le déplacement en fonction de la vitesse constante
                 if(distance > 5f){
                     Vector3 movement = direction * RunSpeed * Time.deltaTime;

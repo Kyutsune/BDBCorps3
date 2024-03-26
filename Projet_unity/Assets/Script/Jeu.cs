@@ -12,6 +12,7 @@ public class Jeu : MonoBehaviour
     private List<GameObject> tab_gameobject_unite = new List<GameObject>();
     private List<Unite> unites_alliees = new List<Unite>();
     private List<Unite> unites_ennemies = new List<Unite>();
+
     private int nb_alliee_melee;
     private int nb_ennemis_melee;
     private int nb_alliee_distant;
@@ -24,6 +25,7 @@ public class Jeu : MonoBehaviour
     public GameObject prefabEnnemi;
     public GameObject prefabArcherAllie;
     public GameObject prefabArcherEnnemi;
+
     public Animator animatorMelee;
     public Animator animatorDistant;
 
@@ -77,12 +79,12 @@ public class Jeu : MonoBehaviour
             // liste_texte_pv.Add(textePVUnite);
             if(i<nb_alliee_melee) ////////////////////Alliee Melee////////////////////
             {
-                unites_alliees.Add(new Unite(1000, 2, 2f, Team.EquipeBleue, Type_unitee.Melee, canva_pour_texte_pv, true,20f));
+                unites_alliees.Add(new Paladin(Team.EquipeBleue));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,1);
             }
             else /////////////////Alliée Distant/////////////////////
             {
-                unites_alliees.Add(new Unite(500, 10, 5f, Team.EquipeBleue, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_alliees.Add(new Archer(Team.EquipeBleue));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,2);
             }
 
@@ -93,12 +95,12 @@ public class Jeu : MonoBehaviour
         {
             if(i<nb_ennemis_melee) ////////////////////Ennemis Melee////////////////////
             {
-                unites_ennemies.Add(new Unite(1000, 2, 2f,Team.EquipeRouge, Type_unitee.Melee, canva_pour_texte_pv, true,20f));
+                unites_ennemies.Add(new Paladin(Team.EquipeRouge));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,1);
             }
             else /////////////////Ennemis Distant////////////////////
             {
-                unites_ennemies.Add(new Unite(500, 10, 5f, Team.EquipeRouge, Type_unitee.Distance, canva_pour_texte_pv, true,50f));
+                unites_ennemies.Add(new Archer(Team.EquipeRouge));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
 
             }
@@ -125,7 +127,7 @@ public class Jeu : MonoBehaviour
     void Update()
     { 
         GestionJeu();
-
+        Projectiles.deplacementObjetProjectile();
         // for(int j=0;j<nb_alliee_melee;j++)
         // {
         //     liste_texte_pv[j].MettreAJourTextePV(unites_ennemies[0].Pv,unites_alliees[0].PositionX,unites_alliees[0].PositionY,unites_alliees[0].PositionZ);
