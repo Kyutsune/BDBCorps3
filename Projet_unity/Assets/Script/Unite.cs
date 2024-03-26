@@ -94,6 +94,14 @@ public class Unite
         set { en_regiment = value; }
     }
 
+    public double Portee
+    {
+        get { return portee; }
+        set { portee = value; }
+    }
+
+
+
 
     //Constructeur par défaut,à utiliser pour les tests de début 
     public Unite()
@@ -236,39 +244,37 @@ public class Unite
 
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null){
-            if (targetUnit.team != this.team)
-            {
-                // Récupérer la position de la cible
-                Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
+            // Récupérer la position de la cible
+            Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
 
-                // Calculer le vecteur direction de la cible
-                Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
+            // Calculer le vecteur direction de la cible
+            Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
 
-                float distance = this.distanceUnite(targetUnit);
-                // Calculer le déplacement en fonction de la vitesse constante
-                if(distance > 5f){
-                    Vector3 movement = direction * RunSpeed * Time.deltaTime;
+            float distance = this.distanceUnite(targetUnit);
+            // Calculer le déplacement en fonction de la vitesse constante
+            if(distance > 5f){
+                Vector3 movement = direction * RunSpeed * Time.deltaTime;
 
-                    // Mettre à jour la position de l'unité
-                    this.PositionX += movement.x;
-                    this.PositionY += movement.y;
-                    this.PositionZ += movement.z;
+                // Mettre à jour la position de l'unité
+                this.PositionX += movement.x;
+                this.PositionY += movement.y;
+                this.PositionZ += movement.z;
 
-                    return 1;
-                }
-                
-                if(distance <= 5f){
-                    Vector3 movement = direction * WalkSpeed * Time.deltaTime;
-
-                    // Mettre à jour la position de l'unité
-                    this.PositionX += movement.x;
-                    this.PositionY += movement.y;
-                    this.PositionZ += movement.z;
-
-                    return 2;
-                }
+                return 1;
             }
-        }
+            
+            if(distance <= 5f){
+                Vector3 movement = direction * WalkSpeed * Time.deltaTime;
+
+                // Mettre à jour la position de l'unité
+                this.PositionX += movement.x;
+                this.PositionY += movement.y;
+                this.PositionZ += movement.z;
+
+                return 2;
+            }
+    }
         return 0;
     }
 }
+
