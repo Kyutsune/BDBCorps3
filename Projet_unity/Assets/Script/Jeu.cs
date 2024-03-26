@@ -33,9 +33,9 @@ public class Jeu : MonoBehaviour
     Timer temps_passé_en_jeu=new Timer();
     bool affichage_temps=false;
 
-    private List<Regiment> regiments = new List<Regiment>();
-    private Regiment regiment;      
-
+    private Regiment test=new Regiment();
+    private List<Regiment> tab_regiments_alliees = new List<Regiment>();
+    private List<Regiment> tab_regiments_enemies = new List<Regiment>();
 
     private int nb_regiments_allie;
     private int nb_allie_sans_regiment;
@@ -43,7 +43,9 @@ public class Jeu : MonoBehaviour
     private int nb_regiments_ennemis;
     private int nb_ennemis_sans_regiment;
     
-
+    private int Nb_Unite_Max_Dans_Regiment;
+    private int taille_dernier_regiment_allie;
+     private int taille_dernier_regiment_ennemis;
 
    
 
@@ -108,16 +110,17 @@ public class Jeu : MonoBehaviour
         
         temps_passé_en_jeu.Initialisation_Timer();
 
-        regiment = new Regiment();
-        regiment.Creation_Regiment(unites_alliees[0]);
-        regiment.AfficheList();
-        regiment.cherche_unite_dans_regiment(unites_alliees,nb_alliee_total);
-        regiment.AfficheList();
+        Nb_Unite_Max_Dans_Regiment = 10;
+
+        InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
+        GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
 
 
-
-        // InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
-        // GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees, unites_ennemies);
+        // test.Creation_Regiment(unites_alliees[0]);
+        // test.AfficheList();
+        // test.cherche_unite_dans_regiment(unites_alliees,nb_alliee_total);
+        // test.AfficheList();
+        
 
         
     }
@@ -260,7 +263,7 @@ public class Jeu : MonoBehaviour
 
 
 
-/*
+
 
 ///Dans toute la suite j'ai pas le temps de debug moi meme ces fonction la,je te met donc des conseils précédés par ///
 
@@ -272,51 +275,88 @@ public class Jeu : MonoBehaviour
     public void InitialisationNombreRegiments(int nb_alliee_total, int nb_ennemis_total)
     {
 
-        ///Ici j'aime pas mais on va garder le fait d'inittialiser un int global qui représente ce nombre la pour le début,faut
-        ///Evidemment le bouger d'ici pour que ce soit en parametre de classe Jeu
-        int Nb_Unite_Max_Dans_Regiment = 10;
-
         nb_regiments_allie = nb_alliee_total / Nb_Unite_Max_Dans_Regiment; 
-        
-        //Si le nombre d'alliés n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
-        if(nb_alliee_total != nb_regiments_allie * Nb_Unite_Max_Dans_Regiment) 
-        {
-            nb_regiments_allie++;
-        } 
 
-        nb_allie_sans_regiment = nb_alliee_total - 1;
+        if(nb_alliee_total % Nb_Unite_Max_Dans_Regiment!=0)
+        {
+            taille_dernier_regiment_allie=nb_alliee_total % Nb_Unite_Max_Dans_Regiment;
+            nb_regiments_allie++;
+        }
+        else
+            taille_dernier_regiment_allie=Nb_Unite_Max_Dans_Regiment;
 
         nb_regiments_ennemis = nb_ennemis_total / Nb_Unite_Max_Dans_Regiment; 
 
-        //Si le nombre d'ennemis n'est pas divisible par le nombre de régiments, alors il manque un dernier régiment (non complet)
-        if(nb_ennemis_total != nb_regiments_ennemis * Nb_Unite_Max_Dans_Regiment) 
+        if(nb_ennemis_total % Nb_Unite_Max_Dans_Regiment!=0)
         {
+            taille_dernier_regiment_ennemis=nb_ennemis_total % Nb_Unite_Max_Dans_Regiment;
             nb_regiments_ennemis++;
-        } 
-
-        nb_ennemis_sans_regiment = nb_ennemis_total - 1;
-    }
+        }
+        else
+            taille_dernier_regiment_ennemis=Nb_Unite_Max_Dans_Regiment;
+        
+    } 
 
     public void GestionRegiments(int nb_alliee_total, int nb_ennemis_total, List<Unite> tab_uni_alliee, List<Unite> tab_uni_ennemis)
     {
-
-        ///le probleme dans cette fonction,c'est que tu n'initialise pas de régiment en particulier
+        Debug.Log(nb_regiments_ennemis);
+        
         for(int j = 0; j < nb_regiments_allie; j++)
         {
-            ///ici on devrait faire quelque chose du type 
-            ///regiment_allie[j].Formation_regiment(....);
-            Formation_regiment(tab_uni_alliee[nb_allie_sans_regiment], tab_uni_alliee , nb_alliee_total);  
-            //AfficheList(tab_uni_ennemis);  
-            nb_allie_sans_regiment = nb_allie_sans_regiment - Nb_Unite_Max_Dans_Regiment;                
+            int variable_alliee=0;
+            while(tab_uni_alliee[variable_alliee].EnRegiment == true)
+            {
+                variable_alliee++;
+            }
+            if(j != (nb_regiments_allie-1))
+            {              
+                Regiment regiment_generique = new Regiment();
+                regiment_generique.Creation_Regiment(tab_uni_alliee[variable_alliee]);
+                tab_regiments_alliees.Add(regiment_generique);
+            
+                tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total); 
+            } 
+            else
+            {
+                Regiment regiment_generique = new Regiment();
+                regiment_generique.Creation_Regiment(tab_uni_alliee[variable_alliee]);
+                tab_regiments_alliees.Add(regiment_generique);
+                tab_regiments_alliees[j].dernier_regiment_possible(taille_dernier_regiment_allie);                
+                tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total);
+                 
+            }
+            
+          
         }
 
-
-        ///Meme remarque pour les regiments ennemis
         for(int j = 0; j < nb_regiments_ennemis; j++)
         {
-            Formation_regiment(tab_uni_ennemis[nb_ennemis_sans_regiment], tab_uni_ennemis , nb_ennemis_total); 
-            nb_ennemis_sans_regiment = nb_ennemis_sans_regiment - Nb_Unite_Max_Dans_Regiment;                   
+            int variable_ennemis=0;
+            while(tab_uni_ennemis[variable_ennemis].EnRegiment == true)
+            {
+                variable_ennemis++;
+            }
+            if(j != (nb_regiments_ennemis - 1))
+            {              
+                Regiment regiment_generique = new Regiment();
+                regiment_generique.Creation_Regiment(tab_uni_ennemis[variable_ennemis]);
+                tab_regiments_enemies.Add(regiment_generique);
+            
+                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);
+                tab_regiments_enemies[j].AfficheList();
+            } 
+            else
+            {
+                Regiment regiment_generique = new Regiment();
+                regiment_generique.Creation_Regiment(tab_uni_ennemis[variable_ennemis]);
+                tab_regiments_enemies.Add(regiment_generique);
+
+                tab_regiments_enemies[j].dernier_regiment_possible(taille_dernier_regiment_ennemis);                
+                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);
+                tab_regiments_enemies[j].AfficheList();
+                 
+            }                 
         } 
     }
-*/
+
 }

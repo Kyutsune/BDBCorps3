@@ -168,7 +168,7 @@ public class Unite
                     distance_min = distance;
                 }
             }
-            tab_uni[indice_min].EnRegiment=true;
+            tab_uni[indice_min].en_regiment=true;
             return tab_uni[indice_min];
         }
         return null;

@@ -43,27 +43,24 @@ public class Regiment
     public void cherche_unite_dans_regiment(List<Unite> tab_uni,int nb_unite)
     {
         //AfficheList(tab_uni);
-        while(this.nb_unite_actuelle_dans_regiment<=this.nb_unite_max_dans_regiment)
+        while(this.nb_unite_actuelle_dans_regiment < this.nb_unite_max_dans_regiment)
         {   
             Unite recrue=tab_unite_en_regiment[0].DetectionUnite_regiment(tab_uni,nb_unite);
             tab_unite_en_regiment.Add(recrue);
             this.nb_unite_actuelle_dans_regiment++;
         }
         this.regiment_en_train_de_se_former=false;   
-
     }
 
-
-    //Ici on a la fonction qui va nous servir à initialiser le régiment et le remplir d'unité 
-    public void Formation_regiment(Unite unite_capitaine,List<Unite> tab_uni,int nb_unite)
-    {
-        Creation_Regiment(unite_capitaine);
-        cherche_unite_dans_regiment(tab_uni,nb_unite);
-    }
     
     public void AfficheList()
     {
         Debug.Log(this.tab_unite_en_regiment.Count);
+    }
+
+    public void dernier_regiment_possible(int nouvelle_taille)
+    {
+        nb_unite_max_dans_regiment=nouvelle_taille;
     }
 
 }
