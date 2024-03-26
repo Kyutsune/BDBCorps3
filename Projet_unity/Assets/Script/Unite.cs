@@ -94,7 +94,7 @@ public class Unite
         set { en_regiment = value; }
     }
 
-    public double Portee
+    public float Portee
     {
         get { return portee; }
         set { portee = value; }
@@ -169,9 +169,8 @@ public class Unite
             int indice_min = 0;
             float distance_min = 0;
             for(int j = 0; j < nb_unite; j++){
-                
                 float distance = this.distanceUnite(tab_uni[j]);
-                if(distance_min > distance || j == 0 && (tab_uni[indice_min].EnRegiment==false)){
+                if((distance_min > distance && (tab_uni[indice_min].en_regiment==false)) || j == 0){
                     indice_min = j;
                     distance_min = distance;
                 }

@@ -21,6 +21,7 @@ public class Regiment
     //La première unité qui est dans le tableau est l'unité "capitaine" 
     private List<Unite> tab_unite_en_regiment= new List<Unite>();
     private bool regiment_tous_rejoins;
+    private bool regiment_en_train_de_se_former;
     private List<bool> a_rejoint_le_regiment = new List<bool>();
 
     public int Nb_Unite_Max_Dans_Regiment
@@ -37,7 +38,7 @@ public class Regiment
         tab_unite_en_regiment.Add(unite_capitaine);
         a_rejoint_le_regiment.Add(true);
         this.nb_unite_actuelle_dans_regiment=1;
-        this.regiment_est_rejoint=false;
+        this.regiment_tous_rejoins=false;
     }
 
 
@@ -70,10 +71,10 @@ public class Regiment
 
     public bool verify_if_all_rejoins()
     {
-        for(int i=0;i<a_rejoint_le_regiment.Count;i++)
+        for(int i=0;i < a_rejoint_le_regiment.Count;i++)
         {   
             if(a_rejoint_le_regiment[i]==false)
-                return false
+                return false;
         }
         regiment_tous_rejoins=true;
         return true;
@@ -81,13 +82,15 @@ public class Regiment
 
     public void Regiment_se_rejoint()
     {
-        if(this.regiment_tous_rejoins==false)
+        if(this.regiment_tous_rejoins == false)
         {
             //On commence à 1 car l'unité 0 du tableau est celle vers laquelle on veut se déplacer
-            for(int i=1;i<this.nb_unite_actuelle_dans_regiment;i++)
+            for(int i=1;i < this.nb_unite_actuelle_dans_regiment;i++)
             {
                 tab_unite_en_regiment[i].Deplacement(tab_unite_en_regiment[0]);
-                if(tab_unite_en_regiment[i].distanceUnite(tab_unite_en_regiment[0])<=tab_unite_en_regiment[i].Portee)
+
+                // Debug.Log(tab_unite_en_regiment[i].distanceUnite(tab_unite_en_regiment[0]));
+                if(tab_unite_en_regiment[i].distanceUnite(tab_unite_en_regiment[0])<=1)
                 {
                     a_rejoint_le_regiment[i]=true;                        
                 }

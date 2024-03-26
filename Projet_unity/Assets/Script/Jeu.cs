@@ -116,17 +116,33 @@ public class Jeu : MonoBehaviour
         GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
 
 
+
         // test.Creation_Regiment(unites_alliees[0]);
         // test.AfficheList();
         // test.cherche_unite_dans_regiment(unites_alliees,nb_alliee_total);
         // test.AfficheList();
         
 
-        
+        // Debug.Log(nb_alliee_total);
+
     }
 
     void Update()
     { 
+
+        /*
+        // tab_gameobject_unite
+        for(int i = 0; i < nb_regiments_allie; i++)
+        {
+            tab_regiments_alliees[i].Regiment_se_rejoint();
+        }
+
+        for(int j=0;j<nb_alliee_total;j++)
+        {
+            tab_gameobject_unite[j].transform.position=new Vector3(unites_alliees[j].PositionX, unites_alliees[j].PositionY, unites_alliees[j].PositionZ    );
+        }
+    */
+
         GestionJeu();
 
         // for(int j=0;j<nb_alliee_melee;j++)
@@ -299,7 +315,6 @@ public class Jeu : MonoBehaviour
 
     public void GestionRegiments(int nb_alliee_total, int nb_ennemis_total, List<Unite> tab_uni_alliee, List<Unite> tab_uni_ennemis)
     {
-        Debug.Log(nb_regiments_ennemis);
         
         for(int j = 0; j < nb_regiments_allie; j++)
         {
@@ -343,7 +358,6 @@ public class Jeu : MonoBehaviour
                 tab_regiments_enemies.Add(regiment_generique);
             
                 tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);
-                tab_regiments_enemies[j].AfficheList();
             } 
             else
             {
@@ -352,9 +366,7 @@ public class Jeu : MonoBehaviour
                 tab_regiments_enemies.Add(regiment_generique);
 
                 tab_regiments_enemies[j].dernier_regiment_possible(taille_dernier_regiment_ennemis);                
-                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);
-                tab_regiments_enemies[j].AfficheList();
-                 
+                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);                 
             }                 
         } 
     }
