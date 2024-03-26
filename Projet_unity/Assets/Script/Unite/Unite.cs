@@ -148,14 +148,13 @@ public abstract class Unite
             int indice_min = 0;
             float distance_min = 0;
             for(int j = 0; j < nb_unite; j++){
-                
-                float distance = Outil.distanceUnite(this,tab_uni[j]);
-                if(distance_min > distance || j == 0 && (tab_uni[indice_min].EnRegiment==false)){
+                float distance = Outil.distanceUnite(tab_uni[j]);
+                if((distance_min > distance && (tab_uni[indice_min].en_regiment==false)) || j == 0){
                     indice_min = j;
                     distance_min = distance;
                 }
             }
-            tab_uni[indice_min].EnRegiment=true;
+            tab_uni[indice_min].en_regiment=true;
             return tab_uni[indice_min];
         }
         return null;
@@ -168,39 +167,37 @@ public abstract class Unite
 
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null){
-            if (targetUnit.team != this.team)
-            {
-                // Récupérer la position de la cible
-                Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
+            // Récupérer la position de la cible
+            Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
 
-                // Calculer le vecteur direction de la cible
-                Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
+            // Calculer le vecteur direction de la cible
+            Vector3 direction = (targetPosition - new Vector3(this.PositionX, this.PositionY, this.PositionZ)).normalized;
 
                 float distance = Outil.distanceUnite(this,targetUnit);
                 // Calculer le déplacement en fonction de la vitesse constante
                 if(distance > 5f){
                     Vector3 movement = direction * RunSpeed * Time.deltaTime;
 
-                    // Mettre à jour la position de l'unité
-                    this.PositionX += movement.x;
-                    this.PositionY += movement.y;
-                    this.PositionZ += movement.z;
+                // Mettre à jour la position de l'unité
+                this.PositionX += movement.x;
+                this.PositionY += movement.y;
+                this.PositionZ += movement.z;
 
-                    return 1;
-                }
-                
-                if(distance <= 5f){
-                    Vector3 movement = direction * WalkSpeed * Time.deltaTime;
-
-                    // Mettre à jour la position de l'unité
-                    this.PositionX += movement.x;
-                    this.PositionY += movement.y;
-                    this.PositionZ += movement.z;
-
-                    return 2;
-                }
+                return 1;
             }
-        }
+            
+            if(distance <= 5f){
+                Vector3 movement = direction * WalkSpeed * Time.deltaTime;
+
+                // Mettre à jour la position de l'unité
+                this.PositionX += movement.x;
+                this.PositionY += movement.y;
+                this.PositionZ += movement.z;
+
+                return 2;
+            }
+    }
         return 0;
     }
 }
+
