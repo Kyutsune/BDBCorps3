@@ -55,6 +55,9 @@ public abstract class Unite
     public bool en_regiment;
 
 
+    
+
+
     // Propriétés pour accéder aux données
     public float PositionX
     {
@@ -143,22 +146,40 @@ public abstract class Unite
         return null;
 	}
 
-    public Unite DetectionUnite_regiment (List<Unite> tab_uni,int nb_unite) {
-        if(nb_unite != 0){
+    public Unite DetectionUnite_regiment(List<Unite> tab_uni, int nb_unite, List<Unite> tab_regiment_deja_forme)
+    {
+        if (nb_unite != 0)
+        {
             int indice_min = 0;
-            float distance_min = 0;
-            for(int j = 0; j < nb_unite; j++){
-                float distance = Outil.distanceUnite(tab_uni[j]);
-                if((distance_min > distance && (tab_uni[indice_min].en_regiment==false)) || j == 0){
+            float distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
+            while(tab_regiment_deja_forme.Contains(tab_uni[indice_min]))
+            {
+               indice_min++;
+               distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
+            }
+
+
+            for (int j = indice_min; j < nb_unite; j++)
+            {
+                if(tab_regiment_deja_forme.Contains(tab_uni[j]))
+                {
+                    continue;
+                }
+                float distance = Outil.distanceUnite(tab_uni[j], this);
+                if ((distance_min > distance && (tab_uni[indice_min].EnRegiment == false)))
+                {
                     indice_min = j;
                     distance_min = distance;
                 }
             }
-            tab_uni[indice_min].en_regiment=true;
+            Debug.Log(indice_min);
+            tab_uni[indice_min].en_regiment = true;
             return tab_uni[indice_min];
         }
-        return null;
-	}
+        else
+            return null;
+    }
+
 
 
     public abstract void Attaquer(Unite autreUnite);

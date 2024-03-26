@@ -19,10 +19,17 @@ public class Regiment
 
     //Ici on va avoir le tableau qui sert à conserver les unites qui sont dans le régiment
     //La première unité qui est dans le tableau est l'unité "capitaine" 
-    private List<Unite> tab_unite_en_regiment= new List<Unite>();
+    public List<Unite> tab_unite_en_regiment= new List<Unite>();
     private bool regiment_tous_rejoins;
     private bool regiment_en_train_de_se_former;
     private List<bool> a_rejoint_le_regiment = new List<bool>();
+
+
+
+
+
+
+
 
     public int Nb_Unite_Max_Dans_Regiment
     {
@@ -36,6 +43,7 @@ public class Regiment
         this.nb_unite_max_dans_regiment=10;
         this.regiment_en_train_de_se_former=true;
         tab_unite_en_regiment.Add(unite_capitaine);
+        unite_capitaine.EnRegiment=true;
         a_rejoint_le_regiment.Add(true);
         this.nb_unite_actuelle_dans_regiment=1;
         this.regiment_tous_rejoins=false;
@@ -49,7 +57,7 @@ public class Regiment
         //AfficheList(tab_uni);
         while(this.nb_unite_actuelle_dans_regiment < this.nb_unite_max_dans_regiment)
         {   
-            Unite recrue=tab_unite_en_regiment[0].DetectionUnite_regiment(tab_uni,nb_unite);
+            Unite recrue=tab_unite_en_regiment[0].DetectionUnite_regiment(tab_uni,nb_unite,tab_unite_en_regiment);
             tab_unite_en_regiment.Add(recrue);
             a_rejoint_le_regiment.Add(false);
             this.nb_unite_actuelle_dans_regiment++;
@@ -88,14 +96,63 @@ public class Regiment
             for(int i=1;i < this.nb_unite_actuelle_dans_regiment;i++)
             {
                 tab_unite_en_regiment[i].Deplacement(tab_unite_en_regiment[0]);
-
-                // Debug.Log(tab_unite_en_regiment[i].distanceUnite(tab_unite_en_regiment[0]));
-                if(tab_unite_en_regiment[i].distanceUnite(tab_unite_en_regiment[0])<=1)
+                if(Outil.distanceUnite(tab_unite_en_regiment[i],tab_unite_en_regiment[0])<=2)
                 {
                     a_rejoint_le_regiment[i]=true;                        
                 }
             }
-            verify_if_all_rejoins();
         } 
+        bool test;
+        test=verify_if_all_rejoins();
     }
+
+
+    public bool verification_toute_unite_en_regiment()
+    {
+        for(int i=0;i<nb_unite_actuelle_dans_regiment;i++){
+            if(tab_unite_en_regiment[i].EnRegiment==false)
+            {
+                Debug.Log("toutes les unités n'ont pas leur booléen en_regiment à true,autrement dit au moins une l'a à false");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool VerifierUnitesIndependantes()
+    {
+        // Créer un HashSet pour stocker les références des unités déjà rencontrées
+        HashSet<Unite> unitesRencontrees = new HashSet<Unite>();
+
+        foreach (Unite unite in tab_unite_en_regiment)
+        {
+            // Vérifier si l'unité a déjà été rencontrée
+            if (unitesRencontrees.Contains(unite))
+            {
+                // Si l'unité est déjà présente dans le HashSet, cela signifie qu'elle n'est pas unique
+                return false;
+            }
+            else
+            {
+                unitesRencontrees.Add(unite);
+            }
+        }
+        return true;
+    }
+
+
+    public bool verif_unite_autre_regiment(Regiment autreRegiment)
+    {
+    foreach (Unite unite in autreRegiment.tab_unite_en_regiment)
+    {
+        if (tab_unite_en_regiment.Contains(unite))
+        {
+            return true;
+        }
+    }
+    return false;
+    }
+
+
+
 }
