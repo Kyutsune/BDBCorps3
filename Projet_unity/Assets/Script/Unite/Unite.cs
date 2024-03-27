@@ -152,13 +152,11 @@ public abstract class Unite
         {
             int indice_min = 0;
             float distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
-            while(tab_regiment_deja_forme.Contains(tab_uni[indice_min]))
+            while(tab_regiment_deja_forme.Contains(tab_uni[indice_min]) || tab_uni[indice_min].EnRegiment==true)
             {
                indice_min++;
                distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
             }
-
-
             for (int j = indice_min; j < nb_unite; j++)
             {
                 if(tab_regiment_deja_forme.Contains(tab_uni[j]))
@@ -166,7 +164,7 @@ public abstract class Unite
                     continue;
                 }
                 float distance = Outil.distanceUnite(tab_uni[j], this);
-                if ((distance_min > distance && (tab_uni[indice_min].EnRegiment == false)))
+                if ((distance_min > distance) && (tab_uni[indice_min].EnRegiment == false))
                 {
                     indice_min = j;
                     distance_min = distance;
