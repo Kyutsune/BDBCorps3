@@ -114,6 +114,7 @@ public class Jeu : MonoBehaviour
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
 
             }
+
             
         }
 
@@ -124,6 +125,7 @@ public class Jeu : MonoBehaviour
 
         InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
         GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
+        Debug.Log("Nombre d'unite alliée: "+ nb_alliee_total);
 
         // Debug.Log(tab_regiments_alliees[0].verif_unite_autre_regiment(tab_regiments_alliees[1]));
 
@@ -149,8 +151,16 @@ public class Jeu : MonoBehaviour
 
         for(int j=0;j<nb_alliee_total;j++)
         {
-            tab_gameobject_unite[j].transform.position=new Vector3(unites_alliees[j].PositionX, unites_alliees[j].PositionY, unites_alliees[j].PositionZ    );
+            tab_gameobject_unite[j].transform.position=new Vector3(unites_alliees[j].PositionX, unites_alliees[j].PositionY, unites_alliees[j].PositionZ);
+
+            if(unites_alliees[j].EnRegiment==false)
+            {
+                Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
+            }
         }
+
+
+    
     
 
         // GestionJeu();
@@ -332,8 +342,6 @@ public class Jeu : MonoBehaviour
             {
                 variable_alliee++;
             }
-                Debug.Log("indice du capitaine du régiment :");
-                Debug.Log(variable_alliee);
 
             if(j != (nb_regiments_allie-1))
             {              
@@ -343,12 +351,10 @@ public class Jeu : MonoBehaviour
                 tab_regiments_alliees.Add(regiment_generique);  
 
                 
-                // 
-                // Debug.Log(tab_regiments_alliees[j].VerifierUnitesIndependantes());
+                
 
             
                 tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total); 
-                // Debug.Log(tab_regiments_alliees[0].verification_toute_unite_en_regiment());
                 // Debug.Log(tab_regiments_alliees[0].VerifierUnitesIndependantes());
             } 
             else
@@ -359,6 +365,8 @@ public class Jeu : MonoBehaviour
                 tab_regiments_alliees.Add(regiment_generique);
                 tab_regiments_alliees[j].dernier_regiment_possible(taille_dernier_regiment_allie);           
                 tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total);
+
+                // Debug.Log(tab_regiments_alliees[1].VerifierUnitesIndependantes());
             }
             
           
@@ -389,6 +397,20 @@ public class Jeu : MonoBehaviour
                 tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);                 
             }                 
         } 
+
+
+        for(int i=0;i<nb_alliee_total;i++)
+        {
+            if(unites_alliees[i].EnRegiment==false)
+            {
+                for (int j=0;j<nb_regiments_allie;j++)
+                {
+
+                }
+            }
+        }
     }
+
+
 
 }

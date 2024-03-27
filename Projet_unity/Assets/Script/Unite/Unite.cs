@@ -164,14 +164,15 @@ public abstract class Unite
                     continue;
                 }
                 float distance = Outil.distanceUnite(tab_uni[j], this);
-                if ((distance_min > distance) && (tab_uni[indice_min].EnRegiment == false))
+                if ((distance_min > distance) && (tab_uni[j].EnRegiment == false))
                 {
                     indice_min = j;
                     distance_min = distance;
                 }
             }
-            Debug.Log(indice_min);
-            tab_uni[indice_min].en_regiment = true;
+            if(tab_uni[0].team==0)
+                Debug.Log(indice_min);
+            tab_uni[indice_min].EnRegiment = true;
             return tab_uni[indice_min];
         }
         else
