@@ -332,8 +332,8 @@ public class Jeu : MonoBehaviour
             {
                 variable_alliee++;
             }
-                Debug.Log("indice du capitaine du régiment :");
-                Debug.Log(variable_alliee);
+                //Debug.Log("indice du capitaine du régiment :");
+                //Debug.Log(variable_alliee);
 
             if(j != (nb_regiments_allie-1))
             {              
