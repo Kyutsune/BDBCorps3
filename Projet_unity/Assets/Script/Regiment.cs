@@ -38,6 +38,7 @@ public class Regiment
     }
 
 
+
     public void Creation_Regiment(Unite unite_capitaine)
     {
         this.nb_unite_max_dans_regiment=10;
@@ -143,16 +144,32 @@ public class Regiment
 
     public bool verif_unite_autre_regiment(Regiment autreRegiment)
     {
-    foreach (Unite unite in autreRegiment.tab_unite_en_regiment)
-    {
-        if (tab_unite_en_regiment.Contains(unite))
+        foreach (Unite unite in autreRegiment.tab_unite_en_regiment)
         {
+            if (tab_unite_en_regiment.Contains(unite))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool Tentative_ranger_retardataire(Unite unite_retardataire)
+    {
+        if(nb_unite_max_dans_regiment<nb_unite_actuelle_dans_regiment)
+        {
+            tab_unite_en_regiment.Add(unite_retardataire);
+            unite_retardataire.EnRegiment=true;
+            nb_unite_actuelle_dans_regiment++;
             return true;
         }
+        return false;
     }
-    return false;
+
+
+
+    public bool cherche_si_unite_dans_regiment(Unite unite_cherchee)
+    {
+        return tab_unite_en_regiment.Contains(unite_cherchee);
     }
-
-
-
 }
