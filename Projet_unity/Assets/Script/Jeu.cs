@@ -52,8 +52,11 @@ public class Jeu : MonoBehaviour
 
 
 
-    public Unite Capitaine_regiment1;
-    public Unite capitaine_regiment2;
+    public Unite Capitaine_regiment1_allie;
+    public Unite capitaine_regiment2_allie;
+
+    public Unite Capitaine_regiment1_ennemi;
+    public Unite capitaine_regiment2_ennemi;
 
     
 
@@ -125,7 +128,7 @@ public class Jeu : MonoBehaviour
 
         InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
         GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
-        Debug.Log("Nombre d'unite alliée: "+ nb_alliee_total);
+
 
         // Debug.Log(tab_regiments_alliees[0].verif_unite_autre_regiment(tab_regiments_alliees[1]));
 
@@ -154,6 +157,22 @@ public class Jeu : MonoBehaviour
             tab_gameobject_unite[j].transform.position=new Vector3(unites_alliees[j].PositionX, unites_alliees[j].PositionY, unites_alliees[j].PositionZ);
 
             if(unites_alliees[j].EnRegiment==false)
+            {
+                Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
+            }
+        }
+
+        // tab_gameobject_unite
+        for(int i = 0; i < nb_regiments_ennemis; i++)
+        {
+            tab_regiments_enemies[i].Regiment_se_rejoint();
+        }
+
+        for(int j=0;j<nb_ennemis_total;j++)
+        {
+            tab_gameobject_unite[nb_alliee_total+j].transform.position=new Vector3(unites_ennemies[j].PositionX, unites_ennemies[j].PositionY, unites_ennemies[j].PositionZ);
+
+            if(unites_ennemies[j].EnRegiment==false)
             {
                 Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
             }
@@ -347,12 +366,10 @@ public class Jeu : MonoBehaviour
             {              
                 Regiment regiment_generique = new Regiment();
                 regiment_generique.Creation_Regiment(tab_uni_alliee[variable_alliee]);
-                Capitaine_regiment1=tab_uni_alliee[variable_alliee];
+                Capitaine_regiment1_allie=tab_uni_alliee[variable_alliee];
                 tab_regiments_alliees.Add(regiment_generique);  
 
                 
-                
-
             
                 tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total); 
                 // Debug.Log(tab_regiments_alliees[0].VerifierUnitesIndependantes());
@@ -361,7 +378,7 @@ public class Jeu : MonoBehaviour
             {
                 Regiment regiment_generique = new Regiment();
                 regiment_generique.Creation_Regiment(tab_uni_alliee[variable_alliee]);
-                capitaine_regiment2=tab_uni_alliee[variable_alliee];
+                capitaine_regiment2_allie=tab_uni_alliee[variable_alliee];
                 tab_regiments_alliees.Add(regiment_generique);
                 tab_regiments_alliees[j].dernier_regiment_possible(taille_dernier_regiment_allie);           
                 tab_regiments_alliees[j].cherche_unite_dans_regiment(tab_uni_alliee , nb_alliee_total);
@@ -383,6 +400,7 @@ public class Jeu : MonoBehaviour
             {              
                 Regiment regiment_generique = new Regiment();
                 regiment_generique.Creation_Regiment(tab_uni_ennemis[variable_ennemis]);
+                Capitaine_regiment1_ennemi = tab_uni_ennemis[variable_ennemis];
                 tab_regiments_enemies.Add(regiment_generique);
             
                 tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);
@@ -391,11 +409,15 @@ public class Jeu : MonoBehaviour
             {
                 Regiment regiment_generique = new Regiment();
                 regiment_generique.Creation_Regiment(tab_uni_ennemis[variable_ennemis]);
+                capitaine_regiment2_ennemi = tab_uni_ennemis[variable_ennemis];
                 tab_regiments_enemies.Add(regiment_generique);
 
                 tab_regiments_enemies[j].dernier_regiment_possible(taille_dernier_regiment_ennemis);                
-                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);                 
-            }                 
+                tab_regiments_enemies[j].cherche_unite_dans_regiment(tab_uni_ennemis , nb_ennemis_total);    
+                           
+            } 
+            // Debug.Log("on affiche regiment"+tab_regiments_enemies[j]);   
+            // tab_regiments_enemies[j].AfficheList();               
         } 
 
 
