@@ -124,8 +124,11 @@ public class Jeu : MonoBehaviour
     void Update()
     { 
 
-        
        aRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
+        animationRegiment();
+
+
+
 
 
         // GestionJeu();
@@ -151,6 +154,38 @@ public class Jeu : MonoBehaviour
         
 
         affichage_temps=false;
+    }
+
+    void animationRegiment(){
+        for(int i=0;i<nb_alliee_total;i++)
+        {
+            animatorController allieeUniteController = tab_gameobject_unite[i].GetComponent<animatorController>();
+            if(unites_alliees[i].Run==true){
+                allieeUniteController.setRunning(true);
+            }
+            if(unites_alliees[i].Walk==true){
+                allieeUniteController.setWalking(true);
+            }
+            if(unites_alliees[i].Run==false && unites_alliees[i].Walk==false){
+                allieeUniteController.setRunning(false);
+                allieeUniteController.setWalking(false);
+            }
+        }
+
+        for(int i=0;i<nb_ennemis_total;i++)
+        {
+            animatorController ennemiUniteController = tab_gameobject_unite[nb_alliee_total+i].GetComponent<animatorController>();
+            if(unites_ennemies[i].Run==true){
+                ennemiUniteController.setRunning(true);
+            }
+            if(unites_ennemies[i].Walk==true){
+                ennemiUniteController.setWalking(true);
+            }
+            if(unites_ennemies[i].Run==false && unites_ennemies[i].Walk==false){
+                ennemiUniteController.setRunning(false);
+                ennemiUniteController.setWalking(false);
+            }
+        }
     }
 
     void CreerUnite(float positionX, float positionY, float positionZ,int equipe, int type)

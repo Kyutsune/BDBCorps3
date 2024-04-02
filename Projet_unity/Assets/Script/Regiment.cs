@@ -96,9 +96,20 @@ public class Regiment
             //On commence à 1 car l'unité 0 du tableau est celle vers laquelle on veut se déplacer
             for(int i=1;i < this.nb_unite_actuelle_dans_regiment;i++)
             {
-                tab_unite_en_regiment[i].Deplacement(tab_unite_en_regiment[0]);
+                if(Outil.distanceUnite(tab_unite_en_regiment[i],tab_unite_en_regiment[0]) > 2)
+                {
+                    int RunOrWalk = tab_unite_en_regiment[i].Deplacement(tab_unite_en_regiment[0]);
+                    if(RunOrWalk == 1){
+                        tab_unite_en_regiment[i].Run = true;
+                    } if(RunOrWalk == 2){
+                        tab_unite_en_regiment[i].Walk = true;
+                    }
+                }
+                
                 if(Outil.distanceUnite(tab_unite_en_regiment[i],tab_unite_en_regiment[0])<=2)
                 {
+                    tab_unite_en_regiment[i].Run = false;
+                    tab_unite_en_regiment[i].Walk = false;
                     a_rejoint_le_regiment[i]=true;                        
                 }
             }

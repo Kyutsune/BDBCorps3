@@ -19,8 +19,6 @@ public class AdministrationRegiments
     private int taille_dernier_regiment_ennemis;
 
 
-
-
     public Unite Capitaine_regiment1_allie;
     public Unite capitaine_regiment2_allie;
 

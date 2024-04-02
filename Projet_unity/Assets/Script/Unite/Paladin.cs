@@ -70,12 +70,12 @@ if(nb_unite != 0) {
             }
 
             if(this.Pv <= 0){
-                animEvenement.Mort();
+                animEvenement.Mort(true);
                 return true;
             }
         }
         else {
-            animEvenement.Victoire();
+            animEvenement.Victoire(true);
         }
 
         return false;

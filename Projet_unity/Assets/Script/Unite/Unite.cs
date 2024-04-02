@@ -53,10 +53,8 @@ public abstract class Unite
     //Ici on va gérer les composantes servant pour les régiments d'untité
     //booléen qui nous dis si l'unité est en régiment ou non  
     public bool en_regiment;
-
-
-    
-
+    public bool Run = false;
+    public bool Walk = false;
 
     // Propriétés pour accéder aux données
     public float PositionX
