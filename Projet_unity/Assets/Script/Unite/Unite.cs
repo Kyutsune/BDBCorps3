@@ -55,6 +55,11 @@ public abstract class Unite
     public bool en_regiment;
     public bool Run = false;
     public bool Walk = false;
+    public bool Attack = false;
+    public bool Mort = false;
+    public bool Win = false;
+
+    public Unite plus_proche;
 
     // Propriétés pour accéder aux données
     public float PositionX
@@ -179,7 +184,7 @@ public abstract class Unite
 
     public abstract void Attaquer(Unite autreUnite);
 
-    public abstract bool GestionEvenement(List<Unite> tab,int nb_unite,animatorController animEvenement);
+    public abstract bool GestionEvenement(List<Unite> tab,int nb_unite);
 
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null){

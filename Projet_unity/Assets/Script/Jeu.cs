@@ -135,7 +135,7 @@ public class Jeu : MonoBehaviour
             administrationRegiments.GestionAttaqueRegiment();
         }
 
-        animationRegiment();
+        animation();
         
         
         // Projectiles.deplacementObjetProjectile();
@@ -162,19 +162,31 @@ public class Jeu : MonoBehaviour
         affichage_temps=false;
     }
 
-    void animationRegiment(){
+    void animation(){
         for(int i=0;i<nb_alliee_total;i++)
         {
             animatorController allieeUniteController = tab_gameobject_unite[i].GetComponent<animatorController>();
             if(unites_alliees[i].Run==true){
                 allieeUniteController.setRunning(true);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
             }
             if(unites_alliees[i].Walk==true){
                 allieeUniteController.setWalking(true);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
             }
             if(unites_alliees[i].Run==false && unites_alliees[i].Walk==false){
                 allieeUniteController.setRunning(false);
                 allieeUniteController.setWalking(false);
+            }
+            if(unites_alliees[i].Attack==true){
+                allieeUniteController.setFighting(true);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
+            }
+            if(unites_alliees[i].Mort==true){
+                allieeUniteController.Mort(true);
+            }
+            if(unites_alliees[i].Win==true){
+                allieeUniteController.Victoire(true);
             }
         }
 
@@ -190,6 +202,15 @@ public class Jeu : MonoBehaviour
             if(unites_ennemies[i].Run==false && unites_ennemies[i].Walk==false){
                 ennemiUniteController.setRunning(false);
                 ennemiUniteController.setWalking(false);
+            }
+            if(unites_ennemies[i].Attack==true){
+                ennemiUniteController.setFighting(true);
+            }
+            if(unites_ennemies[i].Mort==true){
+                ennemiUniteController.Mort(true);
+            }
+            if(unites_ennemies[i].Win==true){
+                ennemiUniteController.Victoire(true);
             }
         }
     }
@@ -279,8 +300,7 @@ public class Jeu : MonoBehaviour
     {
         if(equipe == "alliee")
         {
-            animatorController allieUniteController = tab_gameobject_unite[posTab].GetComponent<animatorController>();
-            bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total,allieUniteController);
+            bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
             tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
             if(etat == true){
                 tab_gameobject_unite.RemoveAt(posTab);
@@ -291,8 +311,7 @@ public class Jeu : MonoBehaviour
         }
         else
         {
-            animatorController ennemiUniteController = tab_gameobject_unite[posTab+nb_alliee_total].GetComponent<animatorController>();
-                bool etat = unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total,ennemiUniteController);
+                bool etat = unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total);
                 tab_gameobject_unite[posTab+nb_alliee_total].transform.position = new Vector3(unites_ennemies[posTab].PositionX, unites_ennemies[posTab].PositionY, unites_ennemies[posTab].PositionZ);
                 if(etat == true){
                     tab_gameobject_unite.RemoveAt(posTab+nb_alliee_total);

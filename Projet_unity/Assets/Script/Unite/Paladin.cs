@@ -35,9 +35,9 @@ public class Paladin :  Unite
         }
     }
 
-    public override bool GestionEvenement (List<Unite> tab,int nb_unite,animatorController animEvenement){
+    public override bool GestionEvenement (List<Unite> tab,int nb_unite){
         if(nb_unite != 0) {
-            Unite plus_proche = this.DetectionUnite(tab,nb_unite);
+            plus_proche = this.DetectionUnite(tab,nb_unite);
 
             // Définir une distance minimale pour éviter les collisions
             float distanceMinimale = 1.5f;
@@ -48,20 +48,18 @@ public class Paladin :  Unite
             // Vérifier si la distance est supérieure à la distance minimale
             if (distance > distanceMinimale && distance > this.Portee)
             {
-                animEvenement.seTourner(this,plus_proche);
                 int RunOrWalk = this.Deplacement(plus_proche);
                 if(RunOrWalk == 1){
-                    animEvenement.setRunning(true);
+                    this.Run = true;
                 }
                 if(RunOrWalk == 2) {
-                    animEvenement.setWalking(true);
+                    this.Walk = true;
                 }
             }
 
             if(distance <= this.Portee)
             {
-                animEvenement.seTourner(this,plus_proche);
-                animEvenement.setFighting(true);
+                this.Attack = true;
                 if(Time.time - DernierTempsAttaque > this.VitesseAttaque)
                 {
                     this.Attaquer(plus_proche);
@@ -70,12 +68,12 @@ public class Paladin :  Unite
             }
 
             if(this.Pv <= 0){
-                animEvenement.Mort(true);
+                this.Mort = true;
                 return true;
             }
         }
         else {
-            animEvenement.Victoire(true);
+            this.Win = true;
         }
 
         return false;
