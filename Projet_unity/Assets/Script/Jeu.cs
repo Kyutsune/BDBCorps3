@@ -135,7 +135,7 @@ public class Jeu : MonoBehaviour
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
         }
 
-        animationRegiments();
+        animationRegiment();
         
         
         // Projectiles.deplacementObjetProjectile();
