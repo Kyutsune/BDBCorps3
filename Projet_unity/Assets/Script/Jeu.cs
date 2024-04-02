@@ -36,7 +36,7 @@ public class Jeu : MonoBehaviour
     bool affichage_temps=false;
 
     
-    public AdministrationRegiments aRegiments = new AdministrationRegiments();
+    public AdministrationRegiments administrationRegiments = new AdministrationRegiments();
     
 
    
@@ -105,8 +105,8 @@ public class Jeu : MonoBehaviour
 
         
 
-        aRegiments.InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
-        aRegiments.GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
+        administrationRegiments.InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
+        administrationRegiments.GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
 
 
         // Debug.Log(tab_regiments_alliees[0].verif_unite_autre_regiment(tab_regiments_alliees[1]));
@@ -125,7 +125,7 @@ public class Jeu : MonoBehaviour
     { 
 
         
-       aRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
+       administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
 
 
         // GestionJeu();
