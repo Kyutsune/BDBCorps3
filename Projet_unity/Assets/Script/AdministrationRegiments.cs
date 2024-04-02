@@ -161,19 +161,26 @@ public class AdministrationRegiments
         }
     }
 
+
     public void GestionAttaqueRegiment()
     {
         for(int i = 0; i<nb_regiments_allie; i++)
         {
             if(tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies))
-                nb_regiments_allie--;
+            {
+                nb_regiments_ennemis--;
+                Debug.Log("la on a nb = "+nb_regiments_allie);
+            }
             
         }
 
         for(int i = 0; i<nb_regiments_ennemis; i++)
         {
             if(tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees))
-                nb_regiments_ennemis--;
+            {
+                Debug.Log("la on a nb = "+nb_regiments_ennemis);
+                nb_regiments_allie--;
+            }
         }
         
     }

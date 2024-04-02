@@ -205,11 +205,11 @@ public class Regiment
             {
                 unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count);
             }
-            Debug.Log("Nombre d'unité dans le régiment à attaquer = "+regiment_a_attaquer.tab_unite_en_regiment.Count);
+            // Debug.Log("Nombre d'unité dans le régiment à attaquer = "+regiment_a_attaquer.tab_unite_en_regiment.Count);
             if(regiment_a_attaquer.tab_unite_en_regiment.Count <= 0)
             {
-                ensemble_autre_regiment.Remove(regiment_a_attaquer);
                 Debug.Log("on enleve un régiment");
+                ensemble_autre_regiment.Remove(regiment_a_attaquer);        
                 return true;
             }
             else
