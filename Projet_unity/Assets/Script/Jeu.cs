@@ -195,9 +195,11 @@ public class Jeu : MonoBehaviour
             animatorController ennemiUniteController = tab_gameobject_unite[nb_alliee_total+i].GetComponent<animatorController>();
             if(unites_ennemies[i].Run==true){
                 ennemiUniteController.setRunning(true);
+                ennemiUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
             }
             if(unites_ennemies[i].Walk==true){
                 ennemiUniteController.setWalking(true);
+                ennemiUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
             }
             if(unites_ennemies[i].Run==false && unites_ennemies[i].Walk==false){
                 ennemiUniteController.setRunning(false);
@@ -205,6 +207,7 @@ public class Jeu : MonoBehaviour
             }
             if(unites_ennemies[i].Attack==true){
                 ennemiUniteController.setFighting(true);
+                ennemiUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
             }
             if(unites_ennemies[i].Mort==true){
                 ennemiUniteController.Mort(true);
