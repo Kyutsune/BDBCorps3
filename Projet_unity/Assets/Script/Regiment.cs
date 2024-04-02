@@ -21,7 +21,7 @@ public class Regiment
     //La première unité qui est dans le tableau est l'unité "capitaine" 
     public List<Unite> tab_unite_en_regiment= new List<Unite>();
     private bool regiment_tous_rejoins;
-    private bool regiment_en_train_de_se_former;
+    // private bool regiment_en_train_de_se_former;
     private List<bool> a_rejoint_le_regiment = new List<bool>();
 
 
@@ -37,12 +37,17 @@ public class Regiment
         set { this.nb_unite_max_dans_regiment = value;}
     }
 
+    public Unite renvoi_capitaine()
+    {
+        return tab_unite_en_regiment[0];
+    }
+
 
 
     public void Creation_Regiment(Unite unite_capitaine)
     {
         this.nb_unite_max_dans_regiment=10;
-        this.regiment_en_train_de_se_former=true;
+        // this.regiment_en_train_de_se_former=true;
         tab_unite_en_regiment.Add(unite_capitaine);
         unite_capitaine.EnRegiment=true;
         a_rejoint_le_regiment.Add(true);
@@ -63,7 +68,7 @@ public class Regiment
             a_rejoint_le_regiment.Add(false);
             this.nb_unite_actuelle_dans_regiment++;
         }
-        this.regiment_en_train_de_se_former=false;   
+        // this.regiment_en_train_de_se_former=false;   
     }
 
     
@@ -165,22 +170,41 @@ public class Regiment
         return false;
     }
 
-    public bool Tentative_ranger_retardataire(Unite unite_retardataire)
-    {
-        if(nb_unite_max_dans_regiment<nb_unite_actuelle_dans_regiment)
-        {
-            tab_unite_en_regiment.Add(unite_retardataire);
-            unite_retardataire.EnRegiment=true;
-            nb_unite_actuelle_dans_regiment++;
-            return true;
-        }
-        return false;
-    }
-
-
-
     public bool cherche_si_unite_dans_regiment(Unite unite_cherchee)
     {
         return tab_unite_en_regiment.Contains(unite_cherchee);
     }
+
+
+
+    public Regiment cherche_regiment_plus_proche(List <Regiment> ensemble_autre_regiment)
+    {
+        int indice_min=0;
+        float distance=Outil.distanceUnite(ensemble_autre_regiment[0].renvoi_capitaine(),this.renvoi_capitaine());
+        for(int i=1;i<ensemble_autre_regiment.Count;i++)
+        {
+            float distance_test=Outil.distanceUnite(ensemble_autre_regiment[i].renvoi_capitaine(),this.renvoi_capitaine());
+            if(distance>distance_test)
+            {
+                 distance=distance_test;
+                 indice_min=i;
+            }
+        }
+        return ensemble_autre_regiment[indice_min];
+    }
+
+
+
+    public void Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment)
+    {
+        if(this.regiment_tous_rejoins)
+        {
+            Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment);
+            foreach (Unite unite in this.tab_unite_en_regiment)
+            {
+                unite.Attaquer(unite.DetectionUnite(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.Nb_Unite_Max_Dans_Regiment));
+            }
+        }
+    }  
 }
+
