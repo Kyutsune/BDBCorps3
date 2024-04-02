@@ -36,7 +36,7 @@ public class Paladin :  Unite
     }
 
     public override bool GestionEvenement (List<Unite> tab,int nb_unite,animatorController animEvenement){
-if(nb_unite != 0) {
+        if(nb_unite != 0) {
             Unite plus_proche = this.DetectionUnite(tab,nb_unite);
 
             // Définir une distance minimale pour éviter les collisions

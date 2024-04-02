@@ -112,7 +112,6 @@ public class Jeu : MonoBehaviour
         administrationRegiments.InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
         administrationRegiments.GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
 
-
         // Debug.Log(tab_regiments_alliees[0].verif_unite_autre_regiment(tab_regiments_alliees[1]));
 
         // test.Creation_Regiment(unites_alliees[0]);
@@ -133,6 +132,7 @@ public class Jeu : MonoBehaviour
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
+            administrationRegiments.GestionAttaqueRegiment();
         }
         
         

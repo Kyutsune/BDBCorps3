@@ -184,14 +184,15 @@ public class Regiment
 
 
 
-    public void Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment)
+    public void Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment,)
     {
         if(this.regiment_tous_rejoins)
         {
             Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment);
             foreach (Unite unite in this.tab_unite_en_regiment)
             {
-                unite.Attaquer(unite.DetectionUnite(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.Nb_Unite_Max_Dans_Regiment));
+                unite.GestionEvenement(unite.DetectionUnite(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.Nb_Unite_Max_Dans_Regiment),regiment_a_attaquer.tab_unite_en_regiment.Count,);
+                Debug.Log(unite.DetectionUnite(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.Nb_Unite_Max_Dans_Regiment));
             }
         }
     }  

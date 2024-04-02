@@ -162,4 +162,13 @@ public class AdministrationRegiments
             }
         }
     }
+
+    public void GestionAttaqueRegiment()
+    {
+        for(int i = 0; i<nb_regiments_allie; i++)
+        {
+            tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies);
+        }
+        
+    }
 }
