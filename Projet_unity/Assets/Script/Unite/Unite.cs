@@ -170,8 +170,6 @@ public abstract class Unite
                     distance_min = distance;
                 }
             }
-            if(tab_uni[0].team==0)
-                Debug.Log(indice_min);
             tab_uni[indice_min].EnRegiment = true;
             return tab_uni[indice_min];
         }
