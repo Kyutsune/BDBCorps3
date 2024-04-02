@@ -31,6 +31,7 @@ public class Regiment
 
 
 
+
     public int Nb_Unite_Max_Dans_Regiment
     {
         get { return this.nb_unite_max_dans_regiment;}
@@ -195,16 +196,31 @@ public class Regiment
 
 
 
-    public void Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment)
+    public bool Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment)
     {
         if(this.regiment_tous_rejoins)
         {
-            Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment);
+            Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment); 
             foreach (Unite unite in this.tab_unite_en_regiment)
             {
                 unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count);
             }
+            Debug.Log("Nombre d'unité dans le régiment à attaquer = "+regiment_a_attaquer.tab_unite_en_regiment.Count);
+            if(regiment_a_attaquer.tab_unite_en_regiment.Count <= 0)
+            {
+                ensemble_autre_regiment.Remove(regiment_a_attaquer);
+                Debug.Log("on enleve un régiment");
+                return true;
+            }
+            else
+                return false;
         }
-    }  
+        return false;
+    } 
+
+    public void Supprimer_unite_regiment(Unite unite)
+    {
+
+    }
 }
 

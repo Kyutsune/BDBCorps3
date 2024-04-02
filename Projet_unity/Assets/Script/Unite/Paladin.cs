@@ -63,6 +63,10 @@ public class Paladin :  Unite
                 if(Time.time - DernierTempsAttaque > this.VitesseAttaque)
                 {
                     this.Attaquer(plus_proche);
+                    if(plus_proche.Pv<=0)
+                    {
+                        tab.Remove(plus_proche);
+                    }
                     DernierTempsAttaque = Time.time;
                 }
             }

@@ -138,10 +138,10 @@ public class AdministrationRegiments
         {
             tab_gameobject_unite[j].transform.position=new Vector3(unites_alliees[j].PositionX, unites_alliees[j].PositionY, unites_alliees[j].PositionZ);
 
-            if(unites_alliees[j].EnRegiment==false)
-            {
-                Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
-            }
+            // if(unites_alliees[j].EnRegiment==false)
+            // {
+            //     Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
+            // }
         }
 
         // tab_gameobject_unite
@@ -154,10 +154,10 @@ public class AdministrationRegiments
         {
             tab_gameobject_unite[nb_alliee_total+j].transform.position=new Vector3(unites_ennemies[j].PositionX, unites_ennemies[j].PositionY, unites_ennemies[j].PositionZ);
 
-            if(unites_ennemies[j].EnRegiment==false)
-            {
-                Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
-            }
+            // if(unites_ennemies[j].EnRegiment==false)
+            // {
+            //     Debug.Log("Probleme avec l'unite d'indice donné, qui n'a donc pas de régiments "+ j);
+            // }
         }
     }
 
@@ -165,13 +165,17 @@ public class AdministrationRegiments
     {
         for(int i = 0; i<nb_regiments_allie; i++)
         {
-            tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies);
+            if(tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies))
+                nb_regiments_allie--;
+            
         }
 
         for(int i = 0; i<nb_regiments_ennemis; i++)
         {
-            tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees);
+            if(tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees))
+                nb_regiments_ennemis--;
         }
         
     }
+
 }
