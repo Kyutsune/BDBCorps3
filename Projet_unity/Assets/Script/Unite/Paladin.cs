@@ -70,12 +70,12 @@ public class Paladin :  Unite
             }
 
             if(this.Pv <= 0){
-                animEvenement.Mort();
+                animEvenement.Mort(true);
                 return true;
             }
         }
         else {
-            animEvenement.Victoire();
+            animEvenement.Victoire(true);
         }
 
         return false;

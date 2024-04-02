@@ -36,7 +36,7 @@ public class animatorController : MonoBehaviour
 
     public void setRunning(bool run){
         animator.SetBool("IsWalking",false);
-        animator.SetBool("IsRunning",true);
+        animator.SetBool("IsRunning",run);
         animator.SetBool("IsFighting",false);
     }
 
@@ -48,22 +48,22 @@ public class animatorController : MonoBehaviour
     }
 
     public void setWalking(bool walk){
-        animator.SetBool("IsWalking",true);
+        animator.SetBool("IsWalking",walk);
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
     }
 
-    public void Mort(){
+    public void Mort(bool mort){
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
         animator.SetBool("IsWalking",false);
-        animator.SetBool("Dead",true);
+        animator.SetBool("Dead",mort);
     }
 
-    public void Victoire(){
+    public void Victoire(bool victoire){
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
         animator.SetBool("IsWalking",false);
-        animator.SetBool("Won",true);
+        animator.SetBool("Won",victoire);
     }
 }
