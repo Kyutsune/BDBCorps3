@@ -43,12 +43,22 @@ public class MenuControler : MonoBehaviour
     public int nombre_unites_globales_ennemiesDistant_menu;
     public int nombre_unites_globales_alliesDistant_menu;
 
-    
+    public int mode_jeu_menu; 
  
 
-        
-    
-    
+    public void ChoixModeIndividuel()
+    {
+        mode_jeu_menu  = 0;
+        PlayerPrefs.SetInt("mode_jeu_menu", mode_jeu_menu);
+        PlayerPrefs.Save();
+    }
+
+    public void ChoixModeRegiments()
+    {
+        mode_jeu_menu  = 1;
+        PlayerPrefs.SetInt("mode_jeu_menu", mode_jeu_menu);
+        PlayerPrefs.Save();
+    }
 
     public void GetInputTextEnnemis()
     {

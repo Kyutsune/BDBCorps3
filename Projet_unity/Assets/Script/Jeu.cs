@@ -37,6 +37,8 @@ public class Jeu : MonoBehaviour
 
     
     public AdministrationRegiments administrationRegiments = new AdministrationRegiments();
+
+    public int modeJeu;
     
 
    
@@ -61,6 +63,8 @@ public class Jeu : MonoBehaviour
 
         animatorMelee = GetComponent<Animator>();
         animatorDistant = GetComponent<Animator>();
+
+        modeJeu = PlayerPrefs.GetInt("mode_jeu_menu", 1);
 
         
         for(int i=0;i<nb_alliee_total;i++) 
@@ -123,12 +127,15 @@ public class Jeu : MonoBehaviour
 
     void Update()
     { 
-
+        if(modeJeu == 0)
+        {
+            GestionJeuIndividuel();
+        }
+        else{
+            administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
+        }
         
-       administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
-
-
-        // GestionJeu();
+        
         // Projectiles.deplacementObjetProjectile();
         // for(int j=0;j<nb_alliee_melee;j++)
         // {
@@ -172,7 +179,7 @@ public class Jeu : MonoBehaviour
         }
     }
 
-    void GestionJeu(){
+    void GestionJeuIndividuel(){
         for(int i=0;i<nb_alliee_total;i++) 
         {
             if(i<nb_alliee_melee)
@@ -261,6 +268,7 @@ public class Jeu : MonoBehaviour
                 }
         }
     }
+
 
 
 
