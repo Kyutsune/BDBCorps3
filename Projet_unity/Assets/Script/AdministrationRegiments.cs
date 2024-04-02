@@ -167,6 +167,11 @@ public class AdministrationRegiments
         {
             tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies);
         }
+
+        for(int i = 0; i<nb_regiments_ennemis; i++)
+        {
+            tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees);
+        }
         
     }
 }

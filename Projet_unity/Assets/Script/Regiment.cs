@@ -203,7 +203,6 @@ public class Regiment
             foreach (Unite unite in this.tab_unite_en_regiment)
             {
                 unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count);
-                Debug.Log(unite.DetectionUnite(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.Nb_Unite_Max_Dans_Regiment));
             }
         }
     }  
