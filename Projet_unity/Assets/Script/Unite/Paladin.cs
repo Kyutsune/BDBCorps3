@@ -19,7 +19,7 @@ public class Paladin :  Unite
             PositionZ = Outil.Aleatoire(30,40);
         }
         
-        Pv = 1000;
+        Pv = 200;
         Portee = 2;
         VitesseAttaque= 2f;
         team = newteam;

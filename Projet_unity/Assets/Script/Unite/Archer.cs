@@ -19,7 +19,7 @@ public class Archer : Unite
             PositionZ = Outil.Aleatoire(30,40);
         }
         
-        Pv = 500;
+        Pv = 100;
         Portee = 10;
         VitesseAttaque= 5f;
         team = newteam;

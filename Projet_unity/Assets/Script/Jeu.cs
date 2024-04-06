@@ -132,7 +132,11 @@ public class Jeu : MonoBehaviour
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
-            administrationRegiments.GestionAttaqueRegiment();   
+            administrationRegiments.GestionAttaqueRegiment(); 
+            for(int i=0;i<nb_ennemis_total;i++) 
+            { 
+                Debug.Log("Nombre de pv de l'unité ennemies numéro : " +i+ " = "+unites_ennemies[i].Pv);
+            }
         }
 
         animation();

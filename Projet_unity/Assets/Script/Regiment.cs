@@ -198,7 +198,7 @@ public class Regiment
 
     public bool Attaque_autre_regiment(List <Regiment> ensemble_autre_regiment)
     {
-        if(this.regiment_tous_rejoins)
+        if(this.regiment_tous_rejoins && ensemble_autre_regiment.Count>0)
         {
             Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment); 
             foreach (Unite unite in this.tab_unite_en_regiment)
