@@ -129,6 +129,7 @@ public class Jeu : MonoBehaviour
         if(modeJeu == 0)
         {
             GestionJeuIndividuel();
+            Debug.Log(unites_ennemies.Count);
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);

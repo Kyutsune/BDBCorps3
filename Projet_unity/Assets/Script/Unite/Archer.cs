@@ -75,6 +75,7 @@ public class Archer : Unite
 
             if(this.Pv <= 0){
                 this.Mort = true;
+                tab.Remove(this);
                 return true;
             }
         }
