@@ -137,8 +137,8 @@ public abstract class Unite
             int indice_min = 0;
             float distance_min = 0;
             for(int j = 0; j < nb_unite; j++){
-                // if(tab_uni[j].Pv <= 0)
-                //     continue;
+                if(tab_uni[j].Pv <= 0)
+                    continue;
                 float distance = Outil.distanceUnite(this,tab_uni[j]);
                 if((distance_min > distance || j == 0)){
                     indice_min = j;
