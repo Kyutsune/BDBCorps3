@@ -45,8 +45,26 @@ public class Archer : Unite
         this.Run= false;
         this.Walk=false;
         this.Attack=false;
-        if(nb_unite != 0) {
+        bool res=true;
+        for(int i=0;i<nb_unite;i++)
+        {
+            if(tab[i].Mort==false)
+            {
+                res=false;
+                break;
+            }
+        }
+        if(res==true) {
+            this.Win = true;
+        }
+        else{
+            if(this.Pv <= 0){
+                this.Mort = true;
+                return true;
+            }
             plus_proche = this.DetectionUnite(tab,nb_unite);
+            if(plus_proche==null)
+                return false;
 
             // Définir une distance minimale pour éviter les collisions
             float distanceMinimale = 1.5f;
@@ -75,14 +93,9 @@ public class Archer : Unite
                     DernierTempsAttaque = Time.time;
                 }
             }
-            if(this.Pv <= 0){
-                this.Mort = true;
-                return true;
-            }
+
         }
-        else {
-            this.Win = true;
-        }
+
 
         return false;
     }
