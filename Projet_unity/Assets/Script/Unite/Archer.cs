@@ -72,10 +72,13 @@ public class Archer : Unite
                     DernierTempsAttaque = Time.time;
                 }
             }
-
+            if(plus_proche.Pv <= 0)
+            {
+                tab.Remove(plus_proche);
+                nb_unite --;
+            }
             if(this.Pv <= 0){
                 this.Mort = true;
-                tab.Remove(this);
                 return true;
             }
         }

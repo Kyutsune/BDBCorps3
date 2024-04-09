@@ -129,7 +129,6 @@ public class Jeu : MonoBehaviour
         if(modeJeu == 0)
         {
             GestionJeuIndividuel();
-            Debug.Log(unites_ennemies.Count);
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
@@ -244,23 +243,11 @@ public class Jeu : MonoBehaviour
     void GestionJeuIndividuel(){
         for(int i=0;i<nb_alliee_total;i++) 
         {
-            if(i<nb_alliee_melee)
-            {
                 ParcoursEvenement(i,"alliee");
-                
-            }
-            else
-            {
-                ParcoursEvenement(i,"alliee");
-            }           
         }
         
         for(int i=0;i<nb_ennemis_total;i++){
             if(i<nb_ennemis_melee)
-            {
-                ParcoursEvenement(i,"ennemi");
-            }
-            else
             {
                 ParcoursEvenement(i,"ennemi");
             }
@@ -310,9 +297,8 @@ public class Jeu : MonoBehaviour
             bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
             tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
             if(etat == true){
-                tab_gameobject_unite.RemoveAt(posTab);
+                // tab_gameobject_unite.RemoveAt(posTab);
                 unites_alliees.RemoveAt(posTab);
-                nb_alliee_melee--;
                 nb_alliee_total--;
             }
         }
@@ -323,7 +309,6 @@ public class Jeu : MonoBehaviour
                 if(etat == true){
                     tab_gameobject_unite.RemoveAt(posTab+nb_alliee_total);
                     unites_ennemies.RemoveAt(posTab);
-                    nb_ennemis_melee--;
                     nb_ennemis_total--;
                 }
         }
