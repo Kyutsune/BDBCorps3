@@ -192,7 +192,7 @@ public abstract class Unite
 
     public abstract void Attaquer(Unite autreUnite);
 
-    public abstract bool GestionEvenement(List<Unite> tab,int nb_unite);
+    public abstract void GestionEvenement(List<Unite> tab,int nb_unite);
 
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null && this.Pv>0){

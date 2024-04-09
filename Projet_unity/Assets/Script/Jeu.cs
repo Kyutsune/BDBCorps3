@@ -213,7 +213,7 @@ public class Jeu : MonoBehaviour
                 ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche);
             }
             if(unites_ennemies[i].Mort==true){
-                ennemiUniteController.Mort(true);
+                ennemiUniteController.Mort(unites_ennemies[i].Mort);
             }
             if(unites_ennemies[i].Win==true){
                 ennemiUniteController.Victoire(true);
@@ -290,14 +290,13 @@ public class Jeu : MonoBehaviour
     {
         if(equipe == "alliee")
         {
-            Debug.Log(unites_alliees[posTab].Pv);
-            bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
+            unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
             tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
         }
         else
         {
-                bool etat = unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total);
-                tab_gameobject_unite[posTab+nb_alliee_total].transform.position = new Vector3(unites_ennemies[posTab].PositionX, unites_ennemies[posTab].PositionY, unites_ennemies[posTab].PositionZ);
+            unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total);
+            tab_gameobject_unite[posTab+nb_alliee_total].transform.position = new Vector3(unites_ennemies[posTab].PositionX, unites_ennemies[posTab].PositionY, unites_ennemies[posTab].PositionZ);
         }
     }
 

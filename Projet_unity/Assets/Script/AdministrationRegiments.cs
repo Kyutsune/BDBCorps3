@@ -164,23 +164,37 @@ public class AdministrationRegiments
 
     public void GestionAttaqueRegiment()
     {
-        for(int i = 0; i<tab_regiments_alliees.Count; i++)
+        for(int i = 0; i<tab_regiments_alliees.Count ; i++)
         {
+            if(tab_regiments_enemies.Count == 0){
+                for(int k = 0; k <tab_regiments_alliees[i].tab_unite_en_regiment.Count;k++){
+                    tab_regiments_alliees[i].tab_unite_en_regiment[k].Win = true;
+                }
+            }
+        
             if(tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies))
             {
-                tab_regiments_alliees.Remove(tab_regiments_alliees[i]);
+                tab_regiments_alliees.RemoveAt(i);
                 // Debug.Log("la on a nb = "+nb_regiments_allie);
             }
-            
         }
 
-        for(int i = 0; i<tab_regiments_enemies.Count; i++)
+        
+
+        for(int i = 0; i<tab_regiments_enemies.Count ; i++)
         {
+            if(tab_regiments_alliees.Count == 0){
+                for(int k = 0; k <tab_regiments_enemies[i].tab_unite_en_regiment.Count;k++){
+                    tab_regiments_enemies[i].tab_unite_en_regiment[k].Win = true;
+                }
+            }
+
             if(tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees))
             {
-                tab_regiments_enemies.Remove(tab_regiments_enemies[i]);
+                tab_regiments_enemies.RemoveAt(i);
                 // Debug.Log("la on a nb = "+tab_regiments_enemies.Count);
             }
+            
         }
         
     }

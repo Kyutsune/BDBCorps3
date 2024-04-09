@@ -13,7 +13,7 @@ Puis le régiment va se déplacer vers un autre régiment
 public class Regiment
 {   
     private int nb_unite_max_dans_regiment;
-    private int nb_unite_actuelle_dans_regiment;
+    public int nb_unite_actuelle_dans_regiment;
 
 
 
@@ -216,7 +216,6 @@ public class Regiment
             }
             if(this.tab_unite_en_regiment.Count <= 0)
             {
-
                 return true;
             }
             else

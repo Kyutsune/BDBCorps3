@@ -41,7 +41,7 @@ public class Archer : Unite
         }
     }
 
-    public override bool GestionEvenement(List<Unite> tab,int nb_unite){
+    public override void GestionEvenement(List<Unite> tab,int nb_unite){
         this.Run= false;
         this.Walk=false;
         this.Attack=false;
@@ -58,13 +58,10 @@ public class Archer : Unite
             this.Win = true;
         }
         else{
-            if(this.Pv <= 0){
-                this.Mort = true;
-                return true;
-            }
             plus_proche = this.DetectionUnite(tab,nb_unite);
-            if(plus_proche==null)
-                return false;
+            if(plus_proche==null){
+                return ;
+            }
 
             // Définir une distance minimale pour éviter les collisions
             float distanceMinimale = 1.5f;
@@ -93,10 +90,9 @@ public class Archer : Unite
                     DernierTempsAttaque = Time.time;
                 }
             }
-
+            if(this.Pv <= 0){
+                this.Mort = true;
+            }
         }
-
-
-        return false;
     }
 }
