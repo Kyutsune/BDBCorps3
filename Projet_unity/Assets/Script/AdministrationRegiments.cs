@@ -169,8 +169,9 @@ public class AdministrationRegiments
             if(tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies))
             {
                 tab_regiments_alliees.Remove(tab_regiments_alliees[i]);
-                // Debug.Log("la on a nb = "+nb_regiments_allie);
+               
             }
+            //Debug.Log("dans le régiment allié : "+ i +" il reste : " + tab_regiments_alliees[i].tab_unite_en_regiment.Count);
             
         }
 
@@ -179,8 +180,9 @@ public class AdministrationRegiments
             if(tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees))
             {
                 tab_regiments_enemies.Remove(tab_regiments_enemies[i]);
-                // Debug.Log("la on a nb = "+tab_regiments_enemies.Count);
+                
             }
+            //Debug.Log("dans le régiment ennemi : "+ i +" il reste : "+ tab_regiments_enemies[i].tab_unite_en_regiment.Count);
         }
         
     }
