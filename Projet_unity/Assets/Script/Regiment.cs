@@ -209,12 +209,14 @@ public class Regiment
             for(int i=0;i<tab_unite_en_regiment.Count;i++)
             {
                 if(tab_unite_en_regiment[i].Pv<=0)
+                {
                     this.tab_unite_en_regiment.RemoveAt(i);
+                    // Debug.Log("Nouveau test,count du tab de celui qu'on enleve = "+ tab_unite_en_regiment.Count);
+                }
             }
-            if(regiment_a_attaquer.tab_unite_en_regiment.Count <= 0)
+            if(this.tab_unite_en_regiment.Count <= 0)
             {
-                Debug.Log("on enleve un régiment");
-                ensemble_autre_regiment.Remove(regiment_a_attaquer);        
+                Debug.Log("on enleve un régiment");  
                 return true;
             }
             else

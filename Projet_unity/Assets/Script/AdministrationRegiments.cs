@@ -129,7 +129,7 @@ public class AdministrationRegiments
     public void RegroupementRegiment(int nb_alliee_total, int nb_ennemis_total , List<GameObject> tab_gameobject_unite, List<Unite> unites_alliees, List<Unite> unites_ennemies)
     {
          // tab_gameobject_unite
-        for(int i = 0; i < nb_regiments_allie; i++)
+        for(int i = 0; i < tab_regiments_alliees.Count; i++)
         {
             tab_regiments_alliees[i].Regiment_se_rejoint();
         }
@@ -145,7 +145,7 @@ public class AdministrationRegiments
         }
 
         // tab_gameobject_unite
-        for(int i = 0; i < nb_regiments_ennemis; i++)
+        for(int i = 0; i < tab_regiments_enemies.Count; i++)
         {
             tab_regiments_enemies[i].Regiment_se_rejoint();
         }
@@ -164,22 +164,22 @@ public class AdministrationRegiments
 
     public void GestionAttaqueRegiment()
     {
-        for(int i = 0; i<nb_regiments_allie; i++)
+        for(int i = 0; i<tab_regiments_alliees.Count; i++)
         {
             if(tab_regiments_alliees[i].Attaque_autre_regiment(tab_regiments_enemies))
             {
-                nb_regiments_ennemis--;
-                Debug.Log("la on a nb = "+nb_regiments_allie);
+                tab_regiments_alliees.Remove(tab_regiments_alliees[i]);
+                // Debug.Log("la on a nb = "+nb_regiments_allie);
             }
             
         }
 
-        for(int i = 0; i<nb_regiments_ennemis; i++)
+        for(int i = 0; i<tab_regiments_enemies.Count; i++)
         {
             if(tab_regiments_enemies[i].Attaque_autre_regiment(tab_regiments_alliees))
             {
-                Debug.Log("la on a nb = "+nb_regiments_ennemis);
-                nb_regiments_allie--;
+                tab_regiments_enemies.Remove(tab_regiments_enemies[i]);
+                // Debug.Log("la on a nb = "+tab_regiments_enemies.Count);
             }
         }
         
