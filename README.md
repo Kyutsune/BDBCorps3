@@ -1,2 +1,2 @@
 # BDBCorps3
-La société fait pour VOTRE futur
+La société faite pour VOTRE futur
