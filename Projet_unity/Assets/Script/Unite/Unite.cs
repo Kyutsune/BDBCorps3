@@ -135,7 +135,14 @@ public abstract class Unite
     public Unite DetectionUnite (List<Unite> tab_uni,int nb_unite) {
         if(nb_unite != 0){
             int indice_min = 0;
-            float distance_min = 0;
+            float distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
+            while(tab_uni[indice_min].Pv<=0)
+            {
+                if(indice_min==nb_unite-1)
+                    return null;
+               indice_min++;
+               distance_min = Outil.distanceUnite(tab_uni[indice_min], this);
+            }
             for(int j = 0; j < nb_unite; j++){
                 if(tab_uni[j].Pv <= 0)
                     continue;
