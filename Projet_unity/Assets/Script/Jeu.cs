@@ -293,7 +293,9 @@ public class Jeu : MonoBehaviour
             bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
             tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
             if(etat == true){
-                // unites_alliees.RemoveAt(posTab);
+                tab_gameobject_unite.RemoveAt(posTab);
+                unites_alliees.RemoveAt(posTab);
+                nb_alliee_total--;
             }
         }
         else
@@ -301,7 +303,9 @@ public class Jeu : MonoBehaviour
                 bool etat = unites_ennemies[posTab].GestionEvenement(unites_alliees,nb_alliee_total);
                 tab_gameobject_unite[posTab+nb_alliee_total].transform.position = new Vector3(unites_ennemies[posTab].PositionX, unites_ennemies[posTab].PositionY, unites_ennemies[posTab].PositionZ);
                 if(etat == true){
-                    // unites_ennemies.RemoveAt(posTab);
+                    tab_gameobject_unite.RemoveAt(posTab);
+                    unites_ennemies.RemoveAt(posTab);
+                    nb_ennemis_total--;
                 }
         }
     }

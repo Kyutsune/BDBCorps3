@@ -31,17 +31,20 @@ public class Archer : Unite
     public override void Attaquer(Unite autreUnite)
     {
         if(autreUnite != null && this.Pv>0){
-            if(this.team == Team.EquipeBleue){
-                Projectiles.envoyerFleche(this.team,this.PositionX,1.3f,this.PositionZ+0.5f,autreUnite);
-            }
-            else {
-                Projectiles.envoyerFleche(this.team,this.PositionX,1.3f,this.PositionZ-0.5f,autreUnite);
-            }
+            // if(this.team == Team.EquipeBleue){
+            //     Projectiles.envoyerFleche(this.team,this.PositionX,1.3f,this.PositionZ+0.5f,autreUnite);
+            // }
+            // else {
+            //     Projectiles.envoyerFleche(this.team,this.PositionX,1.3f,this.PositionZ-0.5f,autreUnite);
+            // }
             autreUnite.Pv=autreUnite.Pv - this.Degat;
         }
     }
 
     public override bool GestionEvenement(List<Unite> tab,int nb_unite){
+        this.Run= false;
+        this.Walk=false;
+        this.Attack=false;
         if(nb_unite != 0) {
             plus_proche = this.DetectionUnite(tab,nb_unite);
 

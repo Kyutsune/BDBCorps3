@@ -36,6 +36,9 @@ public class Paladin :  Unite
     }
 
     public override bool GestionEvenement (List<Unite> tab,int nb_unite){
+        this.Run= false;
+        this.Walk=false;
+        this.Attack=false;
         if(nb_unite != 0) {
             plus_proche = this.DetectionUnite(tab,nb_unite);
 
