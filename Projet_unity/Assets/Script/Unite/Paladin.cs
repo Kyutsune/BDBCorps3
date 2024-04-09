@@ -30,7 +30,7 @@ public class Paladin :  Unite
 
     public override void Attaquer(Unite autreUnite)
     {
-        if(autreUnite != null){
+        if(autreUnite != null && this.Pv>0){
             autreUnite.Pv=autreUnite.Pv - this.Degat;
         }
     }

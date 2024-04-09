@@ -189,7 +189,7 @@ public abstract class Unite
     public abstract bool GestionEvenement(List<Unite> tab,int nb_unite);
 
     public int Deplacement(Unite targetUnit){
-        if(targetUnit != null){
+        if(targetUnit != null && this.Pv>0){
             // Récupérer la position de la cible
             Vector3 targetPosition = new Vector3(targetUnit.PositionX, targetUnit.PositionY, targetUnit.PositionZ);
 

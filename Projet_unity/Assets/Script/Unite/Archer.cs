@@ -30,7 +30,7 @@ public class Archer : Unite
 
     public override void Attaquer(Unite autreUnite)
     {
-        if(autreUnite != null){
+        if(autreUnite != null && this.Pv>0){
             if(this.team == Team.EquipeBleue){
                 Projectiles.envoyerFleche(this.team,this.PositionX,1.3f,this.PositionZ+0.5f,autreUnite);
             }
