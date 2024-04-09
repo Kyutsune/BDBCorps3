@@ -1,19 +1,19 @@
 # Informations globale sur le projet
 
-Ce projet est réalisé dans le cadre de l'UE LIFPROJET à l'université Lyon 1 dont voici le site: https://www.univ-lyon1.fr/
-Nos noms sont Romain Soares, Angel Munoz et Anthony Bove. Voici nos numéros étudiants respectifs: p2100189 - p2103110 - p2006692
-Voici le lien du projet hebergé sous gitHub,dont son identifiant est BDBCorps3 : https://github.com/Kyutsune/BDBCorps3
+Ce projet est réalisé dans le cadre de l'UE LIFPROJET à l'université Lyon 1 dont voici le site: https://www.univ-lyon1.fr/ .
+Nous sommes Romain Soares, Angel Munoz et Anthony Bove. Voici nos numéros étudiants respectifs: p2100189 - p2103110 - p2006692
+Voici le lien du projet hebergé sous GitHub, dont son identifiant est BDBCorps3 : https://github.com/Kyutsune/BDBCorps3
 Le nom du projet est donc BDBattle dont vous trouverez des explications précises ci-dessous
 
 # BDBattle
 
 BDBattle est une modélisation distribuée d'un jeu stratégique 
 Dans ce jeu on peut choisir deux modes de combats.
-Dans le premier on va choisir le nombre d'unités alliés (de type mélé ou distance) et ennemis (de type mélé ou distance).
-Les unités vont ensuite se battre sur un terrain avec des statistiques propres prédéfinis.
+Dans le premier on va choisir le nombre d'unités alliés (de type mélée ou distance) et ennemis (de type mélée ou distance).
+Les unités vont ensuite se battre sur un terrain avec des statistiques propres prédéfinies.
 Le deuxième mode est une bataille qui fonctionne par régiments. En effet comme le premier mode on va indiquer le nombre d'unités. Elle vont ensuite former des régiments puis se battre en groupe contre les unités ennemis.
 
-Le code est écrit en C# et compiler sur le logiciel Unity.
+Le code est écrit en C# et compilé sur le logiciel Unity.
 
 ## Organisation des fichiers/répertoires de l'archive
 
@@ -51,7 +51,7 @@ Une fois le Dossier exporté on peut lancer l'executable "Projet/Projet test.exe
 
 ## Nous contacter
 
-Developpeur:
+Developpeurs:
 
 Romain Soares: romain.soares@etu.univ-lyon1.fr
 Angel Munoz: angel.munoz@etu.univ-lyon1.fr
