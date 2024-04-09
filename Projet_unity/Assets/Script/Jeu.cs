@@ -135,7 +135,7 @@ public class Jeu : MonoBehaviour
             administrationRegiments.GestionAttaqueRegiment(); 
             for(int i=0;i<nb_ennemis_total;i++) 
             { 
-                Debug.Log("Nombre de pv de l'unité ennemies numéro : " +i+ " = "+unites_ennemies[i].Pv);
+                // Debug.Log("Nombre de pv de l'unité ennemies numéro : " +i+ " = "+unites_ennemies[i].Pv);
             }
         }
 
