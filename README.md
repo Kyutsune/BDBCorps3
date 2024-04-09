@@ -3,7 +3,7 @@
 Ce projet est réalisé dans le cadre de l'UE LIFPROJET à l'université Lyon 1 dont voici le site: https://www.univ-lyon1.fr/
 Nos noms sont Romain Soares, Angel Munoz et Anthony Bove. Voici nos numéros étudiants respectifs: p2100189 - p2103110 - p2006692
 Voici le lien du projet hebergé sous gitHub,dont son identifiant est BDBCorps3 : https://github.com/Kyutsune/BDBCorps3
-Le nom du projet est donc BDBattle dont vous trouverez des explications précises plus bas
+Le nom du projet est donc BDBattle dont vous trouverez des explications précises ci-dessous
 
 # BDBattle
 
