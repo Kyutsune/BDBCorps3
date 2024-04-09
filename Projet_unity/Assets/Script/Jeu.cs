@@ -290,6 +290,7 @@ public class Jeu : MonoBehaviour
     {
         if(equipe == "alliee")
         {
+            Debug.Log(unites_alliees[posTab].Pv);
             bool etat = unites_alliees[posTab].GestionEvenement(unites_ennemies,nb_ennemis_total);
             tab_gameobject_unite[posTab].transform.position = new Vector3(unites_alliees[posTab].PositionX, unites_alliees[posTab].PositionY, unites_alliees[posTab].PositionZ);
             if(etat == true){
