@@ -70,7 +70,9 @@ public class Paladin :  Unite
             if(plus_proche.Pv <= 0)
             {
                 tab.Remove(plus_proche);
-                nb_unite --;
+                nb_unite--;
+                Debug.Log("on passe la");
+                Debug.Log(nb_unite);    
             }
 
             if(this.Pv <= 0){

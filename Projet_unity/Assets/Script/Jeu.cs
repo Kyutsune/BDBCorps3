@@ -247,10 +247,7 @@ public class Jeu : MonoBehaviour
         }
         
         for(int i=0;i<nb_ennemis_total;i++){
-            if(i<nb_ennemis_melee)
-            {
                 ParcoursEvenement(i,"ennemi");
-            }
             
         }
     }

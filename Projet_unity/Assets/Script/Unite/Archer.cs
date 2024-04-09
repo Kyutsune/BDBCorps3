@@ -75,7 +75,8 @@ public class Archer : Unite
             if(plus_proche.Pv <= 0)
             {
                 tab.Remove(plus_proche);
-                nb_unite --;
+                nb_unite--;
+                Debug.Log("on passe la");
             }
             if(this.Pv <= 0){
                 this.Mort = true;
