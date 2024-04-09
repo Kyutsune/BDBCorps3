@@ -216,7 +216,7 @@ public class Regiment
             }
             if(this.tab_unite_en_regiment.Count <= 0)
             {
-                Debug.Log("on enleve un régiment");  
+
                 return true;
             }
             else
