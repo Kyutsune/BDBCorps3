@@ -19,19 +19,19 @@ Le code est écrit en C# et compiler sur le logiciel Unity.
 
 L'organisation des fichiers est la suivante.
 
-Projet_unity/Assets/Animations : Dossier contenant l'ensemble des fichiers d'animations
+- Projet_unity/Assets/Animations : Dossier contenant l'ensemble des fichiers d'animations.
 
-Projet_unity/Assets/Material : Dossier contenant les couleurs appliquées aux personnages
+- Projet_unity/Assets/Material : Dossier contenant les couleurs appliquées aux personnages.
 
-Projet_unity/Assets/Ressources/Prefabs : Dossier contenant les préfabriqués des unités
+- Projet_unity/Assets/Ressources/Prefabs : Dossier contenant les préfabriqués des unités.
 
-Projet_unity/Assets/Scenes : Dossier contenant les différentes scènes de notre jeu
+- Projet_unity/Assets/Scenes : Dossier contenant les différentes scènes de notre jeu.
 
-Projet_unity/Assets/Script : Dossier contenant les classes de base du jeu
+- Projet_unity/Assets/Script : Dossier contenant les classes de base du jeu.
 
-Projet_unity/Assets/Spritesheet : Dossier des images qui ont été utilisées pour l'UI des menus
+- Projet_unity/Assets/Spritesheet : Dossier des images qui ont été utilisées pour l'UI des menus.
 
-Projet_unity/Assets/Terrain : Dossier contenant les données et informations du terrain
+- Projet_unity/Assets/Terrain : Dossier contenant les données et informations du terrain.
 
 ## Compilation et Execution du projet
 
