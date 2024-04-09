@@ -210,7 +210,7 @@ public class Regiment
             if(regiment_a_attaquer.tab_unite_en_regiment.Count <= 0)
             {
                 Debug.Log("on enleve un régiment");
-                ensemble_autre_regiment.Remove(regiment_a_attaquer);        
+                ensemble_autre_regiment.Remove(regiment_a_attaquer);
                 return true;
             }
             else
