@@ -12,11 +12,13 @@ public class Paladin :  Unite
             PositionX = Outil.Aleatoire(20,50);
             PositionY = 0;
             PositionZ = Outil.Aleatoire(-10,0);
+            Degat = 20f;
         }
         else{
             PositionX = Outil.Aleatoire(20,50);
             PositionY = 0;
             PositionZ = Outil.Aleatoire(30,40);
+            Degat = 100f;
         }
         
         Pv = 200;
@@ -24,7 +26,7 @@ public class Paladin :  Unite
         VitesseAttaque= 2f;
         team = newteam;
         type_unitee = Type_unitee.Melee; 
-        Degat = 20f;
+
         en_regiment=false;
     }
 
