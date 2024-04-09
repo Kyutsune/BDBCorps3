@@ -203,10 +203,14 @@ public class Regiment
             Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment); 
             foreach (Unite unite in this.tab_unite_en_regiment)
             {
-                if(unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count))
-                    this.tab_unite_en_regiment.Remove(unite);
+                unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count);
             }
             // Debug.Log("Nombre d'unité dans le régiment à attaquer = "+regiment_a_attaquer.tab_unite_en_regiment.Count);
+            for(int i=0;i<tab_unite_en_regiment.Count;i++)
+            {
+                if(tab_unite_en_regiment[i].Pv<=0)
+                    this.tab_unite_en_regiment.RemoveAt(i);
+            }
             if(regiment_a_attaquer.tab_unite_en_regiment.Count <= 0)
             {
                 Debug.Log("on enleve un régiment");
