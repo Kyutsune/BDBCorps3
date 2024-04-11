@@ -29,7 +29,7 @@ public class Regiment
 
 
 
-
+    public float puissance_régiment;
 
 
     public int Nb_Unite_Max_Dans_Regiment
@@ -180,17 +180,30 @@ public class Regiment
 
     public Regiment cherche_regiment_plus_proche(List <Regiment> ensemble_autre_regiment)
     {
+        
         int indice_min=0;
+        float regiment_plus_fort_depart = Calcul_puissance_regiment(ensemble_autre_regiment[0]);
+        
         float distance=Outil.distanceUnite(ensemble_autre_regiment[0].renvoi_capitaine(),this.renvoi_capitaine());
         for(int i=1;i<ensemble_autre_regiment.Count;i++)
         {
+            float regiment_plus_fort = Calcul_puissance_regiment(ensemble_autre_regiment[i]);;
             float distance_test=Outil.distanceUnite(ensemble_autre_regiment[i].renvoi_capitaine(),this.renvoi_capitaine());
-            if(distance>distance_test)
+            if(distance>distance_test )
             {
-                 distance=distance_test;
-                 indice_min=i;
+                distance=distance_test;
+                if(regiment_plus_fort <= regiment_plus_fort_depart)
+                {
+                    regiment_plus_fort_depart = regiment_plus_fort;
+                    indice_min=i;
+                }
+                else
+                    continue;
+                 
+            Debug.Log("On attaque le régiment "+indice_min+ " qui a une puissance de " +regiment_plus_fort_depart);
             }
         }
+        
         return ensemble_autre_regiment[indice_min];
     }
 
@@ -200,7 +213,11 @@ public class Regiment
     {
         if(this.regiment_tous_rejoins && ensemble_autre_regiment.Count>0)
         {
-            Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment); 
+            
+            Regiment regiment_a_attaquer=cherche_regiment_plus_proche(ensemble_autre_regiment);
+            
+
+
             foreach (Unite unite in this.tab_unite_en_regiment)
             {
                 unite.GestionEvenement(regiment_a_attaquer.tab_unite_en_regiment,regiment_a_attaquer.tab_unite_en_regiment.Count);
@@ -227,6 +244,17 @@ public class Regiment
     public void Supprimer_unite_regiment(Unite unite)
     {
 
+    }
+
+    public float Calcul_puissance_regiment(Regiment regiment)
+    {
+        float puissance_premiere_unite = 0;
+        puissance_premiere_unite = regiment.tab_unite_en_regiment[0].Degat;
+        for(int i=1; i < regiment.tab_unite_en_regiment.Count ; i++)
+        {
+            puissance_régiment = puissance_premiere_unite + regiment.tab_unite_en_regiment[i].Degat;
+        }
+        return puissance_régiment;
     }
 }
 

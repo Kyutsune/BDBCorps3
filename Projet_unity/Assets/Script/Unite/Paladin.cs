@@ -18,7 +18,7 @@ public class Paladin :  Unite
             PositionX = Outil.Aleatoire(20,50);
             PositionY = 0;
             PositionZ = Outil.Aleatoire(30,40);
-            Degat = 100f;
+            Degat = 20f;
         }
         
         Pv = 200;
