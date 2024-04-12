@@ -8,13 +8,8 @@ public class animatorController : MonoBehaviour
     Vector3 savedPosition;
     float vitesse;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
 
-    public void seTourner(Unite Courante, Unite Visee){
+    public void seTourner(Unite Courante, Unite Visee, Animator animator){
         if(animator.GetBool("IsWalking")==true || animator.GetBool("IsRunning")==true){
             if(transform.position!=savedPosition){
                 transform.forward = transform.position-savedPosition;
@@ -34,33 +29,34 @@ public class animatorController : MonoBehaviour
         }
     }
 
-    public void setRunning(bool run){
+    public void setRunning(bool run, Animator animator)
+    {
         animator.SetBool("IsWalking",false);
         animator.SetBool("IsRunning",run);
         animator.SetBool("IsFighting",false);
     }
 
-    public void setFighting(bool fight)
+    public void setFighting(bool fight, Animator animator)
     {
         animator.SetBool("IsFighting",fight);
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsWalking",false);
     }
 
-    public void setWalking(bool walk){
+    public void setWalking(bool walk, Animator animator){
         animator.SetBool("IsWalking",walk);
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
     }
 
-    public void Mort(bool mort){
+    public void Mort(bool mort, Animator animator){
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
         animator.SetBool("IsWalking",false);
         animator.SetBool("Dead",mort);
     }
 
-    public void Victoire(bool victoire){
+    public void Victoire(bool victoire, Animator animator){
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
         animator.SetBool("IsWalking",false);

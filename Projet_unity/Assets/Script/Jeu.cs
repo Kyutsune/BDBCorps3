@@ -126,9 +126,11 @@ public class Jeu : MonoBehaviour
 
     void Update()
     { 
+        
         if(modeJeu == 0)
         {
             GestionJeuIndividuel();
+            animation();
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
@@ -137,9 +139,10 @@ public class Jeu : MonoBehaviour
             { 
                 // Debug.Log("Nombre de pv de l'unité ennemies numéro : " +i+ " = "+unites_ennemies[i].Pv);
             }
+            animation();
         }
 
-        animation();
+            
         Projectiles.deplacementObjetProjectile();
         
         // for(int j=0;j<nb_alliee_melee;j++)
@@ -169,54 +172,56 @@ public class Jeu : MonoBehaviour
         for(int i=0;i<nb_alliee_total;i++)
         {
             animatorController allieeUniteController = tab_gameobject_unite[i].GetComponent<animatorController>();
+            Animator animator = allieeUniteController.GetComponent<Animator>();
             if(unites_alliees[i].Run==true){
-                allieeUniteController.setRunning(true);
-                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
+                allieeUniteController.setRunning(true,animator);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche,animator);
             }
             if(unites_alliees[i].Walk==true){
-                allieeUniteController.setWalking(true);
-                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
+                allieeUniteController.setWalking(true,animator);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche,animator);
             }
             if(unites_alliees[i].Run==false && unites_alliees[i].Walk==false){
-                allieeUniteController.setRunning(false);
-                allieeUniteController.setWalking(false);
+                allieeUniteController.setRunning(false,animator);
+                allieeUniteController.setWalking(false, animator);
             }
             if(unites_alliees[i].Attack==true){
-                allieeUniteController.setFighting(true);
-                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche);
+                allieeUniteController.setFighting(true,animator);
+                allieeUniteController.seTourner(unites_alliees[i],unites_alliees[i].plus_proche,animator);
             }
             if(unites_alliees[i].Mort==true){
-                allieeUniteController.Mort(true);
+                allieeUniteController.Mort(true,animator);
             }
             if(unites_alliees[i].Win==true){
-                allieeUniteController.Victoire(true);
+                allieeUniteController.Victoire(true, animator);
             }
         }
 
         for(int i=0;i<nb_ennemis_total;i++)
         {
             animatorController ennemiUniteController = tab_gameobject_unite[nb_alliee_total+i].GetComponent<animatorController>();
+            Animator animator = ennemiUniteController.GetComponent<Animator>();
             if(unites_ennemies[i].Run==true){
-                ennemiUniteController.setRunning(true);
-                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche);
+                ennemiUniteController.setRunning(true,animator);
+                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche, animator);
             }
             if(unites_ennemies[i].Walk==true){
-                ennemiUniteController.setWalking(true);
-                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche);
+                ennemiUniteController.setWalking(true,animator);
+                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche, animator);
             }
             if(unites_ennemies[i].Run==false && unites_ennemies[i].Walk==false){
-                ennemiUniteController.setRunning(false);
-                ennemiUniteController.setWalking(false);
+                ennemiUniteController.setRunning(false,animator);
+                ennemiUniteController.setWalking(false, animator);
             }
             if(unites_ennemies[i].Attack==true){
-                ennemiUniteController.setFighting(true);
-                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche);
+                ennemiUniteController.setFighting(true, animator);
+                ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche, animator);
             }
             if(unites_ennemies[i].Mort==true){
-                ennemiUniteController.Mort(unites_ennemies[i].Mort);
+                ennemiUniteController.Mort(unites_ennemies[i].Mort, animator);
             }
             if(unites_ennemies[i].Win==true){
-                ennemiUniteController.Victoire(true);
+                ennemiUniteController.Victoire(true, animator);
             }
         }
     }

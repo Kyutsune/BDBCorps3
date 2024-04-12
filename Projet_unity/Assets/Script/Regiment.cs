@@ -25,6 +25,7 @@ public class Regiment
     private List<bool> a_rejoint_le_regiment = new List<bool>();
 
     private float puissance_regiment;
+    Regiment regiment_a_attaquer_param_class;
 
 
     public int Nb_Unite_Max_Dans_Regiment
@@ -217,6 +218,13 @@ public class Regiment
         {
             
             Regiment regiment_a_attaquer=cherche_regiment_a_attaquer(ensemble_autre_regiment);
+
+
+            if(regiment_a_attaquer.Puissance_Regiment>this.Puissance_Regiment)
+            {
+                //Il faudrait passer en paramètre de cette fonction la liste de régiment de nos potes
+                //Appel_a_aide();
+            }
             
             
 
@@ -251,6 +259,11 @@ public class Regiment
         for(int i=0; i < regiment.tab_unite_en_regiment.Count ; i++)
             puissance_regiment += regiment.tab_unite_en_regiment[i].Degat;
         return puissance_regiment;
+    }
+
+    public void Appel_a_aide(List <Regiment> regiment_notre_camp)
+    {
+
     }
 }
 
