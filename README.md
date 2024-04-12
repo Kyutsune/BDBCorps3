@@ -7,7 +7,7 @@ Le nom du projet est donc BDBattle dont vous trouverez des explications précise
 
 # BDBattle
 
-BDBattle est une modélisation distribuée d'un jeu stratégique 
+BDBattle est une modélisation distribuée d'un jeu stratégique.
 Dans ce jeu on peut choisir deux modes de combats.
 Dans le premier on va choisir le nombre d'unités alliés (de type mélée ou distance) et ennemis (de type mélée ou distance).
 Les unités vont ensuite se battre sur un terrain avec des statistiques propres prédéfinies.
