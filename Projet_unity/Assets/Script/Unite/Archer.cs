@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Classe Archer qui hérite de Unite
+    Correspond à une unité qui tape à distance
+*/
+
 public class Archer : Unite
 {
     public Archer() : base(){}

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Classe Paladin qui hérite de Unite
+    Correspond à une unité qui tape au corps à corps
+*/
+
 public class Paladin :  Unite
 {
     public Paladin() : base() {}

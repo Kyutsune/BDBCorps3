@@ -4,8 +4,7 @@ using UnityEngine;
 using System.Threading;
 
 /*
-Classe jeu qui va être celle qui va contenir notre boucle de jeu,essayons de conserver un maximum un systeme de MVC s'il vous plait
-
+Classe jeu qui va être celle qui va contenir notre boucle de jeu
 */
 public class Jeu : MonoBehaviour
 {
@@ -45,11 +44,10 @@ public class Jeu : MonoBehaviour
 
     void Start()
     {
-        GameObject canvasObj = new GameObject("Canvas");
-        canva_pour_texte_pv = canvasObj.AddComponent<Canvas>();
-        canva_pour_texte_pv.renderMode = RenderMode.ScreenSpaceOverlay;
-
-        //Partie ici qui montre comment garder entre les scènes des variables globales
+        //Pas implémenter au final,servait à gérer le fait d'afficher les pvs des unités dans la scène
+        // GameObject canvasObj = new GameObject("Canvas");
+        // canva_pour_texte_pv = canvasObj.AddComponent<Canvas>();
+        // canva_pour_texte_pv.renderMode = RenderMode.ScreenSpaceOverlay;
 
         
         nb_alliee_melee=PlayerPrefs.GetInt("nombre_unites_globales_allies_menu", 1);
@@ -73,28 +71,29 @@ public class Jeu : MonoBehaviour
             // AffichageDesPVs textePVUnite=GetComponent<AffichageDesPVs>();
             // textePVUnite.CreerTextePV(canva_pour_texte_pv, unites_alliees[i].PositionX, unites_alliees[i].PositionY+40, unites_alliees[i].PositionZ);
             // liste_texte_pv.Add(textePVUnite);
-            if(i<nb_alliee_melee) ////////////////////Alliee Melee////////////////////
-            {
+
+            ////////////////////Gestion des création d'alliées Melee////////////////////
+            if(i<nb_alliee_melee){
                 unites_alliees.Add(new Paladin(Team.EquipeBleue));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,1);
             }
-            else /////////////////Alliée Distant/////////////////////
-            {
+            /////////////////Gestion des création d'alliées Distant/////////////////////
+            else{
                 unites_alliees.Add(new Archer(Team.EquipeBleue));
                 CreerUnite(unites_alliees[i].PositionX, unites_alliees[i].PositionY, unites_alliees[i].PositionZ,1,2);
             }
-
-           
         }
         
         for(int i=0;i<nb_ennemis_total;i++) 
         {
-            if(i<nb_ennemis_melee) ////////////////////Ennemis Melee////////////////////
+            ////////////////////Gestion des création d'ennemis Melee////////////////////
+            if(i<nb_ennemis_melee) 
             {
                 unites_ennemies.Add(new Paladin(Team.EquipeRouge));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,1);
             }
-            else /////////////////Ennemis Distant////////////////////
+            /////////////////Gestion des création d'ennemis Distants////////////////////
+            else 
             {
                 unites_ennemies.Add(new Archer(Team.EquipeRouge));
                 CreerUnite(unites_ennemies[i].PositionX, unites_ennemies[i].PositionY, unites_ennemies[i].PositionZ,2,2);
@@ -103,14 +102,13 @@ public class Jeu : MonoBehaviour
 
             
         }
-
-        
         temps_passé_en_jeu.Initialisation_Timer();
 
         
-
+        if(modeJeu==1){
         administrationRegiments.InitialisationNombreRegiments(nb_alliee_total, nb_ennemis_total);
         administrationRegiments.GestionRegiments(nb_alliee_total, nb_ennemis_total, unites_alliees,  unites_ennemies);
+        }
 
         // Debug.Log(tab_regiments_alliees[0].verif_unite_autre_regiment(tab_regiments_alliees[1]));
 
@@ -130,27 +128,21 @@ public class Jeu : MonoBehaviour
         if(modeJeu == 0)
         {
             GestionJeuIndividuel();
-            animation();
         }
         else{
             administrationRegiments.RegroupementRegiment(nb_alliee_total,nb_ennemis_total,tab_gameobject_unite,unites_alliees,unites_ennemies);
             administrationRegiments.GestionAttaqueRegiment(); 
-            for(int i=0;i<nb_ennemis_total;i++) 
-            { 
-                // Debug.Log("Nombre de pv de l'unité ennemies numéro : " +i+ " = "+unites_ennemies[i].Pv);
-            }
-            animation();
         }
 
-            
-        Projectiles.deplacementObjetProjectile();
+        animation();
+        // Projectiles.deplacementObjetProjectile();
         
         // for(int j=0;j<nb_alliee_melee;j++)
         // {
         //     liste_texte_pv[j].MettreAJourTextePV(unites_ennemies[0].Pv,unites_alliees[0].PositionX,unites_alliees[0].PositionY,unites_alliees[0].PositionZ);
         // } 
-        // float positionX_texte = unites_alliees[i].PositionX ; // Exemple de position X (vous pouvez ajuster selon vos besoins)
-        // float positionY_texte = unites_alliees[i].PositionY+40; // Exemple de position Y (vous pouvez ajuster selon vos besoins)
+        // float positionX_texte = unites_alliees[i].PositionX ; 
+        // float positionY_texte = unites_alliees[i].PositionY+40; 
         // Debug.Log(positionX_texte);
 
         //liste_texte_pv[i].MettreAJourTextePV(unite2.Pv,positionX_texte,positionY_texte,0);
@@ -162,8 +154,6 @@ public class Jeu : MonoBehaviour
             affichage_temps=true;
         }
         temps_passé_en_jeu.Deroulement_timer_console(affichage_temps);
-
-        
 
         affichage_temps=false;
     }
@@ -201,6 +191,14 @@ public class Jeu : MonoBehaviour
         {
             animatorController ennemiUniteController = tab_gameobject_unite[nb_alliee_total+i].GetComponent<animatorController>();
             Animator animator = ennemiUniteController.GetComponent<Animator>();
+            if(unites_ennemies[i].Mort==true){
+                ennemiUniteController.Mort(unites_ennemies[i].Mort, animator);
+                continue;
+            }
+            if(unites_ennemies[i].Win==true){
+                ennemiUniteController.Victoire(true, animator);
+                continue;
+            }
             if(unites_ennemies[i].Run==true){
                 ennemiUniteController.setRunning(true,animator);
                 ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche, animator);
@@ -212,16 +210,11 @@ public class Jeu : MonoBehaviour
             if(unites_ennemies[i].Run==false && unites_ennemies[i].Walk==false){
                 ennemiUniteController.setRunning(false,animator);
                 ennemiUniteController.setWalking(false, animator);
+                ennemiUniteController.setFighting(false,animator);
             }
             if(unites_ennemies[i].Attack==true){
                 ennemiUniteController.setFighting(true, animator);
                 ennemiUniteController.seTourner(unites_ennemies[i],unites_ennemies[i].plus_proche, animator);
-            }
-            if(unites_ennemies[i].Mort==true){
-                ennemiUniteController.Mort(unites_ennemies[i].Mort, animator);
-            }
-            if(unites_ennemies[i].Win==true){
-                ennemiUniteController.Victoire(true, animator);
             }
         }
     }

@@ -52,6 +52,7 @@ public class animatorController : MonoBehaviour
     public void Mort(bool mort, Animator animator){
         animator.SetBool("IsRunning",false);
         animator.SetBool("IsFighting",false);
+        // Debug.Log(animator.GetBool("IsFighting"));
         animator.SetBool("IsWalking",false);
         animator.SetBool("Dead",mort);
     }

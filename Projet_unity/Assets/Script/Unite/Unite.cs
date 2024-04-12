@@ -23,7 +23,8 @@ public enum Type_unitee
     Distance
 }
 
-//Classe unité qui va définir les personnages bougeant sur le terrain
+//Classe unité générique qui va définir les personnages bougeant sur le terrain
+//Voir les classes Paladin et Archer pour voir les classes qui en découlent
 public abstract class Unite
 {
     //Position
@@ -61,7 +62,7 @@ public abstract class Unite
 
     public Unite plus_proche;
 
-    // Propriétés pour accéder aux données
+    // Getter et Setter de la classe
     public float PositionX
     {
         get { return positionX; }
@@ -157,6 +158,10 @@ public abstract class Unite
         return null;
 	}
 
+    //Pour comprendre l'utilité de cette fonction,cf la classe Régiment
+    //Fonction qui va chercher l'unité la plus proche de l'unité courant dans le tableau tab_uni et qui n'est pas dans un régiment
+    //nb_unite correspond au nombre unite dans le tableau tab_uni
+    // tab_regiment_deja_forme correspond au tableau d'unité du régiment déjà en place
     public Unite DetectionUnite_regiment(List<Unite> tab_uni, int nb_unite, List<Unite> tab_regiment_deja_forme)
     {
         if (nb_unite != 0)
@@ -189,11 +194,12 @@ public abstract class Unite
     }
 
 
-
+    //Cf Paladin et Archer pour voir les déclaration de ces deux fonction
     public abstract void Attaquer(Unite autreUnite);
-
     public abstract void GestionEvenement(List<Unite> tab,int nb_unite);
 
+
+    //Fonction qui permet de déplacer l'unité vers celle ciblée,qui est en paramètre de fonction
     public int Deplacement(Unite targetUnit){
         if(targetUnit != null && this.Pv>0){
             // Récupérer la position de la cible
